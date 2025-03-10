@@ -15,12 +15,9 @@ The REST API documentation can be found on [revenium.io](https://revenium.io). T
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/revenium/revenium-metering-python.git
+# install from PyPI
+pip install --pre revenium_metering
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre revenium_metering`
 
 ## Usage
 
