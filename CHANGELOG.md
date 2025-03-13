@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.1-alpha.2 (2025-03-11)
+
+Full Changelog: [v0.0.1-alpha.1...v0.0.1-alpha.2](https://github.com/revenium/revenium-metering-python/compare/v0.0.1-alpha.1...v0.0.1-alpha.2)
+
 ## 0.0.1-alpha.1 (2025-03-10)
 
 Full Changelog: [v0.0.1-alpha.0...v0.0.1-alpha.1](https://github.com/revenium/revenium-metering-python/compare/v0.0.1-alpha.0...v0.0.1-alpha.1)
