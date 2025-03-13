@@ -51,12 +51,14 @@ class AIResource(SyncAPIResource):
         *,
         audio_token_count: int,
         cached_token_count: int,
+        completion_start_time: str,
         completion_token_count: int,
         cost_type: Literal["AI"],
         model: str,
         prompt_token_count: int,
         provider: str,
         reasoning_token_count: int,
+        request_duration: int,
         request_time: str,
         response_time: str,
         stop_reason: Literal[
@@ -65,15 +67,17 @@ class AIResource(SyncAPIResource):
         total_token_count: int,
         transaction_cost: float,
         transaction_id: str,
+        agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_id: str | NotGiven = NOT_GIVEN,
+        subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -89,6 +93,8 @@ class AIResource(SyncAPIResource):
 
           cached_token_count: The number of cached tokens in the completion
 
+          completion_start_time: Time to first token for streaming requests
+
           completion_token_count: The number of tokens in the completion
 
           cost_type: Cost type for the completion
@@ -101,9 +107,12 @@ class AIResource(SyncAPIResource):
 
           reasoning_token_count: The number of reasoning tokens in the completion
 
+          request_duration: The duration of the request in milliseconds
+
           request_time: The timestamp when the request was made
 
-          response_time: The timestamp when the response was generated
+          response_time: The timestamp when the response was generated. If streaming, this is the time to
+              first token
 
           stop_reason: The reason for stopping the completion
 
@@ -112,6 +121,8 @@ class AIResource(SyncAPIResource):
           transaction_cost: The cost associated with the LLM completion
 
           transaction_id: The unique identifier of the LLM completion transaction
+
+          agent: The AI agent that is making the request
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
@@ -125,13 +136,12 @@ class AIResource(SyncAPIResource):
 
           source_id: Identifier of the source to correlate usage between Revenium & your application.
 
-          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+          subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users. Oftentimes a subscriberId is an email
               address.
 
-          subscription_id: Unique dentifier of the subscription from your own system that you wish to use
-              to correlate usage between Revenium & your application. Usually an email
-              address.
+          subscription_id: Unique identifier of the subscription from your own system that you wish to use
+              to correlate usage between Revenium & your application.
 
           task_id: Identifier of the associated task. If you wish to track the costs and
               performance for a task that occurs over several prompts, use a consistent task
@@ -140,6 +150,8 @@ class AIResource(SyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
+
+          trace_id: Trace multiple LLM calls belonging to same overall request
 
           extra_headers: Send extra headers
 
@@ -155,27 +167,31 @@ class AIResource(SyncAPIResource):
                 {
                     "audio_token_count": audio_token_count,
                     "cached_token_count": cached_token_count,
+                    "completion_start_time": completion_start_time,
                     "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
                     "model": model,
                     "prompt_token_count": prompt_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
+                    "request_duration": request_duration,
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
                     "total_token_count": total_token_count,
                     "transaction_cost": transaction_cost,
                     "transaction_id": transaction_id,
+                    "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
                     "organization_id": organization_id,
                     "product_id": product_id,
                     "source_id": source_id,
-                    "subscriber_id": subscriber_id,
+                    "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "task_id": task_id,
                     "task_type": task_type,
+                    "trace_id": trace_id,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
@@ -211,12 +227,14 @@ class AsyncAIResource(AsyncAPIResource):
         *,
         audio_token_count: int,
         cached_token_count: int,
+        completion_start_time: str,
         completion_token_count: int,
         cost_type: Literal["AI"],
         model: str,
         prompt_token_count: int,
         provider: str,
         reasoning_token_count: int,
+        request_duration: int,
         request_time: str,
         response_time: str,
         stop_reason: Literal[
@@ -225,15 +243,17 @@ class AsyncAIResource(AsyncAPIResource):
         total_token_count: int,
         transaction_cost: float,
         transaction_id: str,
+        agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_id: str | NotGiven = NOT_GIVEN,
+        subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,6 +269,8 @@ class AsyncAIResource(AsyncAPIResource):
 
           cached_token_count: The number of cached tokens in the completion
 
+          completion_start_time: Time to first token for streaming requests
+
           completion_token_count: The number of tokens in the completion
 
           cost_type: Cost type for the completion
@@ -261,9 +283,12 @@ class AsyncAIResource(AsyncAPIResource):
 
           reasoning_token_count: The number of reasoning tokens in the completion
 
+          request_duration: The duration of the request in milliseconds
+
           request_time: The timestamp when the request was made
 
-          response_time: The timestamp when the response was generated
+          response_time: The timestamp when the response was generated. If streaming, this is the time to
+              first token
 
           stop_reason: The reason for stopping the completion
 
@@ -272,6 +297,8 @@ class AsyncAIResource(AsyncAPIResource):
           transaction_cost: The cost associated with the LLM completion
 
           transaction_id: The unique identifier of the LLM completion transaction
+
+          agent: The AI agent that is making the request
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
@@ -285,13 +312,12 @@ class AsyncAIResource(AsyncAPIResource):
 
           source_id: Identifier of the source to correlate usage between Revenium & your application.
 
-          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+          subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users. Oftentimes a subscriberId is an email
               address.
 
-          subscription_id: Unique dentifier of the subscription from your own system that you wish to use
-              to correlate usage between Revenium & your application. Usually an email
-              address.
+          subscription_id: Unique identifier of the subscription from your own system that you wish to use
+              to correlate usage between Revenium & your application.
 
           task_id: Identifier of the associated task. If you wish to track the costs and
               performance for a task that occurs over several prompts, use a consistent task
@@ -300,6 +326,8 @@ class AsyncAIResource(AsyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
+
+          trace_id: Trace multiple LLM calls belonging to same overall request
 
           extra_headers: Send extra headers
 
@@ -315,27 +343,31 @@ class AsyncAIResource(AsyncAPIResource):
                 {
                     "audio_token_count": audio_token_count,
                     "cached_token_count": cached_token_count,
+                    "completion_start_time": completion_start_time,
                     "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
                     "model": model,
                     "prompt_token_count": prompt_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
+                    "request_duration": request_duration,
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
                     "total_token_count": total_token_count,
                     "transaction_cost": transaction_cost,
                     "transaction_id": transaction_id,
+                    "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
                     "organization_id": organization_id,
                     "product_id": product_id,
                     "source_id": source_id,
-                    "subscriber_id": subscriber_id,
+                    "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "task_id": task_id,
                     "task_type": task_type,
+                    "trace_id": trace_id,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),

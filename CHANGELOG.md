@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.1 (2025-03-13)
+
+Full Changelog: [v0.0.1-alpha.2...v0.1.0-alpha.1](https://github.com/revenium/revenium-metering-python/compare/v0.0.1-alpha.2...v0.1.0-alpha.1)
+
+### Features
+
+* **api:** update via SDK Studio ([#8](https://github.com/revenium/revenium-metering-python/issues/8)) ([f68c95f](https://github.com/revenium/revenium-metering-python/commit/f68c95fed3c81e362a017a16677ea7b1af9b4aea))
+
 ## 0.0.1-alpha.2 (2025-03-11)
 
 Full Changelog: [v0.0.1-alpha.1...v0.0.1-alpha.2](https://github.com/revenium/revenium-metering-python/compare/v0.0.1-alpha.1...v0.0.1-alpha.2)
