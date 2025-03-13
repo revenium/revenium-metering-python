@@ -107,10 +107,9 @@ class APIsResource(SyncAPIResource):
 
           request_message_size: The size of the request message in bytes
 
-          resource: Visible in the ‘resource’ field when viewing sources in the revenium
-              application. The resource field (often a full URL or relative URI) can be used
-              to auto-match transactions to existing sources based on the URL/URI accessed in
-              the API call.
+          resource: Visible in the ‘resource’ field when viewing sources in the revenium application.
+                          The resource field (often a full URL or relative URI) can be used to auto-match
+                          transactions to existing sources based on the URL/URI accessed in the API call.
 
           source_id: Sources are typically individual API endpoints. For existing sources, the ID can
               be found in the Revenium platform on the sources page or retrieved
@@ -302,10 +301,9 @@ class AsyncAPIsResource(AsyncAPIResource):
 
           request_message_size: The size of the request message in bytes
 
-          resource: Visible in the ‘resource’ field when viewing sources in the revenium
-              application. The resource field (often a full URL or relative URI) can be used
-              to auto-match transactions to existing sources based on the URL/URI accessed in
-              the API call.
+          resource: Visible in the ‘resource’ field when viewing sources in the revenium application.
+                          The resource field (often a full URL or relative URI) can be used to auto-match
+                          transactions to existing sources based on the URL/URI accessed in the API call.
 
           source_id: Sources are typically individual API endpoints. For existing sources, the ID can
               be found in the Revenium platform on the sources page or retrieved
