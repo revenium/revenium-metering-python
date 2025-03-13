@@ -41,7 +41,7 @@ class APIMeterRequestParams(TypedDict, total=False):
     application.
 
     The resource field (often a full URL or relative URI) can be used to auto-match
-    transactions to existing sources based on the URL/URI accessed in the API call.
+                transactions to existing sources based on the URL/URI accessed in the API call.
     """
 
     source_id: Annotated[str, PropertyInfo(alias="sourceId")]

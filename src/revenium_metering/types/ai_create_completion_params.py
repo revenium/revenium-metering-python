@@ -16,6 +16,9 @@ class AICreateCompletionParams(TypedDict, total=False):
     cached_token_count: Required[Annotated[int, PropertyInfo(alias="cachedTokenCount")]]
     """The number of cached tokens in the completion"""
 
+    completion_start_time: Required[Annotated[str, PropertyInfo(alias="completionStartTime")]]
+    """Time to first token for streaming requests"""
+
     completion_token_count: Required[Annotated[int, PropertyInfo(alias="completionTokenCount")]]
     """The number of tokens in the completion"""
 
@@ -34,11 +37,17 @@ class AICreateCompletionParams(TypedDict, total=False):
     reasoning_token_count: Required[Annotated[int, PropertyInfo(alias="reasoningTokenCount")]]
     """The number of reasoning tokens in the completion"""
 
+    request_duration: Required[Annotated[int, PropertyInfo(alias="requestDuration")]]
+    """The duration of the request in milliseconds"""
+
     request_time: Required[Annotated[str, PropertyInfo(alias="requestTime")]]
     """The timestamp when the request was made"""
 
     response_time: Required[Annotated[str, PropertyInfo(alias="responseTime")]]
-    """The timestamp when the response was generated"""
+    """The timestamp when the response was generated.
+
+    If streaming, this is the time to first token
+    """
 
     stop_reason: Required[
         Annotated[
@@ -56,6 +65,9 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     transaction_id: Required[Annotated[str, PropertyInfo(alias="transactionId")]]
     """The unique identifier of the LLM completion transaction"""
+
+    agent: str
+    """The AI agent that is making the request"""
 
     ai_provider_key_name: Annotated[str, PropertyInfo(alias="aiProviderKeyName")]
     """The name (not the value!) of the API key used to access the AI provider"""
@@ -81,7 +93,7 @@ class AICreateCompletionParams(TypedDict, total=False):
     Identifier of the source to correlate usage between Revenium & your application.
     """
 
-    subscriber_id: Annotated[str, PropertyInfo(alias="subscriberId")]
+    subscriber_identity: Annotated[str, PropertyInfo(alias="subscriberIdentity")]
     """
     Populate the ID of the subscriber from your system to allow Revenium to track
     usage & costs for individual users. Oftentimes a subscriberId is an email
@@ -90,9 +102,8 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]
     """
-    Unique dentifier of the subscription from your own system that you wish to use
-    to correlate usage between Revenium & your application. Usually an email
-    address.
+    Unique identifier of the subscription from your own system that you wish to use
+    to correlate usage between Revenium & your application.
     """
 
     task_id: Annotated[str, PropertyInfo(alias="taskId")]
@@ -108,3 +119,6 @@ class AICreateCompletionParams(TypedDict, total=False):
     values over time or compare the performance across AI models or vendors, use a
     consistent taskType for all related tasks.
     """
+
+    trace_id: Annotated[str, PropertyInfo(alias="traceId")]
+    """Trace multiple LLM calls belonging to same overall request"""
