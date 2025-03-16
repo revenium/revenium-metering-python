@@ -31,9 +31,22 @@ client = ReveniumMetering(
     api_key=os.environ.get("REVENIUM_METERING_API_KEY"),  # This is the default and can be omitted
 )
 
-metering_response_resource = client.events.create(
-    payload="payload",
-    source_type="UNKNOWN",
+metering_response_resource = client.ai.create_completion(
+    audio_token_count=150,
+    cached_token_count=1300,
+    completion_start_time="2025-03-02T15:04:05Z",
+    completion_token_count=150,
+    cost_type="AI",
+    model="gpt4",
+    prompt_token_count=50,
+    provider="OpenAI",
+    reasoning_token_count=1300,
+    request_duration=1000,
+    request_time="2025-03-02T15:04:05Z",
+    response_time="2025-03-02T15:04:06Z",
+    stop_reason="END",
+    total_token_count=200,
+    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 print(metering_response_resource.id)
@@ -59,9 +72,22 @@ client = AsyncReveniumMetering(
 
 
 async def main() -> None:
-    metering_response_resource = await client.events.create(
-        payload="payload",
-        source_type="UNKNOWN",
+    metering_response_resource = await client.ai.create_completion(
+        audio_token_count=150,
+        cached_token_count=1300,
+        completion_start_time="2025-03-02T15:04:05Z",
+        completion_token_count=150,
+        cost_type="AI",
+        model="gpt4",
+        prompt_token_count=50,
+        provider="OpenAI",
+        reasoning_token_count=1300,
+        request_duration=1000,
+        request_time="2025-03-02T15:04:05Z",
+        response_time="2025-03-02T15:04:06Z",
+        stop_reason="END",
+        total_token_count=200,
+        transaction_cost=12.34,
         transaction_id="123e4567-e89b-12d3-a456-426614174000",
     )
     print(metering_response_resource.id)
@@ -97,9 +123,22 @@ from revenium_metering import ReveniumMetering
 client = ReveniumMetering()
 
 try:
-    client.events.create(
-        payload="payload",
-        source_type="UNKNOWN",
+    client.ai.create_completion(
+        audio_token_count=150,
+        cached_token_count=1300,
+        completion_start_time="2025-03-02T15:04:05Z",
+        completion_token_count=150,
+        cost_type="AI",
+        model="gpt4",
+        prompt_token_count=50,
+        provider="OpenAI",
+        reasoning_token_count=1300,
+        request_duration=1000,
+        request_time="2025-03-02T15:04:05Z",
+        response_time="2025-03-02T15:04:06Z",
+        stop_reason="END",
+        total_token_count=200,
+        transaction_cost=12.34,
         transaction_id="123e4567-e89b-12d3-a456-426614174000",
     )
 except revenium_metering.APIConnectionError as e:
@@ -144,9 +183,22 @@ client = ReveniumMetering(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).events.create(
-    payload="payload",
-    source_type="UNKNOWN",
+client.with_options(max_retries=5).ai.create_completion(
+    audio_token_count=150,
+    cached_token_count=1300,
+    completion_start_time="2025-03-02T15:04:05Z",
+    completion_token_count=150,
+    cost_type="AI",
+    model="gpt4",
+    prompt_token_count=50,
+    provider="OpenAI",
+    reasoning_token_count=1300,
+    request_duration=1000,
+    request_time="2025-03-02T15:04:05Z",
+    response_time="2025-03-02T15:04:06Z",
+    stop_reason="END",
+    total_token_count=200,
+    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 ```
@@ -171,9 +223,22 @@ client = ReveniumMetering(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).events.create(
-    payload="payload",
-    source_type="UNKNOWN",
+client.with_options(timeout=5.0).ai.create_completion(
+    audio_token_count=150,
+    cached_token_count=1300,
+    completion_start_time="2025-03-02T15:04:05Z",
+    completion_token_count=150,
+    cost_type="AI",
+    model="gpt4",
+    prompt_token_count=50,
+    provider="OpenAI",
+    reasoning_token_count=1300,
+    request_duration=1000,
+    request_time="2025-03-02T15:04:05Z",
+    response_time="2025-03-02T15:04:06Z",
+    stop_reason="END",
+    total_token_count=200,
+    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 ```
@@ -216,15 +281,28 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from revenium_metering import ReveniumMetering
 
 client = ReveniumMetering()
-response = client.events.with_raw_response.create(
-    payload="payload",
-    source_type="UNKNOWN",
+response = client.ai.with_raw_response.create_completion(
+    audio_token_count=150,
+    cached_token_count=1300,
+    completion_start_time="2025-03-02T15:04:05Z",
+    completion_token_count=150,
+    cost_type="AI",
+    model="gpt4",
+    prompt_token_count=50,
+    provider="OpenAI",
+    reasoning_token_count=1300,
+    request_duration=1000,
+    request_time="2025-03-02T15:04:05Z",
+    response_time="2025-03-02T15:04:06Z",
+    stop_reason="END",
+    total_token_count=200,
+    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 print(response.headers.get('X-My-Header'))
 
-event = response.parse()  # get the object that `events.create()` would have returned
-print(event.id)
+ai = response.parse()  # get the object that `ai.create_completion()` would have returned
+print(ai.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/revenium/revenium-metering-python/tree/main/src/revenium_metering/_response.py) object.
@@ -238,9 +316,22 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.events.with_streaming_response.create(
-    payload="payload",
-    source_type="UNKNOWN",
+with client.ai.with_streaming_response.create_completion(
+    audio_token_count=150,
+    cached_token_count=1300,
+    completion_start_time="2025-03-02T15:04:05Z",
+    completion_token_count=150,
+    cost_type="AI",
+    model="gpt4",
+    prompt_token_count=50,
+    provider="OpenAI",
+    reasoning_token_count=1300,
+    request_duration=1000,
+    request_time="2025-03-02T15:04:05Z",
+    response_time="2025-03-02T15:04:06Z",
+    stop_reason="END",
+    total_token_count=200,
+    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 ) as response:
     print(response.headers.get("X-My-Header"))
