@@ -16,7 +16,7 @@ The REST API documentation can be found on [revenium.io](https://revenium.io). T
 
 ```sh
 # install from PyPI
-pip install --pre revenium_metering
+pip install revenium_metering
 ```
 
 ## Usage
