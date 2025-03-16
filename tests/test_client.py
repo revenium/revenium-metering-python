@@ -38,7 +38,7 @@ from revenium_metering._base_client import (
     BaseClient,
     make_request_options,
 )
-from revenium_metering.types.event_create_params import EventCreateParams
+from revenium_metering.types.ai_create_completion_params import AICreateCompletionParams
 
 from .utils import update_env
 
@@ -729,20 +729,33 @@ class TestReveniumMetering:
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v2/events").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v2/ai/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/v2/events",
+                "/v2/ai/completions",
                 body=cast(
                     object,
                     maybe_transform(
                         dict(
-                            payload="payload",
-                            source_type="UNKNOWN",
+                            audio_token_count=150,
+                            cached_token_count=1300,
+                            completion_start_time="2025-03-02T15:04:05Z",
+                            completion_token_count=150,
+                            cost_type="AI",
+                            model="gpt4",
+                            prompt_token_count=50,
+                            provider="OpenAI",
+                            reasoning_token_count=1300,
+                            request_duration=1000,
+                            request_time="2025-03-02T15:04:05Z",
+                            response_time="2025-03-02T15:04:06Z",
+                            stop_reason="END",
+                            total_token_count=200,
+                            transaction_cost=12.34,
                             transaction_id="123e4567-e89b-12d3-a456-426614174000",
                         ),
-                        EventCreateParams,
+                        AICreateCompletionParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -754,20 +767,33 @@ class TestReveniumMetering:
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v2/events").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/ai/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/v2/events",
+                "/v2/ai/completions",
                 body=cast(
                     object,
                     maybe_transform(
                         dict(
-                            payload="payload",
-                            source_type="UNKNOWN",
+                            audio_token_count=150,
+                            cached_token_count=1300,
+                            completion_start_time="2025-03-02T15:04:05Z",
+                            completion_token_count=150,
+                            cost_type="AI",
+                            model="gpt4",
+                            prompt_token_count=50,
+                            provider="OpenAI",
+                            reasoning_token_count=1300,
+                            request_duration=1000,
+                            request_time="2025-03-02T15:04:05Z",
+                            response_time="2025-03-02T15:04:06Z",
+                            stop_reason="END",
+                            total_token_count=200,
+                            transaction_cost=12.34,
                             transaction_id="123e4567-e89b-12d3-a456-426614174000",
                         ),
-                        EventCreateParams,
+                        AICreateCompletionParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -800,10 +826,25 @@ class TestReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = client.events.with_raw_response.create(
-            payload="payload", source_type="UNKNOWN", transaction_id="123e4567-e89b-12d3-a456-426614174000"
+        response = client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
         )
 
         assert response.retries_taken == failures_before_success
@@ -826,11 +867,24 @@ class TestReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = client.events.with_raw_response.create(
-            payload="payload",
-            source_type="UNKNOWN",
+        response = client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
@@ -854,11 +908,24 @@ class TestReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = client.events.with_raw_response.create(
-            payload="payload",
-            source_type="UNKNOWN",
+        response = client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": "42"},
         )
@@ -1537,20 +1604,33 @@ class TestAsyncReveniumMetering:
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v2/events").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v2/ai/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/v2/events",
+                "/v2/ai/completions",
                 body=cast(
                     object,
                     maybe_transform(
                         dict(
-                            payload="payload",
-                            source_type="UNKNOWN",
+                            audio_token_count=150,
+                            cached_token_count=1300,
+                            completion_start_time="2025-03-02T15:04:05Z",
+                            completion_token_count=150,
+                            cost_type="AI",
+                            model="gpt4",
+                            prompt_token_count=50,
+                            provider="OpenAI",
+                            reasoning_token_count=1300,
+                            request_duration=1000,
+                            request_time="2025-03-02T15:04:05Z",
+                            response_time="2025-03-02T15:04:06Z",
+                            stop_reason="END",
+                            total_token_count=200,
+                            transaction_cost=12.34,
                             transaction_id="123e4567-e89b-12d3-a456-426614174000",
                         ),
-                        EventCreateParams,
+                        AICreateCompletionParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1562,20 +1642,33 @@ class TestAsyncReveniumMetering:
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v2/events").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/ai/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/v2/events",
+                "/v2/ai/completions",
                 body=cast(
                     object,
                     maybe_transform(
                         dict(
-                            payload="payload",
-                            source_type="UNKNOWN",
+                            audio_token_count=150,
+                            cached_token_count=1300,
+                            completion_start_time="2025-03-02T15:04:05Z",
+                            completion_token_count=150,
+                            cost_type="AI",
+                            model="gpt4",
+                            prompt_token_count=50,
+                            provider="OpenAI",
+                            reasoning_token_count=1300,
+                            request_duration=1000,
+                            request_time="2025-03-02T15:04:05Z",
+                            response_time="2025-03-02T15:04:06Z",
+                            stop_reason="END",
+                            total_token_count=200,
+                            transaction_cost=12.34,
                             transaction_id="123e4567-e89b-12d3-a456-426614174000",
                         ),
-                        EventCreateParams,
+                        AICreateCompletionParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1609,10 +1702,25 @@ class TestAsyncReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = await client.events.with_raw_response.create(
-            payload="payload", source_type="UNKNOWN", transaction_id="123e4567-e89b-12d3-a456-426614174000"
+        response = await client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
         )
 
         assert response.retries_taken == failures_before_success
@@ -1636,11 +1744,24 @@ class TestAsyncReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = await client.events.with_raw_response.create(
-            payload="payload",
-            source_type="UNKNOWN",
+        response = await client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
@@ -1665,11 +1786,24 @@ class TestAsyncReveniumMetering:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/events").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
-        response = await client.events.with_raw_response.create(
-            payload="payload",
-            source_type="UNKNOWN",
+        response = await client.ai.with_raw_response.create_completion(
+            audio_token_count=150,
+            cached_token_count=1300,
+            completion_start_time="2025-03-02T15:04:05Z",
+            completion_token_count=150,
+            cost_type="AI",
+            model="gpt4",
+            prompt_token_count=50,
+            provider="OpenAI",
+            reasoning_token_count=1300,
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_cost=12.34,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": "42"},
         )
