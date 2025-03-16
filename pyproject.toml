@@ -1,6 +1,6 @@
 [project]
 name = "revenium_metering"
-version = "0.1.0-alpha.1"
+version = "1.0.0"
 description = "The official Python library for the revenium-metering API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -36,7 +36,6 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/revenium/revenium-metering-python"
 Repository = "https://github.com/revenium/revenium-metering-python"
-
 
 
 [tool.rye]
@@ -151,7 +150,6 @@ reportImplicitOverride = true
 
 reportImportCycles = false
 reportPrivateUsage = false
-
 
 [tool.ruff]
 line-length = 120
