@@ -37,7 +37,9 @@ metering_response_resource = client.ai.create_completion(
     completion_start_time="2025-03-02T15:04:05Z",
     completion_token_count=150,
     cost_type="AI",
+    input_token_cost=12.34,
     model="gpt4",
+    output_token_cost=12.34,
     prompt_token_count=50,
     provider="OpenAI",
     reasoning_token_count=1300,
@@ -45,8 +47,8 @@ metering_response_resource = client.ai.create_completion(
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
     stop_reason="END",
+    total_cost=12.34,
     total_token_count=200,
-    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 print(metering_response_resource.id)
@@ -78,7 +80,9 @@ async def main() -> None:
         completion_start_time="2025-03-02T15:04:05Z",
         completion_token_count=150,
         cost_type="AI",
+        input_token_cost=12.34,
         model="gpt4",
+        output_token_cost=12.34,
         prompt_token_count=50,
         provider="OpenAI",
         reasoning_token_count=1300,
@@ -86,8 +90,8 @@ async def main() -> None:
         request_time="2025-03-02T15:04:05Z",
         response_time="2025-03-02T15:04:06Z",
         stop_reason="END",
+        total_cost=12.34,
         total_token_count=200,
-        transaction_cost=12.34,
         transaction_id="123e4567-e89b-12d3-a456-426614174000",
     )
     print(metering_response_resource.id)
@@ -129,7 +133,9 @@ try:
         completion_start_time="2025-03-02T15:04:05Z",
         completion_token_count=150,
         cost_type="AI",
+        input_token_cost=12.34,
         model="gpt4",
+        output_token_cost=12.34,
         prompt_token_count=50,
         provider="OpenAI",
         reasoning_token_count=1300,
@@ -137,8 +143,8 @@ try:
         request_time="2025-03-02T15:04:05Z",
         response_time="2025-03-02T15:04:06Z",
         stop_reason="END",
+        total_cost=12.34,
         total_token_count=200,
-        transaction_cost=12.34,
         transaction_id="123e4567-e89b-12d3-a456-426614174000",
     )
 except revenium_metering.APIConnectionError as e:
@@ -189,7 +195,9 @@ client.with_options(max_retries=5).ai.create_completion(
     completion_start_time="2025-03-02T15:04:05Z",
     completion_token_count=150,
     cost_type="AI",
+    input_token_cost=12.34,
     model="gpt4",
+    output_token_cost=12.34,
     prompt_token_count=50,
     provider="OpenAI",
     reasoning_token_count=1300,
@@ -197,8 +205,8 @@ client.with_options(max_retries=5).ai.create_completion(
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
     stop_reason="END",
+    total_cost=12.34,
     total_token_count=200,
-    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 ```
@@ -229,7 +237,9 @@ client.with_options(timeout=5.0).ai.create_completion(
     completion_start_time="2025-03-02T15:04:05Z",
     completion_token_count=150,
     cost_type="AI",
+    input_token_cost=12.34,
     model="gpt4",
+    output_token_cost=12.34,
     prompt_token_count=50,
     provider="OpenAI",
     reasoning_token_count=1300,
@@ -237,8 +247,8 @@ client.with_options(timeout=5.0).ai.create_completion(
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
     stop_reason="END",
+    total_cost=12.34,
     total_token_count=200,
-    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 ```
@@ -287,7 +297,9 @@ response = client.ai.with_raw_response.create_completion(
     completion_start_time="2025-03-02T15:04:05Z",
     completion_token_count=150,
     cost_type="AI",
+    input_token_cost=12.34,
     model="gpt4",
+    output_token_cost=12.34,
     prompt_token_count=50,
     provider="OpenAI",
     reasoning_token_count=1300,
@@ -295,8 +307,8 @@ response = client.ai.with_raw_response.create_completion(
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
     stop_reason="END",
+    total_cost=12.34,
     total_token_count=200,
-    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 )
 print(response.headers.get('X-My-Header'))
@@ -322,7 +334,9 @@ with client.ai.with_streaming_response.create_completion(
     completion_start_time="2025-03-02T15:04:05Z",
     completion_token_count=150,
     cost_type="AI",
+    input_token_cost=12.34,
     model="gpt4",
+    output_token_cost=12.34,
     prompt_token_count=50,
     provider="OpenAI",
     reasoning_token_count=1300,
@@ -330,8 +344,8 @@ with client.ai.with_streaming_response.create_completion(
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
     stop_reason="END",
+    total_cost=12.34,
     total_token_count=200,
-    transaction_cost=12.34,
     transaction_id="123e4567-e89b-12d3-a456-426614174000",
 ) as response:
     print(response.headers.get("X-My-Header"))
