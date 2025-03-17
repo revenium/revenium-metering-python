@@ -54,7 +54,9 @@ class AIResource(SyncAPIResource):
         completion_start_time: str,
         completion_token_count: int,
         cost_type: Literal["AI"],
+        input_token_cost: float,
         model: str,
+        output_token_cost: float,
         prompt_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -64,8 +66,8 @@ class AIResource(SyncAPIResource):
         stop_reason: Literal[
             "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
+        total_cost: float,
         total_token_count: int,
-        transaction_cost: float,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
@@ -99,7 +101,11 @@ class AIResource(SyncAPIResource):
 
           cost_type: Cost type for the completion
 
+          input_token_cost: The input token cost associated with the LLM completion
+
           model: The model used for generating the LLM completion
+
+          output_token_cost: The output token cost associated with the LLM completion
 
           prompt_token_count: The number of tokens in the prompt
 
@@ -116,9 +122,9 @@ class AIResource(SyncAPIResource):
 
           stop_reason: The reason for stopping the completion
 
-          total_token_count: The total number of tokens
+          total_cost: The total cost associated with the LLM completion
 
-          transaction_cost: The cost associated with the LLM completion
+          total_token_count: The total number of tokens
 
           transaction_id: The unique identifier of the LLM completion transaction
 
@@ -170,7 +176,9 @@ class AIResource(SyncAPIResource):
                     "completion_start_time": completion_start_time,
                     "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
+                    "input_token_cost": input_token_cost,
                     "model": model,
+                    "output_token_cost": output_token_cost,
                     "prompt_token_count": prompt_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -178,8 +186,8 @@ class AIResource(SyncAPIResource):
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
+                    "total_cost": total_cost,
                     "total_token_count": total_token_count,
-                    "transaction_cost": transaction_cost,
                     "transaction_id": transaction_id,
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
@@ -230,7 +238,9 @@ class AsyncAIResource(AsyncAPIResource):
         completion_start_time: str,
         completion_token_count: int,
         cost_type: Literal["AI"],
+        input_token_cost: float,
         model: str,
+        output_token_cost: float,
         prompt_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -240,8 +250,8 @@ class AsyncAIResource(AsyncAPIResource):
         stop_reason: Literal[
             "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
+        total_cost: float,
         total_token_count: int,
-        transaction_cost: float,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
@@ -275,7 +285,11 @@ class AsyncAIResource(AsyncAPIResource):
 
           cost_type: Cost type for the completion
 
+          input_token_cost: The input token cost associated with the LLM completion
+
           model: The model used for generating the LLM completion
+
+          output_token_cost: The output token cost associated with the LLM completion
 
           prompt_token_count: The number of tokens in the prompt
 
@@ -292,9 +306,9 @@ class AsyncAIResource(AsyncAPIResource):
 
           stop_reason: The reason for stopping the completion
 
-          total_token_count: The total number of tokens
+          total_cost: The total cost associated with the LLM completion
 
-          transaction_cost: The cost associated with the LLM completion
+          total_token_count: The total number of tokens
 
           transaction_id: The unique identifier of the LLM completion transaction
 
@@ -346,7 +360,9 @@ class AsyncAIResource(AsyncAPIResource):
                     "completion_start_time": completion_start_time,
                     "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
+                    "input_token_cost": input_token_cost,
                     "model": model,
+                    "output_token_cost": output_token_cost,
                     "prompt_token_count": prompt_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -354,8 +370,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
+                    "total_cost": total_cost,
                     "total_token_count": total_token_count,
-                    "transaction_cost": transaction_cost,
                     "transaction_id": transaction_id,
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,

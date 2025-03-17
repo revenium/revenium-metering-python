@@ -25,8 +25,14 @@ class AICreateCompletionParams(TypedDict, total=False):
     cost_type: Required[Annotated[Literal["AI"], PropertyInfo(alias="costType")]]
     """Cost type for the completion"""
 
+    input_token_cost: Required[Annotated[float, PropertyInfo(alias="inputTokenCost")]]
+    """The input token cost associated with the LLM completion"""
+
     model: Required[str]
     """The model used for generating the LLM completion"""
+
+    output_token_cost: Required[Annotated[float, PropertyInfo(alias="outputTokenCost")]]
+    """The output token cost associated with the LLM completion"""
 
     prompt_token_count: Required[Annotated[int, PropertyInfo(alias="promptTokenCount")]]
     """The number of tokens in the prompt"""
@@ -57,11 +63,11 @@ class AICreateCompletionParams(TypedDict, total=False):
     ]
     """The reason for stopping the completion"""
 
+    total_cost: Required[Annotated[float, PropertyInfo(alias="totalCost")]]
+    """The total cost associated with the LLM completion"""
+
     total_token_count: Required[Annotated[int, PropertyInfo(alias="totalTokenCount")]]
     """The total number of tokens"""
-
-    transaction_cost: Required[Annotated[float, PropertyInfo(alias="transactionCost")]]
-    """The cost associated with the LLM completion"""
 
     transaction_id: Required[Annotated[str, PropertyInfo(alias="transactionId")]]
     """The unique identifier of the LLM completion transaction"""
