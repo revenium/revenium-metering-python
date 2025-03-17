@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 (2025-03-17)
+
+Full Changelog: [v1.0.1...v1.1.0](https://github.com/revenium/revenium-metering-python/compare/v1.0.1...v1.1.0)
+
+### Features
+
+* **api:** api update ([#21](https://github.com/revenium/revenium-metering-python/issues/21)) ([206dd6c](https://github.com/revenium/revenium-metering-python/commit/206dd6c2b49088eea94614750fd97c067db70b76))
+
+
+### Bug Fixes
+
+* **ci:** remove publishing patch ([#22](https://github.com/revenium/revenium-metering-python/issues/22)) ([a11a87b](https://github.com/revenium/revenium-metering-python/commit/a11a87b12a6e95e294e22d9037fafd93113b0961))
+
 ## 1.0.1 (2025-03-17)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/revenium/revenium-metering-python/compare/v1.0.0...v1.0.1)
