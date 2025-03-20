@@ -49,15 +49,15 @@ class AIResource(SyncAPIResource):
     def create_completion(
         self,
         *,
-        audio_token_count: int,
-        cached_token_count: int,
+        cache_creation_token_count: int,
+        cache_read_token_count: int,
         completion_start_time: str,
-        completion_token_count: int,
         cost_type: Literal["AI"],
         input_token_cost: float,
+        input_token_count: int,
         model: str,
         output_token_cost: float,
-        prompt_token_count: int,
+        output_token_count: int,
         provider: str,
         reasoning_token_count: int,
         request_duration: int,
@@ -91,23 +91,23 @@ class AIResource(SyncAPIResource):
         Record the details of an LLM completion
 
         Args:
-          audio_token_count: The number of audio tokens in the completion
+          cache_creation_token_count: The number of cached creation tokens in the completion
 
-          cached_token_count: The number of cached tokens in the completion
+          cache_read_token_count: The number of cached read tokens in the completion
 
           completion_start_time: Time to first token for streaming requests
-
-          completion_token_count: The number of tokens in the completion
 
           cost_type: Cost type for the completion
 
           input_token_cost: The input token cost associated with the LLM completion
 
+          input_token_count: The count of consumed input tokens
+
           model: The model used for generating the LLM completion
 
           output_token_cost: The output token cost associated with the LLM completion
 
-          prompt_token_count: The number of tokens in the prompt
+          output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
 
@@ -171,15 +171,15 @@ class AIResource(SyncAPIResource):
             "/v2/ai/completions",
             body=maybe_transform(
                 {
-                    "audio_token_count": audio_token_count,
-                    "cached_token_count": cached_token_count,
+                    "cache_creation_token_count": cache_creation_token_count,
+                    "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
-                    "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
                     "input_token_cost": input_token_cost,
+                    "input_token_count": input_token_count,
                     "model": model,
                     "output_token_cost": output_token_cost,
-                    "prompt_token_count": prompt_token_count,
+                    "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
                     "request_duration": request_duration,
@@ -233,15 +233,15 @@ class AsyncAIResource(AsyncAPIResource):
     async def create_completion(
         self,
         *,
-        audio_token_count: int,
-        cached_token_count: int,
+        cache_creation_token_count: int,
+        cache_read_token_count: int,
         completion_start_time: str,
-        completion_token_count: int,
         cost_type: Literal["AI"],
         input_token_cost: float,
+        input_token_count: int,
         model: str,
         output_token_cost: float,
-        prompt_token_count: int,
+        output_token_count: int,
         provider: str,
         reasoning_token_count: int,
         request_duration: int,
@@ -275,23 +275,23 @@ class AsyncAIResource(AsyncAPIResource):
         Record the details of an LLM completion
 
         Args:
-          audio_token_count: The number of audio tokens in the completion
+          cache_creation_token_count: The number of cached creation tokens in the completion
 
-          cached_token_count: The number of cached tokens in the completion
+          cache_read_token_count: The number of cached read tokens in the completion
 
           completion_start_time: Time to first token for streaming requests
-
-          completion_token_count: The number of tokens in the completion
 
           cost_type: Cost type for the completion
 
           input_token_cost: The input token cost associated with the LLM completion
 
+          input_token_count: The count of consumed input tokens
+
           model: The model used for generating the LLM completion
 
           output_token_cost: The output token cost associated with the LLM completion
 
-          prompt_token_count: The number of tokens in the prompt
+          output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
 
@@ -355,15 +355,15 @@ class AsyncAIResource(AsyncAPIResource):
             "/v2/ai/completions",
             body=await async_maybe_transform(
                 {
-                    "audio_token_count": audio_token_count,
-                    "cached_token_count": cached_token_count,
+                    "cache_creation_token_count": cache_creation_token_count,
+                    "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
-                    "completion_token_count": completion_token_count,
                     "cost_type": cost_type,
                     "input_token_cost": input_token_cost,
+                    "input_token_count": input_token_count,
                     "model": model,
                     "output_token_cost": output_token_cost,
-                    "prompt_token_count": prompt_token_count,
+                    "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
                     "request_duration": request_duration,
