@@ -32,15 +32,15 @@ client = ReveniumMetering(
 )
 
 metering_response_resource = client.ai.create_completion(
-    audio_token_count=150,
-    cached_token_count=1300,
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
-    completion_token_count=150,
     cost_type="AI",
     input_token_cost=12.34,
+    input_token_count=50,
     model="gpt4",
     output_token_cost=12.34,
-    prompt_token_count=50,
+    output_token_count=150,
     provider="OpenAI",
     reasoning_token_count=1300,
     request_duration=1000,
@@ -75,15 +75,15 @@ client = AsyncReveniumMetering(
 
 async def main() -> None:
     metering_response_resource = await client.ai.create_completion(
-        audio_token_count=150,
-        cached_token_count=1300,
+        cache_creation_token_count=1300,
+        cache_read_token_count=1300,
         completion_start_time="2025-03-02T15:04:05Z",
-        completion_token_count=150,
         cost_type="AI",
         input_token_cost=12.34,
+        input_token_count=50,
         model="gpt4",
         output_token_cost=12.34,
-        prompt_token_count=50,
+        output_token_count=150,
         provider="OpenAI",
         reasoning_token_count=1300,
         request_duration=1000,
@@ -128,15 +128,15 @@ client = ReveniumMetering()
 
 try:
     client.ai.create_completion(
-        audio_token_count=150,
-        cached_token_count=1300,
+        cache_creation_token_count=1300,
+        cache_read_token_count=1300,
         completion_start_time="2025-03-02T15:04:05Z",
-        completion_token_count=150,
         cost_type="AI",
         input_token_cost=12.34,
+        input_token_count=50,
         model="gpt4",
         output_token_cost=12.34,
-        prompt_token_count=50,
+        output_token_count=150,
         provider="OpenAI",
         reasoning_token_count=1300,
         request_duration=1000,
@@ -190,15 +190,15 @@ client = ReveniumMetering(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).ai.create_completion(
-    audio_token_count=150,
-    cached_token_count=1300,
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
-    completion_token_count=150,
     cost_type="AI",
     input_token_cost=12.34,
+    input_token_count=50,
     model="gpt4",
     output_token_cost=12.34,
-    prompt_token_count=50,
+    output_token_count=150,
     provider="OpenAI",
     reasoning_token_count=1300,
     request_duration=1000,
@@ -232,15 +232,15 @@ client = ReveniumMetering(
 
 # Override per-request:
 client.with_options(timeout=5.0).ai.create_completion(
-    audio_token_count=150,
-    cached_token_count=1300,
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
-    completion_token_count=150,
     cost_type="AI",
     input_token_cost=12.34,
+    input_token_count=50,
     model="gpt4",
     output_token_cost=12.34,
-    prompt_token_count=50,
+    output_token_count=150,
     provider="OpenAI",
     reasoning_token_count=1300,
     request_duration=1000,
@@ -292,15 +292,15 @@ from revenium_metering import ReveniumMetering
 
 client = ReveniumMetering()
 response = client.ai.with_raw_response.create_completion(
-    audio_token_count=150,
-    cached_token_count=1300,
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
-    completion_token_count=150,
     cost_type="AI",
     input_token_cost=12.34,
+    input_token_count=50,
     model="gpt4",
     output_token_cost=12.34,
-    prompt_token_count=50,
+    output_token_count=150,
     provider="OpenAI",
     reasoning_token_count=1300,
     request_duration=1000,
@@ -329,15 +329,15 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.ai.with_streaming_response.create_completion(
-    audio_token_count=150,
-    cached_token_count=1300,
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
-    completion_token_count=150,
     cost_type="AI",
     input_token_cost=12.34,
+    input_token_count=50,
     model="gpt4",
     output_token_cost=12.34,
-    prompt_token_count=50,
+    output_token_count=150,
     provider="OpenAI",
     reasoning_token_count=1300,
     request_duration=1000,
