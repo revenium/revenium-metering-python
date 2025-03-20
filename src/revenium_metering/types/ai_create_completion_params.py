@@ -10,17 +10,14 @@ __all__ = ["AICreateCompletionParams"]
 
 
 class AICreateCompletionParams(TypedDict, total=False):
-    audio_token_count: Required[Annotated[int, PropertyInfo(alias="audioTokenCount")]]
-    """The number of audio tokens in the completion"""
+    cache_creation_token_count: Required[Annotated[int, PropertyInfo(alias="cacheCreationTokenCount")]]
+    """The number of cached creation tokens in the completion"""
 
-    cached_token_count: Required[Annotated[int, PropertyInfo(alias="cachedTokenCount")]]
-    """The number of cached tokens in the completion"""
+    cache_read_token_count: Required[Annotated[int, PropertyInfo(alias="cacheReadTokenCount")]]
+    """The number of cached read tokens in the completion"""
 
     completion_start_time: Required[Annotated[str, PropertyInfo(alias="completionStartTime")]]
     """Time to first token for streaming requests"""
-
-    completion_token_count: Required[Annotated[int, PropertyInfo(alias="completionTokenCount")]]
-    """The number of tokens in the completion"""
 
     cost_type: Required[Annotated[Literal["AI"], PropertyInfo(alias="costType")]]
     """Cost type for the completion"""
@@ -28,14 +25,17 @@ class AICreateCompletionParams(TypedDict, total=False):
     input_token_cost: Required[Annotated[float, PropertyInfo(alias="inputTokenCost")]]
     """The input token cost associated with the LLM completion"""
 
+    input_token_count: Required[Annotated[int, PropertyInfo(alias="inputTokenCount")]]
+    """The count of consumed input tokens"""
+
     model: Required[str]
     """The model used for generating the LLM completion"""
 
     output_token_cost: Required[Annotated[float, PropertyInfo(alias="outputTokenCost")]]
     """The output token cost associated with the LLM completion"""
 
-    prompt_token_count: Required[Annotated[int, PropertyInfo(alias="promptTokenCount")]]
-    """The number of tokens in the prompt"""
+    output_token_count: Required[Annotated[int, PropertyInfo(alias="outputTokenCount")]]
+    """The count of consumed output tokens"""
 
     provider: Required[str]
     """Vendor providing the LLM completion service"""
