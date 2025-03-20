@@ -21,15 +21,15 @@ class TestAI:
     @parametrize
     def test_method_create_completion(self, client: ReveniumMetering) -> None:
         ai = client.ai.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -46,15 +46,15 @@ class TestAI:
     @parametrize
     def test_method_create_completion_with_all_params(self, client: ReveniumMetering) -> None:
         ai = client.ai.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -82,15 +82,15 @@ class TestAI:
     @parametrize
     def test_raw_response_create_completion(self, client: ReveniumMetering) -> None:
         response = client.ai.with_raw_response.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -111,15 +111,15 @@ class TestAI:
     @parametrize
     def test_streaming_response_create_completion(self, client: ReveniumMetering) -> None:
         with client.ai.with_streaming_response.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -146,15 +146,15 @@ class TestAsyncAI:
     @parametrize
     async def test_method_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         ai = await async_client.ai.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -171,15 +171,15 @@ class TestAsyncAI:
     @parametrize
     async def test_method_create_completion_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
         ai = await async_client.ai.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -207,15 +207,15 @@ class TestAsyncAI:
     @parametrize
     async def test_raw_response_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         response = await async_client.ai.with_raw_response.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
@@ -236,15 +236,15 @@ class TestAsyncAI:
     @parametrize
     async def test_streaming_response_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         async with async_client.ai.with_streaming_response.create_completion(
-            audio_token_count=150,
-            cached_token_count=1300,
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
-            completion_token_count=150,
             cost_type="AI",
             input_token_cost=12.34,
+            input_token_count=50,
             model="gpt4",
             output_token_cost=12.34,
-            prompt_token_count=50,
+            output_token_count=150,
             provider="OpenAI",
             reasoning_token_count=1300,
             request_duration=1000,
