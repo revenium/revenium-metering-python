@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1 (2025-03-27)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/revenium/revenium-metering-python/compare/v1.4.0...v1.4.1)
+
+### Chores
+
+* fix typos ([#38](https://github.com/revenium/revenium-metering-python/issues/38)) ([719f112](https://github.com/revenium/revenium-metering-python/commit/719f11225e758eea6a1ae25b404040e4a853184b))
+
 ## 1.4.0 (2025-03-20)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/revenium/revenium-metering-python/compare/v1.3.0...v1.4.0)
