@@ -53,10 +53,10 @@ class AIResource(SyncAPIResource):
         cache_read_token_count: int,
         completion_start_time: str,
         cost_type: Literal["AI"],
+        input_token_cost: float,
         input_token_count: int,
-        is_streamed: bool,
         model: str,
-        model_source: str,
+        output_token_cost: float,
         output_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -66,24 +66,19 @@ class AIResource(SyncAPIResource):
         stop_reason: Literal[
             "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
+        total_cost: float,
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
-        input_token_cost: float | NotGiven = NOT_GIVEN,
-        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
-        | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
-        output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        response_quality_score: float | NotGiven = NOT_GIVEN,
+        source_id: str | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
-        time_to_first_token: int | NotGiven = NOT_GIVEN,
-        total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -104,13 +99,13 @@ class AIResource(SyncAPIResource):
 
           cost_type: Cost type for the completion
 
-          input_token_count: The count of consumed input tokens
+          input_token_cost: The input token cost associated with the LLM completion
 
-          is_streamed: Indicates if the completion was streamed
+          input_token_count: The count of consumed input tokens
 
           model: The model used for generating the LLM completion
 
-          model_source: The source of the AI model used for the completion
+          output_token_cost: The output token cost associated with the LLM completion
 
           output_token_count: The count of consumed output tokens
 
@@ -127,6 +122,8 @@ class AIResource(SyncAPIResource):
 
           stop_reason: The reason for stopping the completion
 
+          total_cost: The total cost associated with the LLM completion
+
           total_token_count: The total number of tokens
 
           transaction_id: The unique identifier of the LLM completion transaction
@@ -135,21 +132,15 @@ class AIResource(SyncAPIResource):
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
-          input_token_cost: The input token cost associated with the LLM completion
-
-          operation_type: The type of operation performed
-
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
               Revenium to track usage & costs by company. i.e. AcmeCorp. If several
               subscriberIds have the same organizationId, Revenium’s reporting will show usage
               for the entire organization broken down by user.
 
-          output_token_cost: The output token cost associated with the LLM completion
-
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
 
-          response_quality_score: The quality score of the response
+          source_id: Identifier of the source to correlate usage between Revenium & your application.
 
           subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users. Oftentimes a subscriberId is an email
@@ -165,10 +156,6 @@ class AIResource(SyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
-
-          time_to_first_token: The time to first token in milliseconds
-
-          total_cost: The total cost associated with the LLM completion
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
@@ -188,10 +175,10 @@ class AIResource(SyncAPIResource):
                     "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
                     "cost_type": cost_type,
+                    "input_token_cost": input_token_cost,
                     "input_token_count": input_token_count,
-                    "is_streamed": is_streamed,
                     "model": model,
-                    "model_source": model_source,
+                    "output_token_cost": output_token_cost,
                     "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -199,23 +186,19 @@ class AIResource(SyncAPIResource):
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
+                    "total_cost": total_cost,
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
-                    "input_token_cost": input_token_cost,
-                    "operation_type": operation_type,
                     "organization_id": organization_id,
-                    "output_token_cost": output_token_cost,
                     "product_id": product_id,
-                    "response_quality_score": response_quality_score,
+                    "source_id": source_id,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "task_id": task_id,
                     "task_type": task_type,
-                    "time_to_first_token": time_to_first_token,
-                    "total_cost": total_cost,
                     "trace_id": trace_id,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
@@ -254,10 +237,10 @@ class AsyncAIResource(AsyncAPIResource):
         cache_read_token_count: int,
         completion_start_time: str,
         cost_type: Literal["AI"],
+        input_token_cost: float,
         input_token_count: int,
-        is_streamed: bool,
         model: str,
-        model_source: str,
+        output_token_cost: float,
         output_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -267,24 +250,19 @@ class AsyncAIResource(AsyncAPIResource):
         stop_reason: Literal[
             "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
+        total_cost: float,
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
-        input_token_cost: float | NotGiven = NOT_GIVEN,
-        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
-        | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
-        output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        response_quality_score: float | NotGiven = NOT_GIVEN,
+        source_id: str | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
-        time_to_first_token: int | NotGiven = NOT_GIVEN,
-        total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -305,13 +283,13 @@ class AsyncAIResource(AsyncAPIResource):
 
           cost_type: Cost type for the completion
 
-          input_token_count: The count of consumed input tokens
+          input_token_cost: The input token cost associated with the LLM completion
 
-          is_streamed: Indicates if the completion was streamed
+          input_token_count: The count of consumed input tokens
 
           model: The model used for generating the LLM completion
 
-          model_source: The source of the AI model used for the completion
+          output_token_cost: The output token cost associated with the LLM completion
 
           output_token_count: The count of consumed output tokens
 
@@ -328,6 +306,8 @@ class AsyncAIResource(AsyncAPIResource):
 
           stop_reason: The reason for stopping the completion
 
+          total_cost: The total cost associated with the LLM completion
+
           total_token_count: The total number of tokens
 
           transaction_id: The unique identifier of the LLM completion transaction
@@ -336,21 +316,15 @@ class AsyncAIResource(AsyncAPIResource):
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
-          input_token_cost: The input token cost associated with the LLM completion
-
-          operation_type: The type of operation performed
-
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
               Revenium to track usage & costs by company. i.e. AcmeCorp. If several
               subscriberIds have the same organizationId, Revenium’s reporting will show usage
               for the entire organization broken down by user.
 
-          output_token_cost: The output token cost associated with the LLM completion
-
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
 
-          response_quality_score: The quality score of the response
+          source_id: Identifier of the source to correlate usage between Revenium & your application.
 
           subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users. Oftentimes a subscriberId is an email
@@ -366,10 +340,6 @@ class AsyncAIResource(AsyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
-
-          time_to_first_token: The time to first token in milliseconds
-
-          total_cost: The total cost associated with the LLM completion
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
@@ -389,10 +359,10 @@ class AsyncAIResource(AsyncAPIResource):
                     "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
                     "cost_type": cost_type,
+                    "input_token_cost": input_token_cost,
                     "input_token_count": input_token_count,
-                    "is_streamed": is_streamed,
                     "model": model,
-                    "model_source": model_source,
+                    "output_token_cost": output_token_cost,
                     "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -400,23 +370,19 @@ class AsyncAIResource(AsyncAPIResource):
                     "request_time": request_time,
                     "response_time": response_time,
                     "stop_reason": stop_reason,
+                    "total_cost": total_cost,
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
-                    "input_token_cost": input_token_cost,
-                    "operation_type": operation_type,
                     "organization_id": organization_id,
-                    "output_token_cost": output_token_cost,
                     "product_id": product_id,
-                    "response_quality_score": response_quality_score,
+                    "source_id": source_id,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "task_id": task_id,
                     "task_type": task_type,
-                    "time_to_first_token": time_to_first_token,
-                    "total_cost": total_cost,
                     "trace_id": trace_id,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
