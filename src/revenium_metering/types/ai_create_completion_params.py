@@ -22,17 +22,17 @@ class AICreateCompletionParams(TypedDict, total=False):
     cost_type: Required[Annotated[Literal["AI"], PropertyInfo(alias="costType")]]
     """Cost type for the completion"""
 
-    input_token_cost: Required[Annotated[float, PropertyInfo(alias="inputTokenCost")]]
-    """The input token cost associated with the LLM completion"""
-
     input_token_count: Required[Annotated[int, PropertyInfo(alias="inputTokenCount")]]
     """The count of consumed input tokens"""
+
+    is_streamed: Required[Annotated[bool, PropertyInfo(alias="isStreamed")]]
+    """Indicates if the completion was streamed"""
 
     model: Required[str]
     """The model used for generating the LLM completion"""
 
-    output_token_cost: Required[Annotated[float, PropertyInfo(alias="outputTokenCost")]]
-    """The output token cost associated with the LLM completion"""
+    model_source: Required[Annotated[str, PropertyInfo(alias="modelSource")]]
+    """The source of the AI model used for the completion"""
 
     output_token_count: Required[Annotated[int, PropertyInfo(alias="outputTokenCount")]]
     """The count of consumed output tokens"""
@@ -63,9 +63,6 @@ class AICreateCompletionParams(TypedDict, total=False):
     ]
     """The reason for stopping the completion"""
 
-    total_cost: Required[Annotated[float, PropertyInfo(alias="totalCost")]]
-    """The total cost associated with the LLM completion"""
-
     total_token_count: Required[Annotated[int, PropertyInfo(alias="totalTokenCount")]]
     """The total number of tokens"""
 
@@ -80,6 +77,15 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     api_key: Annotated[str, PropertyInfo(alias="apiKey")]
 
+    input_token_cost: Annotated[float, PropertyInfo(alias="inputTokenCost")]
+    """The input token cost associated with the LLM completion"""
+
+    operation_type: Annotated[
+        Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"],
+        PropertyInfo(alias="operationType"),
+    ]
+    """The type of operation performed"""
+
     organization_id: Annotated[str, PropertyInfo(alias="organizationId")]
     """
     Populate the ID of the subscriber’s organization from your system to allow
@@ -88,16 +94,17 @@ class AICreateCompletionParams(TypedDict, total=False):
     for the entire organization broken down by user.
     """
 
+    output_token_cost: Annotated[float, PropertyInfo(alias="outputTokenCost")]
+    """The output token cost associated with the LLM completion"""
+
     product_id: Annotated[str, PropertyInfo(alias="productId")]
     """
     Identifier of the product from your own system that you wish to use to correlate
     usage between Revenium & your application.
     """
 
-    source_id: Annotated[str, PropertyInfo(alias="sourceId")]
-    """
-    Identifier of the source to correlate usage between Revenium & your application.
-    """
+    response_quality_score: Annotated[float, PropertyInfo(alias="responseQualityScore")]
+    """The quality score of the response"""
 
     subscriber_identity: Annotated[str, PropertyInfo(alias="subscriberIdentity")]
     """
@@ -125,6 +132,12 @@ class AICreateCompletionParams(TypedDict, total=False):
     values over time or compare the performance across AI models or vendors, use a
     consistent taskType for all related tasks.
     """
+
+    time_to_first_token: Annotated[int, PropertyInfo(alias="timeToFirstToken")]
+    """The time to first token in milliseconds"""
+
+    total_cost: Annotated[float, PropertyInfo(alias="totalCost")]
+    """The total cost associated with the LLM completion"""
 
     trace_id: Annotated[str, PropertyInfo(alias="traceId")]
     """Trace multiple LLM calls belonging to same overall request"""
