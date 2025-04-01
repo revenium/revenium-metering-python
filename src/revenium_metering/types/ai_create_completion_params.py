@@ -31,9 +31,6 @@ class AICreateCompletionParams(TypedDict, total=False):
     model: Required[str]
     """The model used for generating the LLM completion"""
 
-    model_source: Required[Annotated[str, PropertyInfo(alias="modelSource")]]
-    """The source of the AI model used for the completion"""
-
     output_token_count: Required[Annotated[int, PropertyInfo(alias="outputTokenCount")]]
     """The count of consumed output tokens"""
 
@@ -80,6 +77,12 @@ class AICreateCompletionParams(TypedDict, total=False):
     input_token_cost: Annotated[float, PropertyInfo(alias="inputTokenCost")]
     """The input token cost associated with the LLM completion"""
 
+    mediation_latency: Annotated[int, PropertyInfo(alias="mediationLatency")]
+    """The latency, in milliseconds, of latency by an AI or API gateway"""
+
+    model_source: Annotated[str, PropertyInfo(alias="modelSource")]
+    """The source of the AI model used for the completion"""
+
     operation_type: Annotated[
         Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"],
         PropertyInfo(alias="operationType"),
@@ -119,6 +122,13 @@ class AICreateCompletionParams(TypedDict, total=False):
     to correlate usage between Revenium & your application.
     """
 
+    system_fingerprint: Annotated[str, PropertyInfo(alias="systemFingerprint")]
+    """
+    A unique identifier that represents the statistical signature of the language
+    model that generated a specific chat completion. This fingerprint can be used
+    for model attribution, debugging, and monitoring model behavior across request
+    """
+
     task_id: Annotated[str, PropertyInfo(alias="taskId")]
     """Identifier of the associated task.
 
@@ -132,6 +142,9 @@ class AICreateCompletionParams(TypedDict, total=False):
     values over time or compare the performance across AI models or vendors, use a
     consistent taskType for all related tasks.
     """
+
+    temperature: float
+    """The temperature setting used for the LLM completion"""
 
     time_to_first_token: Annotated[int, PropertyInfo(alias="timeToFirstToken")]
     """The time to first token in milliseconds"""
