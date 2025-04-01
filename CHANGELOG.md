@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0 (2025-04-01)
+
+Full Changelog: [v2.4.0...v3.0.0](https://github.com/revenium/revenium-metering-python/compare/v2.4.0...v3.0.0)
+
+### Features
+
+* **api:** api update ([#62](https://github.com/revenium/revenium-metering-python/issues/62)) ([c790527](https://github.com/revenium/revenium-metering-python/commit/c79052789cd70eaee8171c09d0cfedb5a2e3bda5))
+
 ## 2.4.0 (2025-04-01)
 
 Full Changelog: [v2.3.0...v2.4.0](https://github.com/revenium/revenium-metering-python/compare/v2.3.0...v2.4.0)
