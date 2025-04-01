@@ -56,6 +56,7 @@ class AIResource(SyncAPIResource):
         input_token_count: int,
         is_streamed: bool,
         model: str,
+        model_source: str,
         output_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -71,8 +72,6 @@ class AIResource(SyncAPIResource):
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
-        mediation_latency: int | NotGiven = NOT_GIVEN,
-        model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
         | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
@@ -81,10 +80,8 @@ class AIResource(SyncAPIResource):
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
         time_to_first_token: int | NotGiven = NOT_GIVEN,
         total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
@@ -113,6 +110,8 @@ class AIResource(SyncAPIResource):
 
           model: The model used for generating the LLM completion
 
+          model_source: The source of the AI model used for the completion
+
           output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
@@ -138,10 +137,6 @@ class AIResource(SyncAPIResource):
 
           input_token_cost: The input token cost associated with the LLM completion
 
-          mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
-
-          model_source: The source of the AI model used for the completion
-
           operation_type: The type of operation performed
 
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
@@ -163,10 +158,6 @@ class AIResource(SyncAPIResource):
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
 
-          system_fingerprint: A unique identifier that represents the statistical signature of the language
-              model that generated a specific chat completion. This fingerprint can be used
-              for model attribution, debugging, and monitoring model behavior across request
-
           task_id: Identifier of the associated task. If you wish to track the costs and
               performance for a task that occurs over several prompts, use a consistent task
               ID for all prompts included in that task.
@@ -174,8 +165,6 @@ class AIResource(SyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
-
-          temperature: The temperature setting used for the LLM completion
 
           time_to_first_token: The time to first token in milliseconds
 
@@ -202,6 +191,7 @@ class AIResource(SyncAPIResource):
                     "input_token_count": input_token_count,
                     "is_streamed": is_streamed,
                     "model": model,
+                    "model_source": model_source,
                     "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -215,8 +205,6 @@ class AIResource(SyncAPIResource):
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
                     "input_token_cost": input_token_cost,
-                    "mediation_latency": mediation_latency,
-                    "model_source": model_source,
                     "operation_type": operation_type,
                     "organization_id": organization_id,
                     "output_token_cost": output_token_cost,
@@ -224,10 +212,8 @@ class AIResource(SyncAPIResource):
                     "response_quality_score": response_quality_score,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
-                    "system_fingerprint": system_fingerprint,
                     "task_id": task_id,
                     "task_type": task_type,
-                    "temperature": temperature,
                     "time_to_first_token": time_to_first_token,
                     "total_cost": total_cost,
                     "trace_id": trace_id,
@@ -271,6 +257,7 @@ class AsyncAIResource(AsyncAPIResource):
         input_token_count: int,
         is_streamed: bool,
         model: str,
+        model_source: str,
         output_token_count: int,
         provider: str,
         reasoning_token_count: int,
@@ -286,8 +273,6 @@ class AsyncAIResource(AsyncAPIResource):
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
-        mediation_latency: int | NotGiven = NOT_GIVEN,
-        model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
         | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
@@ -296,10 +281,8 @@ class AsyncAIResource(AsyncAPIResource):
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
         time_to_first_token: int | NotGiven = NOT_GIVEN,
         total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
@@ -328,6 +311,8 @@ class AsyncAIResource(AsyncAPIResource):
 
           model: The model used for generating the LLM completion
 
+          model_source: The source of the AI model used for the completion
+
           output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
@@ -353,10 +338,6 @@ class AsyncAIResource(AsyncAPIResource):
 
           input_token_cost: The input token cost associated with the LLM completion
 
-          mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
-
-          model_source: The source of the AI model used for the completion
-
           operation_type: The type of operation performed
 
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
@@ -378,10 +359,6 @@ class AsyncAIResource(AsyncAPIResource):
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
 
-          system_fingerprint: A unique identifier that represents the statistical signature of the language
-              model that generated a specific chat completion. This fingerprint can be used
-              for model attribution, debugging, and monitoring model behavior across request
-
           task_id: Identifier of the associated task. If you wish to track the costs and
               performance for a task that occurs over several prompts, use a consistent task
               ID for all prompts included in that task.
@@ -389,8 +366,6 @@ class AsyncAIResource(AsyncAPIResource):
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
               consistent taskType for all related tasks.
-
-          temperature: The temperature setting used for the LLM completion
 
           time_to_first_token: The time to first token in milliseconds
 
@@ -417,6 +392,7 @@ class AsyncAIResource(AsyncAPIResource):
                     "input_token_count": input_token_count,
                     "is_streamed": is_streamed,
                     "model": model,
+                    "model_source": model_source,
                     "output_token_count": output_token_count,
                     "provider": provider,
                     "reasoning_token_count": reasoning_token_count,
@@ -430,8 +406,6 @@ class AsyncAIResource(AsyncAPIResource):
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
                     "input_token_cost": input_token_cost,
-                    "mediation_latency": mediation_latency,
-                    "model_source": model_source,
                     "operation_type": operation_type,
                     "organization_id": organization_id,
                     "output_token_cost": output_token_cost,
@@ -439,10 +413,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "response_quality_score": response_quality_score,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
-                    "system_fingerprint": system_fingerprint,
                     "task_id": task_id,
                     "task_type": task_type,
-                    "temperature": temperature,
                     "time_to_first_token": time_to_first_token,
                     "total_cost": total_cost,
                     "trace_id": trace_id,
