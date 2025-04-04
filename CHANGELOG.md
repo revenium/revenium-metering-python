@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.1.0 (2025-04-04)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/revenium/revenium-metering-python/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* **api:** api update ([#65](https://github.com/revenium/revenium-metering-python/issues/65)) ([4940606](https://github.com/revenium/revenium-metering-python/commit/494060672f8339627f2594d983f3289581754c12))
+* **api:** api update ([#67](https://github.com/revenium/revenium-metering-python/issues/67)) ([56f305e](https://github.com/revenium/revenium-metering-python/commit/56f305eed29a2344e33664b676d12352902be00d))
+
+
+### Chores
+
+* **internal:** remove trailing character ([#68](https://github.com/revenium/revenium-metering-python/issues/68)) ([515595b](https://github.com/revenium/revenium-metering-python/commit/515595bdc17bb7d6d45f01e15659158cc6e09a37))
+
 ## 3.0.0 (2025-04-01)
 
 Full Changelog: [v2.4.0...v3.0.0](https://github.com/revenium/revenium-metering-python/compare/v2.4.0...v3.0.0)
