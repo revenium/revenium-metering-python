@@ -1822,7 +1822,7 @@ class TestAsyncReveniumMetering:
         import threading
 
         from revenium_metering._utils import asyncify
-        from revenium_metering._base_client import get_platform 
+        from revenium_metering._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
