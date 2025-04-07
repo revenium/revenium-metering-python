@@ -70,7 +70,6 @@ class AIResource(SyncAPIResource):
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
-        error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
@@ -80,7 +79,6 @@ class AIResource(SyncAPIResource):
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
@@ -138,8 +136,6 @@ class AIResource(SyncAPIResource):
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
-          error_reason: The reason for stopping the LLM completion
-
           input_token_cost: The input token cost associated with the LLM completion
 
           mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
@@ -160,10 +156,9 @@ class AIResource(SyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber_email: The email address of the subscriber
-
           subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
-              usage & costs for individual users.
+              usage & costs for individual users. Oftentimes a subscriberId is an email
+              address.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -219,7 +214,6 @@ class AIResource(SyncAPIResource):
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
-                    "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
                     "model_source": model_source,
@@ -228,7 +222,6 @@ class AIResource(SyncAPIResource):
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
-                    "subscriber_email": subscriber_email,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
@@ -292,7 +285,6 @@ class AsyncAIResource(AsyncAPIResource):
         agent: str | NotGiven = NOT_GIVEN,
         ai_provider_key_name: str | NotGiven = NOT_GIVEN,
         api_key: str | NotGiven = NOT_GIVEN,
-        error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
@@ -302,7 +294,6 @@ class AsyncAIResource(AsyncAPIResource):
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
@@ -360,8 +351,6 @@ class AsyncAIResource(AsyncAPIResource):
 
           ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
 
-          error_reason: The reason for stopping the LLM completion
-
           input_token_cost: The input token cost associated with the LLM completion
 
           mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
@@ -382,10 +371,9 @@ class AsyncAIResource(AsyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber_email: The email address of the subscriber
-
           subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
-              usage & costs for individual users.
+              usage & costs for individual users. Oftentimes a subscriberId is an email
+              address.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -441,7 +429,6 @@ class AsyncAIResource(AsyncAPIResource):
                     "agent": agent,
                     "ai_provider_key_name": ai_provider_key_name,
                     "api_key": api_key,
-                    "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
                     "model_source": model_source,
@@ -450,7 +437,6 @@ class AsyncAIResource(AsyncAPIResource):
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
-                    "subscriber_email": subscriber_email,
                     "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
