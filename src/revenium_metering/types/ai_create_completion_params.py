@@ -74,9 +74,6 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     api_key: Annotated[str, PropertyInfo(alias="apiKey")]
 
-    error_reason: Annotated[str, PropertyInfo(alias="errorReason")]
-    """The reason for stopping the LLM completion"""
-
     input_token_cost: Annotated[float, PropertyInfo(alias="inputTokenCost")]
     """The input token cost associated with the LLM completion"""
 
@@ -112,13 +109,11 @@ class AICreateCompletionParams(TypedDict, total=False):
     response_quality_score: Annotated[float, PropertyInfo(alias="responseQualityScore")]
     """The quality score of the response"""
 
-    subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
-    """The email address of the subscriber"""
-
     subscriber_identity: Annotated[str, PropertyInfo(alias="subscriberIdentity")]
     """
     Populate the ID of the subscriber from your system to allow Revenium to track
-    usage & costs for individual users.
+    usage & costs for individual users. Oftentimes a subscriberId is an email
+    address.
     """
 
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]

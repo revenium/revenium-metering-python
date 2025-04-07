@@ -1,4 +1,4 @@
 configured_endpoints: 4
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/revenium%2Frevenium-metering-1048320dd9759ac47f66c569352b8678f473c73dd97a966fb255989b7fb96bff.yml
-openapi_spec_hash: 9dd7a067c612d4d6806679222ec4ef0f
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/revenium%2Frevenium-metering-b5ffc339de94ad312339f57645c1585e0be8722a81d990336c1a030924d9b68d.yml
+openapi_spec_hash: db7c6be289c15436a6656a0ee4afa251
 config_hash: 0ff90f90c58019017f5ddf1986054860
