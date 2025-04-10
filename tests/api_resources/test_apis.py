@@ -37,7 +37,7 @@ class TestAPIs:
             request_message_size=1024,
             resource="https://api.example.com/resource",
             source_id="5Agqrm:c4917580-281d-48e1-a206-05e595f006ec",
-            source_type="UNKNOWN",
+            source_type="KONG",
             user_agent="Mozilla/5.0",
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
@@ -143,7 +143,7 @@ class TestAsyncAPIs:
             request_message_size=1024,
             resource="https://api.example.com/resource",
             source_id="5Agqrm:c4917580-281d-48e1-a206-05e595f006ec",
-            source_type="UNKNOWN",
+            source_type="KONG",
             user_agent="Mozilla/5.0",
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
