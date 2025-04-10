@@ -112,14 +112,14 @@ class AICreateCompletionParams(TypedDict, total=False):
     response_quality_score: Annotated[float, PropertyInfo(alias="responseQualityScore")]
     """The quality score of the response"""
 
-    subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
-    """The email address of the subscriber"""
-
-    subscriber_identity: Annotated[str, PropertyInfo(alias="subscriberIdentity")]
+    subscriber_credential: Annotated[str, PropertyInfo(alias="subscriberCredential")]
     """
     Populate the ID of the subscriber from your system to allow Revenium to track
     usage & costs for individual users.
     """
+
+    subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
+    """The email address of the subscriber"""
 
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]
     """
