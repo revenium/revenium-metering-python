@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.0.0 (2025-04-10)
+
+Full Changelog: [v3.2.2...v4.0.0](https://github.com/revenium/revenium-metering-python/compare/v3.2.2...v4.0.0)
+
+### Features
+
+* **api:** api update ([9cc4756](https://github.com/revenium/revenium-metering-python/commit/9cc47568f745453fdff63863ebfd69b2d3579895))
+* **api:** api update ([02e77f5](https://github.com/revenium/revenium-metering-python/commit/02e77f57d2544ede9d0c3eb40e01744a685b3119))
+* **api:** api update ([b6c84d9](https://github.com/revenium/revenium-metering-python/commit/b6c84d91b2b647d449129df6ce22c7ba94f5e0c1))
+* **api:** api update ([edb7ea8](https://github.com/revenium/revenium-metering-python/commit/edb7ea8cad54dc36611d9b1d9d29e624c5d3cf2d))
+
 ## 3.2.2 (2025-04-10)
 
 Full Changelog: [v3.2.1...v3.2.2](https://github.com/revenium/revenium-metering-python/compare/v3.2.1...v3.2.2)
