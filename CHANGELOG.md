@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.2.2 (2025-04-10)
+
+Full Changelog: [v3.2.1...v3.2.2](https://github.com/revenium/revenium-metering-python/compare/v3.2.1...v3.2.2)
+
+### Chores
+
+* **internal:** expand CI branch coverage ([35018f6](https://github.com/revenium/revenium-metering-python/commit/35018f63bf80dc67bf648ea2c8de0c429e8b3711))
+* **internal:** reduce CI branch coverage ([89839be](https://github.com/revenium/revenium-metering-python/commit/89839be4e495cecbf82241e9e1bf6f7f2ee29cb3))
+* **internal:** slight transform perf improvement ([#77](https://github.com/revenium/revenium-metering-python/issues/77)) ([87708ac](https://github.com/revenium/revenium-metering-python/commit/87708ac803aeffd8f0d464ac2aaefe57746ad873))
+* **tests:** improve enum examples ([#79](https://github.com/revenium/revenium-metering-python/issues/79)) ([0e64dd8](https://github.com/revenium/revenium-metering-python/commit/0e64dd8d839cb344c51141831b591a2db25ec4df))
+
 ## 3.2.1 (2025-04-07)
 
 Full Changelog: [v3.1.0...v3.2.1](https://github.com/revenium/revenium-metering-python/compare/v3.1.0...v3.2.1)
