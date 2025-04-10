@@ -80,8 +80,8 @@ class AIResource(SyncAPIResource):
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber_credential: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
@@ -160,10 +160,10 @@ class AIResource(SyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
-              usage & costs for individual users.
-
           subscriber_email: The email address of the subscriber
+
+          subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -228,8 +228,8 @@ class AIResource(SyncAPIResource):
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
-                    "subscriber_credential": subscriber_credential,
                     "subscriber_email": subscriber_email,
+                    "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
                     "task_id": task_id,
@@ -302,8 +302,8 @@ class AsyncAIResource(AsyncAPIResource):
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber_credential: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_identity: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_id: str | NotGiven = NOT_GIVEN,
@@ -382,10 +382,10 @@ class AsyncAIResource(AsyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
-              usage & costs for individual users.
-
           subscriber_email: The email address of the subscriber
+
+          subscriber_identity: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -450,8 +450,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
-                    "subscriber_credential": subscriber_credential,
                     "subscriber_email": subscriber_email,
+                    "subscriber_identity": subscriber_identity,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
                     "task_id": task_id,
