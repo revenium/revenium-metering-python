@@ -69,13 +69,8 @@ class AICreateCompletionParams(TypedDict, total=False):
     agent: str
     """The AI agent that is making the request"""
 
-    ai_provider_key_name: Annotated[str, PropertyInfo(alias="aiProviderKeyName")]
-    """The name (not the value!) of the API key used to access the AI provider"""
-
-    api_key: Annotated[str, PropertyInfo(alias="apiKey")]
-
     error_reason: Annotated[str, PropertyInfo(alias="errorReason")]
-    """The reason for stopping the LLM completion"""
+    """The details of the error that occurred during the LLM completion"""
 
     input_token_cost: Annotated[float, PropertyInfo(alias="inputTokenCost")]
     """The input token cost associated with the LLM completion"""
@@ -116,6 +111,12 @@ class AICreateCompletionParams(TypedDict, total=False):
     """
     Populate the ID of the subscriber from your system to allow Revenium to track
     usage & costs for individual users.
+    """
+
+    subscriber_credential_name: Annotated[str, PropertyInfo(alias="subscriberCredentialName")]
+    """
+    Populate the name of the subscriber credential from your system to allow
+    Revenium to track usage & costs for individual users.
     """
 
     subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
