@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.0.1 (2025-04-18)
+
+Full Changelog: [v5.0.0...v5.0.1](https://github.com/revenium/revenium-metering-python/compare/v5.0.0...v5.0.1)
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([23527ad](https://github.com/revenium/revenium-metering-python/commit/23527adaf33fe9d0532be78877f84327e9f3d825))
+* **perf:** skip traversing types for NotGiven values ([969c1b2](https://github.com/revenium/revenium-metering-python/commit/969c1b2b7460274a81da3c41edf75b18d816cb5d))
+
+
+### Chores
+
+* **client:** minor internal fixes ([62996ae](https://github.com/revenium/revenium-metering-python/commit/62996aede8eb0e902edc2f1c7e9678f8718c4595))
+* **internal:** base client updates ([13c7403](https://github.com/revenium/revenium-metering-python/commit/13c7403de2a87e8e1fa38d22ebca34ec55256d90))
+* **internal:** bump pyright version ([c243d88](https://github.com/revenium/revenium-metering-python/commit/c243d88b0621031dcfcac106e7fa73eac38f7355))
+* **internal:** update pyright settings ([20ffafd](https://github.com/revenium/revenium-metering-python/commit/20ffafda0131bf6cf849044c8e929691f59a36d6))
+
 ## 5.0.0 (2025-04-10)
 
 Full Changelog: [v4.0.0...v5.0.0](https://github.com/revenium/revenium-metering-python/compare/v4.0.0...v5.0.0)
