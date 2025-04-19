@@ -68,6 +68,8 @@ class AIResource(SyncAPIResource):
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
+        ai_provider_key_name: str | NotGiven = NOT_GIVEN,
+        api_key: str | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
@@ -79,7 +81,6 @@ class AIResource(SyncAPIResource):
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_credential: str | NotGiven = NOT_GIVEN,
-        subscriber_credential_name: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
@@ -135,7 +136,9 @@ class AIResource(SyncAPIResource):
 
           agent: The AI agent that is making the request
 
-          error_reason: The details of the error that occurred during the LLM completion
+          ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
+
+          error_reason: The reason for stopping the LLM completion
 
           input_token_cost: The input token cost associated with the LLM completion
 
@@ -159,9 +162,6 @@ class AIResource(SyncAPIResource):
 
           subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users.
-
-          subscriber_credential_name: Populate the name of the subscriber credential from your system to allow
-              Revenium to track usage & costs for individual users.
 
           subscriber_email: The email address of the subscriber
 
@@ -217,6 +217,8 @@ class AIResource(SyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
+                    "ai_provider_key_name": ai_provider_key_name,
+                    "api_key": api_key,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
@@ -227,7 +229,6 @@ class AIResource(SyncAPIResource):
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
                     "subscriber_credential": subscriber_credential,
-                    "subscriber_credential_name": subscriber_credential_name,
                     "subscriber_email": subscriber_email,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
@@ -289,6 +290,8 @@ class AsyncAIResource(AsyncAPIResource):
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
+        ai_provider_key_name: str | NotGiven = NOT_GIVEN,
+        api_key: str | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
@@ -300,7 +303,6 @@ class AsyncAIResource(AsyncAPIResource):
         product_id: str | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_credential: str | NotGiven = NOT_GIVEN,
-        subscriber_credential_name: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
@@ -356,7 +358,9 @@ class AsyncAIResource(AsyncAPIResource):
 
           agent: The AI agent that is making the request
 
-          error_reason: The details of the error that occurred during the LLM completion
+          ai_provider_key_name: The name (not the value!) of the API key used to access the AI provider
+
+          error_reason: The reason for stopping the LLM completion
 
           input_token_cost: The input token cost associated with the LLM completion
 
@@ -380,9 +384,6 @@ class AsyncAIResource(AsyncAPIResource):
 
           subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
               usage & costs for individual users.
-
-          subscriber_credential_name: Populate the name of the subscriber credential from your system to allow
-              Revenium to track usage & costs for individual users.
 
           subscriber_email: The email address of the subscriber
 
@@ -438,6 +439,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
+                    "ai_provider_key_name": ai_provider_key_name,
+                    "api_key": api_key,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
@@ -448,7 +451,6 @@ class AsyncAIResource(AsyncAPIResource):
                     "product_id": product_id,
                     "response_quality_score": response_quality_score,
                     "subscriber_credential": subscriber_credential,
-                    "subscriber_credential_name": subscriber_credential_name,
                     "subscriber_email": subscriber_email,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
