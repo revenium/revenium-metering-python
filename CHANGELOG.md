@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.1.0 (2025-04-24)
+
+Full Changelog: [v6.0.0...v6.1.0](https://github.com/revenium/revenium-metering-python/compare/v6.0.0...v6.1.0)
+
+### Features
+
+* **api:** api update ([f0b08a2](https://github.com/revenium/revenium-metering-python/commit/f0b08a26bfc4a18c4b66ec430679ca90063fd96a))
+* **api:** api update ([9b23ae6](https://github.com/revenium/revenium-metering-python/commit/9b23ae6e6e5bf231f9dcc5ff617114996d4ee841))
+
+
+### Bug Fixes
+
+* **pydantic v1:** more robust ModelField.annotation check ([79ff707](https://github.com/revenium/revenium-metering-python/commit/79ff707f1756d376d5b34ca3185b36bd40f949b5))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([9e221c3](https://github.com/revenium/revenium-metering-python/commit/9e221c33d5a74b7c2d503a5609c0310cfb5808a7))
+* **ci:** add timeout thresholds for CI jobs ([0dc29df](https://github.com/revenium/revenium-metering-python/commit/0dc29dfd5d81a7c775d7b7740dd2dbd8266a80ab))
+* **ci:** only use depot for staging repos ([bca62a0](https://github.com/revenium/revenium-metering-python/commit/bca62a02424aa66cbdaa60cce1c44afea85071b3))
+* **internal:** codegen related update ([d529a06](https://github.com/revenium/revenium-metering-python/commit/d529a06e9c18e5c8029cb25b95e7bc5c5131873d))
+* **internal:** fix list file params ([21c6f0d](https://github.com/revenium/revenium-metering-python/commit/21c6f0da9de70ecd48bf19e9eac8da8a3ad6636e))
+* **internal:** import reformatting ([736cb66](https://github.com/revenium/revenium-metering-python/commit/736cb66a6e10d34c1d89928c8c5fd7a4e180099f))
+* **internal:** refactor retries to not use recursion ([7e47381](https://github.com/revenium/revenium-metering-python/commit/7e473812e55d8c97691fa572ff5419310cbb8b5c))
+* **internal:** update models test ([0bfe876](https://github.com/revenium/revenium-metering-python/commit/0bfe876d91020314ac3d3caa89b094adaf5c09de))
+
 ## 6.0.0 (2025-04-18)
 
 Full Changelog: [v5.0.1...v6.0.0](https://github.com/revenium/revenium-metering-python/compare/v5.0.1...v6.0.0)
