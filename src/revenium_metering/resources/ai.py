@@ -8,10 +8,7 @@ import httpx
 
 from ..types import ai_create_completion_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -49,8 +46,6 @@ class AIResource(SyncAPIResource):
     def create_completion(
         self,
         *,
-        cache_creation_token_count: int,
-        cache_read_token_count: int,
         completion_start_time: str,
         cost_type: Literal["AI"],
         input_token_count: int,
@@ -58,7 +53,6 @@ class AIResource(SyncAPIResource):
         model: str,
         output_token_count: int,
         provider: str,
-        reasoning_token_count: int,
         request_duration: int,
         request_time: str,
         response_time: str,
@@ -68,6 +62,8 @@ class AIResource(SyncAPIResource):
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
+        cache_creation_token_count: int | NotGiven = NOT_GIVEN,
+        cache_read_token_count: int | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
@@ -77,13 +73,14 @@ class AIResource(SyncAPIResource):
         organization_id: str | NotGiven = NOT_GIVEN,
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_credential: str | NotGiven = NOT_GIVEN,
         subscriber_credential_name: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
-        task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         time_to_first_token: int | NotGiven = NOT_GIVEN,
@@ -100,10 +97,6 @@ class AIResource(SyncAPIResource):
         Record the details of an LLM completion
 
         Args:
-          cache_creation_token_count: The number of cached creation tokens in the completion
-
-          cache_read_token_count: The number of cached read tokens in the completion
-
           completion_start_time: Time to first token for streaming requests
 
           cost_type: Cost type for the completion
@@ -117,8 +110,6 @@ class AIResource(SyncAPIResource):
           output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
-
-          reasoning_token_count: The number of reasoning tokens in the completion
 
           request_duration: The duration of the request in milliseconds
 
@@ -134,6 +125,10 @@ class AIResource(SyncAPIResource):
           transaction_id: The unique identifier of the LLM completion transaction
 
           agent: The AI agent that is making the request
+
+          cache_creation_token_count: The number of cached creation tokens in the completion
+
+          cache_read_token_count: The number of cached read tokens in the completion
 
           error_reason: The details of the error that occurred during the LLM completion
 
@@ -155,6 +150,8 @@ class AIResource(SyncAPIResource):
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
 
+          reasoning_token_count: The number of reasoning tokens in the completion
+
           response_quality_score: The quality score of the response
 
           subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
@@ -165,16 +162,17 @@ class AIResource(SyncAPIResource):
 
           subscriber_email: The email address of the subscriber
 
+          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users. i.e. user-123. If several
+              subscriberCredentials have the same subscriberId, Revenium’s reporting will show
+              usage for the entire organization broken down by user.
+
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
 
           system_fingerprint: A unique identifier that represents the statistical signature of the language
               model that generated a specific chat completion. This fingerprint can be used
               for model attribution, debugging, and monitoring model behavior across request
-
-          task_id: Identifier of the associated task. If you wish to track the costs and
-              performance for a task that occurs over several prompts, use a consistent task
-              ID for all prompts included in that task.
 
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
@@ -200,8 +198,6 @@ class AIResource(SyncAPIResource):
             "/v2/ai/completions",
             body=maybe_transform(
                 {
-                    "cache_creation_token_count": cache_creation_token_count,
-                    "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
                     "cost_type": cost_type,
                     "input_token_count": input_token_count,
@@ -209,7 +205,6 @@ class AIResource(SyncAPIResource):
                     "model": model,
                     "output_token_count": output_token_count,
                     "provider": provider,
-                    "reasoning_token_count": reasoning_token_count,
                     "request_duration": request_duration,
                     "request_time": request_time,
                     "response_time": response_time,
@@ -217,6 +212,8 @@ class AIResource(SyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
+                    "cache_creation_token_count": cache_creation_token_count,
+                    "cache_read_token_count": cache_read_token_count,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
@@ -225,13 +222,14 @@ class AIResource(SyncAPIResource):
                     "organization_id": organization_id,
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
+                    "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
                     "subscriber_credential": subscriber_credential,
                     "subscriber_credential_name": subscriber_credential_name,
                     "subscriber_email": subscriber_email,
+                    "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
-                    "task_id": task_id,
                     "task_type": task_type,
                     "temperature": temperature,
                     "time_to_first_token": time_to_first_token,
@@ -270,8 +268,6 @@ class AsyncAIResource(AsyncAPIResource):
     async def create_completion(
         self,
         *,
-        cache_creation_token_count: int,
-        cache_read_token_count: int,
         completion_start_time: str,
         cost_type: Literal["AI"],
         input_token_count: int,
@@ -279,7 +275,6 @@ class AsyncAIResource(AsyncAPIResource):
         model: str,
         output_token_count: int,
         provider: str,
-        reasoning_token_count: int,
         request_duration: int,
         request_time: str,
         response_time: str,
@@ -289,6 +284,8 @@ class AsyncAIResource(AsyncAPIResource):
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
+        cache_creation_token_count: int | NotGiven = NOT_GIVEN,
+        cache_read_token_count: int | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
@@ -298,13 +295,14 @@ class AsyncAIResource(AsyncAPIResource):
         organization_id: str | NotGiven = NOT_GIVEN,
         output_token_cost: float | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber_credential: str | NotGiven = NOT_GIVEN,
         subscriber_credential_name: str | NotGiven = NOT_GIVEN,
         subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
-        task_id: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         time_to_first_token: int | NotGiven = NOT_GIVEN,
@@ -321,10 +319,6 @@ class AsyncAIResource(AsyncAPIResource):
         Record the details of an LLM completion
 
         Args:
-          cache_creation_token_count: The number of cached creation tokens in the completion
-
-          cache_read_token_count: The number of cached read tokens in the completion
-
           completion_start_time: Time to first token for streaming requests
 
           cost_type: Cost type for the completion
@@ -338,8 +332,6 @@ class AsyncAIResource(AsyncAPIResource):
           output_token_count: The count of consumed output tokens
 
           provider: Vendor providing the LLM completion service
-
-          reasoning_token_count: The number of reasoning tokens in the completion
 
           request_duration: The duration of the request in milliseconds
 
@@ -355,6 +347,10 @@ class AsyncAIResource(AsyncAPIResource):
           transaction_id: The unique identifier of the LLM completion transaction
 
           agent: The AI agent that is making the request
+
+          cache_creation_token_count: The number of cached creation tokens in the completion
+
+          cache_read_token_count: The number of cached read tokens in the completion
 
           error_reason: The details of the error that occurred during the LLM completion
 
@@ -376,6 +372,8 @@ class AsyncAIResource(AsyncAPIResource):
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
 
+          reasoning_token_count: The number of reasoning tokens in the completion
+
           response_quality_score: The quality score of the response
 
           subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
@@ -386,16 +384,17 @@ class AsyncAIResource(AsyncAPIResource):
 
           subscriber_email: The email address of the subscriber
 
+          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users. i.e. user-123. If several
+              subscriberCredentials have the same subscriberId, Revenium’s reporting will show
+              usage for the entire organization broken down by user.
+
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
 
           system_fingerprint: A unique identifier that represents the statistical signature of the language
               model that generated a specific chat completion. This fingerprint can be used
               for model attribution, debugging, and monitoring model behavior across request
-
-          task_id: Identifier of the associated task. If you wish to track the costs and
-              performance for a task that occurs over several prompts, use a consistent task
-              ID for all prompts included in that task.
 
           task_type: If you wish to track the costs or performance of a specific task and compare the
               values over time or compare the performance across AI models or vendors, use a
@@ -421,8 +420,6 @@ class AsyncAIResource(AsyncAPIResource):
             "/v2/ai/completions",
             body=await async_maybe_transform(
                 {
-                    "cache_creation_token_count": cache_creation_token_count,
-                    "cache_read_token_count": cache_read_token_count,
                     "completion_start_time": completion_start_time,
                     "cost_type": cost_type,
                     "input_token_count": input_token_count,
@@ -430,7 +427,6 @@ class AsyncAIResource(AsyncAPIResource):
                     "model": model,
                     "output_token_count": output_token_count,
                     "provider": provider,
-                    "reasoning_token_count": reasoning_token_count,
                     "request_duration": request_duration,
                     "request_time": request_time,
                     "response_time": response_time,
@@ -438,6 +434,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
+                    "cache_creation_token_count": cache_creation_token_count,
+                    "cache_read_token_count": cache_read_token_count,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
@@ -446,13 +444,14 @@ class AsyncAIResource(AsyncAPIResource):
                     "organization_id": organization_id,
                     "output_token_cost": output_token_cost,
                     "product_id": product_id,
+                    "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
                     "subscriber_credential": subscriber_credential,
                     "subscriber_credential_name": subscriber_credential_name,
                     "subscriber_email": subscriber_email,
+                    "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
-                    "task_id": task_id,
                     "task_type": task_type,
                     "temperature": temperature,
                     "time_to_first_token": time_to_first_token,
