@@ -21,8 +21,6 @@ class TestAI:
     @parametrize
     def test_method_create_completion(self, client: ReveniumMetering) -> None:
         ai = client.ai.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -30,7 +28,6 @@ class TestAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -44,8 +41,6 @@ class TestAI:
     @parametrize
     def test_method_create_completion_with_all_params(self, client: ReveniumMetering) -> None:
         ai = client.ai.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -53,7 +48,6 @@ class TestAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -61,6 +55,8 @@ class TestAI:
             total_token_count=200,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             agent="Bishop",
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             error_reason="key not allowed to access model",
             input_token_cost=12.34,
             mediation_latency=1000,
@@ -69,13 +65,14 @@ class TestAI:
             organization_id="org-123",
             output_token_cost=12.34,
             product_id="Free Trial",
+            reasoning_token_count=1300,
             response_quality_score=45,
             subscriber_credential="asd-123",
             subscriber_credential_name="OpenAI Key (Production)",
             subscriber_email="user@example.com",
+            subscriber_id="user-123",
             subscription_id="subscr-456",
             system_fingerprint="fp_44z789a1c23def456gh7890ijkl1234mnopq567rstuv8910wxyz",
-            task_id="task-123",
             task_type="completion",
             temperature=0.78,
             time_to_first_token=10200,
@@ -88,8 +85,6 @@ class TestAI:
     @parametrize
     def test_raw_response_create_completion(self, client: ReveniumMetering) -> None:
         response = client.ai.with_raw_response.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -97,7 +92,6 @@ class TestAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -115,8 +109,6 @@ class TestAI:
     @parametrize
     def test_streaming_response_create_completion(self, client: ReveniumMetering) -> None:
         with client.ai.with_streaming_response.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -124,7 +116,6 @@ class TestAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -148,8 +139,6 @@ class TestAsyncAI:
     @parametrize
     async def test_method_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         ai = await async_client.ai.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -157,7 +146,6 @@ class TestAsyncAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -171,8 +159,6 @@ class TestAsyncAI:
     @parametrize
     async def test_method_create_completion_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
         ai = await async_client.ai.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -180,7 +166,6 @@ class TestAsyncAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -188,6 +173,8 @@ class TestAsyncAI:
             total_token_count=200,
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             agent="Bishop",
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             error_reason="key not allowed to access model",
             input_token_cost=12.34,
             mediation_latency=1000,
@@ -196,13 +183,14 @@ class TestAsyncAI:
             organization_id="org-123",
             output_token_cost=12.34,
             product_id="Free Trial",
+            reasoning_token_count=1300,
             response_quality_score=45,
             subscriber_credential="asd-123",
             subscriber_credential_name="OpenAI Key (Production)",
             subscriber_email="user@example.com",
+            subscriber_id="user-123",
             subscription_id="subscr-456",
             system_fingerprint="fp_44z789a1c23def456gh7890ijkl1234mnopq567rstuv8910wxyz",
-            task_id="task-123",
             task_type="completion",
             temperature=0.78,
             time_to_first_token=10200,
@@ -215,8 +203,6 @@ class TestAsyncAI:
     @parametrize
     async def test_raw_response_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         response = await async_client.ai.with_raw_response.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -224,7 +210,6 @@ class TestAsyncAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -242,8 +227,6 @@ class TestAsyncAI:
     @parametrize
     async def test_streaming_response_create_completion(self, async_client: AsyncReveniumMetering) -> None:
         async with async_client.ai.with_streaming_response.create_completion(
-            cache_creation_token_count=1300,
-            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -251,7 +234,6 @@ class TestAsyncAI:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
