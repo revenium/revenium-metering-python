@@ -738,6 +738,8 @@ class TestReveniumMetering:
                     object,
                     maybe_transform(
                         dict(
+                            cache_creation_token_count=1300,
+                            cache_read_token_count=1300,
                             completion_start_time="2025-03-02T15:04:05Z",
                             cost_type="AI",
                             input_token_count=50,
@@ -745,6 +747,7 @@ class TestReveniumMetering:
                             model="gpt4",
                             output_token_count=150,
                             provider="OpenAI",
+                            reasoning_token_count=1300,
                             request_duration=1000,
                             request_time="2025-03-02T15:04:05Z",
                             response_time="2025-03-02T15:04:06Z",
@@ -773,6 +776,8 @@ class TestReveniumMetering:
                     object,
                     maybe_transform(
                         dict(
+                            cache_creation_token_count=1300,
+                            cache_read_token_count=1300,
                             completion_start_time="2025-03-02T15:04:05Z",
                             cost_type="AI",
                             input_token_count=50,
@@ -780,6 +785,7 @@ class TestReveniumMetering:
                             model="gpt4",
                             output_token_count=150,
                             provider="OpenAI",
+                            reasoning_token_count=1300,
                             request_duration=1000,
                             request_time="2025-03-02T15:04:05Z",
                             response_time="2025-03-02T15:04:06Z",
@@ -823,6 +829,8 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -830,6 +838,7 @@ class TestReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -861,6 +870,8 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -868,6 +879,7 @@ class TestReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -899,6 +911,8 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -906,6 +920,7 @@ class TestReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -1598,6 +1613,8 @@ class TestAsyncReveniumMetering:
                     object,
                     maybe_transform(
                         dict(
+                            cache_creation_token_count=1300,
+                            cache_read_token_count=1300,
                             completion_start_time="2025-03-02T15:04:05Z",
                             cost_type="AI",
                             input_token_count=50,
@@ -1605,6 +1622,7 @@ class TestAsyncReveniumMetering:
                             model="gpt4",
                             output_token_count=150,
                             provider="OpenAI",
+                            reasoning_token_count=1300,
                             request_duration=1000,
                             request_time="2025-03-02T15:04:05Z",
                             response_time="2025-03-02T15:04:06Z",
@@ -1633,6 +1651,8 @@ class TestAsyncReveniumMetering:
                     object,
                     maybe_transform(
                         dict(
+                            cache_creation_token_count=1300,
+                            cache_read_token_count=1300,
                             completion_start_time="2025-03-02T15:04:05Z",
                             cost_type="AI",
                             input_token_count=50,
@@ -1640,6 +1660,7 @@ class TestAsyncReveniumMetering:
                             model="gpt4",
                             output_token_count=150,
                             provider="OpenAI",
+                            reasoning_token_count=1300,
                             request_duration=1000,
                             request_time="2025-03-02T15:04:05Z",
                             response_time="2025-03-02T15:04:06Z",
@@ -1684,6 +1705,8 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -1691,6 +1714,7 @@ class TestAsyncReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -1723,6 +1747,8 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -1730,6 +1756,7 @@ class TestAsyncReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
@@ -1762,6 +1789,8 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
+            cache_creation_token_count=1300,
+            cache_read_token_count=1300,
             completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
             input_token_count=50,
@@ -1769,6 +1798,7 @@ class TestAsyncReveniumMetering:
             model="gpt4",
             output_token_count=150,
             provider="OpenAI",
+            reasoning_token_count=1300,
             request_duration=1000,
             request_time="2025-03-02T15:04:05Z",
             response_time="2025-03-02T15:04:06Z",
