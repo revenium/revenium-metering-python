@@ -32,6 +32,8 @@ client = ReveniumMetering(
 )
 
 metering_response_resource = client.ai.create_completion(
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
     cost_type="AI",
     input_token_count=50,
@@ -39,6 +41,7 @@ metering_response_resource = client.ai.create_completion(
     model="gpt4",
     output_token_count=150,
     provider="OpenAI",
+    reasoning_token_count=1300,
     request_duration=1000,
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
@@ -70,6 +73,8 @@ client = AsyncReveniumMetering(
 
 async def main() -> None:
     metering_response_resource = await client.ai.create_completion(
+        cache_creation_token_count=1300,
+        cache_read_token_count=1300,
         completion_start_time="2025-03-02T15:04:05Z",
         cost_type="AI",
         input_token_count=50,
@@ -77,6 +82,7 @@ async def main() -> None:
         model="gpt4",
         output_token_count=150,
         provider="OpenAI",
+        reasoning_token_count=1300,
         request_duration=1000,
         request_time="2025-03-02T15:04:05Z",
         response_time="2025-03-02T15:04:06Z",
@@ -118,6 +124,8 @@ client = ReveniumMetering()
 
 try:
     client.ai.create_completion(
+        cache_creation_token_count=1300,
+        cache_read_token_count=1300,
         completion_start_time="2025-03-02T15:04:05Z",
         cost_type="AI",
         input_token_count=50,
@@ -125,6 +133,7 @@ try:
         model="gpt4",
         output_token_count=150,
         provider="OpenAI",
+        reasoning_token_count=1300,
         request_duration=1000,
         request_time="2025-03-02T15:04:05Z",
         response_time="2025-03-02T15:04:06Z",
@@ -175,6 +184,8 @@ client = ReveniumMetering(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).ai.create_completion(
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
     cost_type="AI",
     input_token_count=50,
@@ -182,6 +193,7 @@ client.with_options(max_retries=5).ai.create_completion(
     model="gpt4",
     output_token_count=150,
     provider="OpenAI",
+    reasoning_token_count=1300,
     request_duration=1000,
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
@@ -212,6 +224,8 @@ client = ReveniumMetering(
 
 # Override per-request:
 client.with_options(timeout=5.0).ai.create_completion(
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
     cost_type="AI",
     input_token_count=50,
@@ -219,6 +233,7 @@ client.with_options(timeout=5.0).ai.create_completion(
     model="gpt4",
     output_token_count=150,
     provider="OpenAI",
+    reasoning_token_count=1300,
     request_duration=1000,
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
@@ -267,6 +282,8 @@ from revenium_metering import ReveniumMetering
 
 client = ReveniumMetering()
 response = client.ai.with_raw_response.create_completion(
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
     cost_type="AI",
     input_token_count=50,
@@ -274,6 +291,7 @@ response = client.ai.with_raw_response.create_completion(
     model="gpt4",
     output_token_count=150,
     provider="OpenAI",
+    reasoning_token_count=1300,
     request_duration=1000,
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
@@ -299,6 +317,8 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.ai.with_streaming_response.create_completion(
+    cache_creation_token_count=1300,
+    cache_read_token_count=1300,
     completion_start_time="2025-03-02T15:04:05Z",
     cost_type="AI",
     input_token_count=50,
@@ -306,6 +326,7 @@ with client.ai.with_streaming_response.create_completion(
     model="gpt4",
     output_token_count=150,
     provider="OpenAI",
+    reasoning_token_count=1300,
     request_duration=1000,
     request_time="2025-03-02T15:04:05Z",
     response_time="2025-03-02T15:04:06Z",
