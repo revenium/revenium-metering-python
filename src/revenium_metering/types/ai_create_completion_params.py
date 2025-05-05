@@ -10,12 +10,6 @@ __all__ = ["AICreateCompletionParams"]
 
 
 class AICreateCompletionParams(TypedDict, total=False):
-    cache_creation_token_count: Required[Annotated[int, PropertyInfo(alias="cacheCreationTokenCount")]]
-    """The number of cached creation tokens in the completion"""
-
-    cache_read_token_count: Required[Annotated[int, PropertyInfo(alias="cacheReadTokenCount")]]
-    """The number of cached read tokens in the completion"""
-
     completion_start_time: Required[Annotated[str, PropertyInfo(alias="completionStartTime")]]
     """Time to first token for streaming requests"""
 
@@ -36,9 +30,6 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     provider: Required[str]
     """Vendor providing the LLM completion service"""
-
-    reasoning_token_count: Required[Annotated[int, PropertyInfo(alias="reasoningTokenCount")]]
-    """The number of reasoning tokens in the completion"""
 
     request_duration: Required[Annotated[int, PropertyInfo(alias="requestDuration")]]
     """The duration of the request in milliseconds"""
@@ -68,6 +59,12 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     agent: str
     """The AI agent that is making the request"""
+
+    cache_creation_token_count: Annotated[int, PropertyInfo(alias="cacheCreationTokenCount")]
+    """The number of cached creation tokens in the completion"""
+
+    cache_read_token_count: Annotated[int, PropertyInfo(alias="cacheReadTokenCount")]
+    """The number of cached read tokens in the completion"""
 
     error_reason: Annotated[str, PropertyInfo(alias="errorReason")]
     """The details of the error that occurred during the LLM completion"""
@@ -104,6 +101,9 @@ class AICreateCompletionParams(TypedDict, total=False):
     usage between Revenium & your application.
     """
 
+    reasoning_token_count: Annotated[int, PropertyInfo(alias="reasoningTokenCount")]
+    """The number of reasoning tokens in the completion"""
+
     response_quality_score: Annotated[float, PropertyInfo(alias="responseQualityScore")]
     """The quality score of the response"""
 
@@ -122,6 +122,14 @@ class AICreateCompletionParams(TypedDict, total=False):
     subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
     """The email address of the subscriber"""
 
+    subscriber_id: Annotated[str, PropertyInfo(alias="subscriberId")]
+    """
+    Populate the ID of the subscriber from your system to allow Revenium to track
+    usage & costs for individual users. i.e. user-123. If several
+    subscriberCredentials have the same subscriberId, Revenium’s reporting will show
+    usage for the entire organization broken down by user.
+    """
+
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]
     """
     Unique identifier of the subscription from your own system that you wish to use
@@ -133,13 +141,6 @@ class AICreateCompletionParams(TypedDict, total=False):
     A unique identifier that represents the statistical signature of the language
     model that generated a specific chat completion. This fingerprint can be used
     for model attribution, debugging, and monitoring model behavior across request
-    """
-
-    task_id: Annotated[str, PropertyInfo(alias="taskId")]
-    """Identifier of the associated task.
-
-    If you wish to track the costs and performance for a task that occurs over
-    several prompts, use a consistent task ID for all prompts included in that task.
     """
 
     task_type: Annotated[str, PropertyInfo(alias="taskType")]
