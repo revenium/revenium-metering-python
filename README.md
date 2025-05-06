@@ -8,9 +8,10 @@ and offers both synchronous and asynchronous clients powered by [httpx](https://
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-## Documentation
+## REST API Documentation
 
-The REST API documentation can be found on [revenium.io](https://revenium.io). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found  [here](https://revenium.readme.io/). **The full documentation contains additional parameters 
+that can be sent to the Revenium metering endpoint.**
 
 ## Installation
 
@@ -28,7 +29,7 @@ import os
 from revenium_metering import ReveniumMetering
 
 client = ReveniumMetering(
-    api_key=os.environ.get("REVENIUM_METERING_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("REVENIUM_METERING_API_KEY"),  # This is the default and can be omitted if providing the API key another way
 )
 
 metering_response_resource = client.ai.create_completion(
