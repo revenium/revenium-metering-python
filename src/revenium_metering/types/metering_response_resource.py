@@ -34,7 +34,7 @@ class MeteringResponseResource(BaseModel):
     label: str
     """A descriptive label for the metering response"""
 
-    resource_type: str = FieldInfo(alias="resourceType")
+    object: str
     """Type of the object, typically 'metering'"""
 
     signature: str
