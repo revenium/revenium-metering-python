@@ -1,5 +1,38 @@
 # Changelog
 
+## 6.2.0 (2025-06-16)
+
+Full Changelog: [v6.1.0...v6.2.0](https://github.com/revenium/revenium-metering-python/compare/v6.1.0...v6.2.0)
+
+### Features
+
+* **api:** api update ([ccd92ec](https://github.com/revenium/revenium-metering-python/commit/ccd92ecb8ecbfa09f68e84858be192ae54e47caa))
+* **api:** api update ([679a7dd](https://github.com/revenium/revenium-metering-python/commit/679a7ddaf26b2bbdf1382adaab22c5fb65e54321))
+* **api:** api update ([0ca6278](https://github.com/revenium/revenium-metering-python/commit/0ca62788ad0c28f677f7eb81cf15778e7b350f15))
+* **api:** api update ([f73648f](https://github.com/revenium/revenium-metering-python/commit/f73648ff3165df6648416e1ffb0e1ac5b169a007))
+* **api:** api update ([415d0f5](https://github.com/revenium/revenium-metering-python/commit/415d0f59bb4ae35bded8c49dae9f99af2684eb1d))
+* **api:** api update ([4318a88](https://github.com/revenium/revenium-metering-python/commit/4318a88696d2e7603e768aef7e92249d59df7396))
+* **api:** api update ([2746159](https://github.com/revenium/revenium-metering-python/commit/27461592779f0ea04bb903ac48709484f03f9985))
+* **api:** api update ([74e914f](https://github.com/revenium/revenium-metering-python/commit/74e914fd5a8221613079602367ebf190ab93f20e))
+* **api:** manual updates ([78b3242](https://github.com/revenium/revenium-metering-python/commit/78b32427d9c31580b44e7c4470344173dd796672))
+* **client:** add follow_redirects request option ([b9173f8](https://github.com/revenium/revenium-metering-python/commit/b9173f8e4581a12f289d983464752d2890aab75b))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([581a1f2](https://github.com/revenium/revenium-metering-python/commit/581a1f297f81d32c2a144a8e11abc1a3130941a7))
+* **package:** support direct resource imports ([1516201](https://github.com/revenium/revenium-metering-python/commit/151620100242547bab9a4f83b7dde38f61e1b2a1))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([95fe222](https://github.com/revenium/revenium-metering-python/commit/95fe222d860373e69e1a33279fca563736c00dd9))
+* **ci:** upload sdks to package manager ([b36eb61](https://github.com/revenium/revenium-metering-python/commit/b36eb61301c78ad50fc8d9a87256ad258973a660))
+* **docs:** grammar improvements ([d3fbc0c](https://github.com/revenium/revenium-metering-python/commit/d3fbc0ca3e3107a08b0794c7f75158ddfccda31d))
+* **docs:** remove reference to rye shell ([8484b83](https://github.com/revenium/revenium-metering-python/commit/8484b834101044653331d7b741b8ce5fb677b516))
+* **internal:** avoid errors for isinstance checks on proxies ([a7f8d91](https://github.com/revenium/revenium-metering-python/commit/a7f8d912acb1503d1377a90c2f5a29c6c3eb6254))
+* **tests:** run tests in parallel ([8963600](https://github.com/revenium/revenium-metering-python/commit/89636002231c7ebf82ff53fc933ed9a21ba58a44))
+
 ## 6.1.0 (2025-05-04)
 
 Full Changelog: [v6.0.0...v6.1.0](https://github.com/revenium/revenium-metering-python/compare/v6.0.0...v6.1.0)
