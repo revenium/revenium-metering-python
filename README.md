@@ -1,6 +1,6 @@
 # Revenium Metering Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/revenium_metering.svg)](https://pypi.org/project/revenium_metering/)
+[![PyPI version](<https://img.shields.io/pypi/v/revenium_metering.svg?label=pypi%20(stable)>)](https://pypi.org/project/revenium_metering/)
 
 The Revenium Metering Python library provides convenient access to the Revenium Metering REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -101,34 +101,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from revenium_metering import ReveniumMetering
-
-client = ReveniumMetering()
-
-metering_response_resource = client.ai.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
-    cost_type="AI",
-    input_token_count=50,
-    is_streamed=False,
-    model="gpt4",
-    output_token_count=150,
-    provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
-    stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
-    subscriber={},
-)
-print(metering_response_resource.subscriber)
-```
 
 ## Handling errors
 
