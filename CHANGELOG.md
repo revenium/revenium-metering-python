@@ -1,5 +1,22 @@
 # Changelog
 
+## 6.3.0 (2025-06-18)
+
+Full Changelog: [v6.2.0...v6.3.0](https://github.com/revenium/revenium-metering-python/compare/v6.2.0...v6.3.0)
+
+### Features
+
+* **api:** api update ([029cfd0](https://github.com/revenium/revenium-metering-python/commit/029cfd06161b7c13b8ec29d280e3e3e5bff921f6))
+* **api:** manual updates ([1dc6a22](https://github.com/revenium/revenium-metering-python/commit/1dc6a220ec2d5665213b39a57e314852b2e7a096))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([c723728](https://github.com/revenium/revenium-metering-python/commit/c7237288ecdfb7222d83e45ccfce3c547bfba7af))
+* **internal:** update conftest.py ([647754f](https://github.com/revenium/revenium-metering-python/commit/647754f9381a0562dd24f3454ce7c608e4ef62fd))
+* **readme:** update badges ([658a5a2](https://github.com/revenium/revenium-metering-python/commit/658a5a22020a0c91278250acd17be877252bd463))
+* **tests:** add tests for httpx client instantiation & proxies ([8a46205](https://github.com/revenium/revenium-metering-python/commit/8a46205349fac7b480587ea08900bf076250fa63))
+
 ## 6.2.0 (2025-06-16)
 
 Full Changelog: [v6.1.0...v6.2.0](https://github.com/revenium/revenium-metering-python/compare/v6.1.0...v6.2.0)
