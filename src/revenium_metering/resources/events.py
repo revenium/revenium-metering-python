@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Dict
 from typing_extensions import Literal
 
 import httpx
@@ -47,7 +46,7 @@ class EventsResource(SyncAPIResource):
     def create(
         self,
         *,
-        payload: Dict[str, object],
+        payload: str,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -71,7 +70,7 @@ class EventsResource(SyncAPIResource):
         ],
         transaction_id: str,
         source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_credential: str | NotGiven = NOT_GIVEN,
+        subscriber_credential_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,7 +95,7 @@ class EventsResource(SyncAPIResource):
 
           source_id: the sourceId
 
-          subscriber_credential: The unique identifier of the credential
+          subscriber_credential_id: The unique identifier of the credential
 
           extra_headers: Send extra headers
 
@@ -114,7 +113,7 @@ class EventsResource(SyncAPIResource):
                     "source_type": source_type,
                     "transaction_id": transaction_id,
                     "source_id": source_id,
-                    "subscriber_credential": subscriber_credential,
+                    "subscriber_credential_id": subscriber_credential_id,
                 },
                 event_create_params.EventCreateParams,
             ),
@@ -148,7 +147,7 @@ class AsyncEventsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        payload: Dict[str, object],
+        payload: str,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -172,7 +171,7 @@ class AsyncEventsResource(AsyncAPIResource):
         ],
         transaction_id: str,
         source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_credential: str | NotGiven = NOT_GIVEN,
+        subscriber_credential_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -197,7 +196,7 @@ class AsyncEventsResource(AsyncAPIResource):
 
           source_id: the sourceId
 
-          subscriber_credential: The unique identifier of the credential
+          subscriber_credential_id: The unique identifier of the credential
 
           extra_headers: Send extra headers
 
@@ -215,7 +214,7 @@ class AsyncEventsResource(AsyncAPIResource):
                     "source_type": source_type,
                     "transaction_id": transaction_id,
                     "source_id": source_id,
-                    "subscriber_credential": subscriber_credential,
+                    "subscriber_credential_id": subscriber_credential_id,
                 },
                 event_create_params.EventCreateParams,
             ),

@@ -57,19 +57,16 @@ class AIResource(SyncAPIResource):
         request_time: str,
         response_time: str,
         stop_reason: Literal[
-            "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR", "CANCELLED"
+            "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
-        cache_creation_token_cost: float | NotGiven = NOT_GIVEN,
         cache_creation_token_count: int | NotGiven = NOT_GIVEN,
-        cache_read_token_cost: float | NotGiven = NOT_GIVEN,
         cache_read_token_count: int | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
-        middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
@@ -78,7 +75,10 @@ class AIResource(SyncAPIResource):
         product_id: str | NotGiven = NOT_GIVEN,
         reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber: ai_create_completion_params.Subscriber | NotGiven = NOT_GIVEN,
+        subscriber_credential: str | NotGiven = NOT_GIVEN,
+        subscriber_credential_name: str | NotGiven = NOT_GIVEN,
+        subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
@@ -135,15 +135,7 @@ class AIResource(SyncAPIResource):
 
           agent: The AI agent that is making the request
 
-          cache_creation_token_cost: The cache creation token cost associated with the LLM completion. Note that if
-              you send a valuefor this parameter in your request, it will override Revenium's
-              automatic calculation of tokencost by AI model.
-
           cache_creation_token_count: The number of cached creation tokens in the completion
-
-          cache_read_token_cost: The cache read token cost associated with the LLM completion. Note that if you
-              send a valuefor this parameter in your request, it will override Revenium's
-              automatic calculation of tokencost by AI model.
 
           cache_read_token_count: The number of cached read tokens in the completion
 
@@ -153,8 +145,6 @@ class AIResource(SyncAPIResource):
 
           mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
 
-          middleware_source: The source middleware or SDK that generated this AI completion request
-
           model_source: The source of the AI model used for the completion
 
           operation_type: The type of operation performed
@@ -162,12 +152,9 @@ class AIResource(SyncAPIResource):
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
               Revenium to track usage & costs by company. i.e. AcmeCorp. If several
               subscriberIds have the same organizationId, Revenium’s reporting will show usage
-              for the entire organization broken down by subscriberId.
+              for the entire organization broken down by user.
 
-          output_token_cost: The output token cost associated with the LLM completion. Note that if you send
-              a valuefor this parameter in your request, it will override Revenium's automatic
-              calculation of tokencost by AI model. This option may not be available on all
-              Revenium plans.
+          output_token_cost: The output token cost associated with the LLM completion
 
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
@@ -176,7 +163,18 @@ class AIResource(SyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber: The subscriber metadata
+          subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users.
+
+          subscriber_credential_name: Populate the name of the subscriber credential from your system to allow
+              Revenium to track usage & costs for individual users.
+
+          subscriber_email: The email address of the subscriber
+
+          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users. i.e. user-123. If several
+              subscriberCredentials have the same subscriberId, Revenium’s reporting will show
+              usage for the entire organization broken down by user.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -193,9 +191,7 @@ class AIResource(SyncAPIResource):
 
           time_to_first_token: The time to first token in milliseconds
 
-          total_cost: The total cost associated with the LLM completion. Note that if you send a
-              valuefor this parameter in your request, it will override Revenium's automatic
-              calculation of tokencost by AI model.
+          total_cost: The total cost associated with the LLM completion
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
@@ -245,14 +241,11 @@ class AIResource(SyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
-                    "cache_creation_token_cost": cache_creation_token_cost,
                     "cache_creation_token_count": cache_creation_token_count,
-                    "cache_read_token_cost": cache_read_token_cost,
                     "cache_read_token_count": cache_read_token_count,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
-                    "middleware_source": middleware_source,
                     "model_source": model_source,
                     "operation_type": operation_type,
                     "organization_id": organization_id,
@@ -260,7 +253,10 @@ class AIResource(SyncAPIResource):
                     "product_id": product_id,
                     "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
-                    "subscriber": subscriber,
+                    "subscriber_credential": subscriber_credential,
+                    "subscriber_credential_name": subscriber_credential_name,
+                    "subscriber_email": subscriber_email,
+                    "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
                     "task_type": task_type,
@@ -321,19 +317,16 @@ class AsyncAIResource(AsyncAPIResource):
         request_time: str,
         response_time: str,
         stop_reason: Literal[
-            "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR", "CANCELLED"
+            "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"
         ],
         total_token_count: int,
         transaction_id: str,
         agent: str | NotGiven = NOT_GIVEN,
-        cache_creation_token_cost: float | NotGiven = NOT_GIVEN,
         cache_creation_token_count: int | NotGiven = NOT_GIVEN,
-        cache_read_token_cost: float | NotGiven = NOT_GIVEN,
         cache_read_token_count: int | NotGiven = NOT_GIVEN,
         error_reason: str | NotGiven = NOT_GIVEN,
         input_token_cost: float | NotGiven = NOT_GIVEN,
         mediation_latency: int | NotGiven = NOT_GIVEN,
-        middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
@@ -342,7 +335,10 @@ class AsyncAIResource(AsyncAPIResource):
         product_id: str | NotGiven = NOT_GIVEN,
         reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
-        subscriber: ai_create_completion_params.Subscriber | NotGiven = NOT_GIVEN,
+        subscriber_credential: str | NotGiven = NOT_GIVEN,
+        subscriber_credential_name: str | NotGiven = NOT_GIVEN,
+        subscriber_email: str | NotGiven = NOT_GIVEN,
+        subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
         system_fingerprint: str | NotGiven = NOT_GIVEN,
         task_type: str | NotGiven = NOT_GIVEN,
@@ -399,15 +395,7 @@ class AsyncAIResource(AsyncAPIResource):
 
           agent: The AI agent that is making the request
 
-          cache_creation_token_cost: The cache creation token cost associated with the LLM completion. Note that if
-              you send a valuefor this parameter in your request, it will override Revenium's
-              automatic calculation of tokencost by AI model.
-
           cache_creation_token_count: The number of cached creation tokens in the completion
-
-          cache_read_token_cost: The cache read token cost associated with the LLM completion. Note that if you
-              send a valuefor this parameter in your request, it will override Revenium's
-              automatic calculation of tokencost by AI model.
 
           cache_read_token_count: The number of cached read tokens in the completion
 
@@ -417,8 +405,6 @@ class AsyncAIResource(AsyncAPIResource):
 
           mediation_latency: The latency, in milliseconds, of latency by an AI or API gateway
 
-          middleware_source: The source middleware or SDK that generated this AI completion request
-
           model_source: The source of the AI model used for the completion
 
           operation_type: The type of operation performed
@@ -426,12 +412,9 @@ class AsyncAIResource(AsyncAPIResource):
           organization_id: Populate the ID of the subscriber’s organization from your system to allow
               Revenium to track usage & costs by company. i.e. AcmeCorp. If several
               subscriberIds have the same organizationId, Revenium’s reporting will show usage
-              for the entire organization broken down by subscriberId.
+              for the entire organization broken down by user.
 
-          output_token_cost: The output token cost associated with the LLM completion. Note that if you send
-              a valuefor this parameter in your request, it will override Revenium's automatic
-              calculation of tokencost by AI model. This option may not be available on all
-              Revenium plans.
+          output_token_cost: The output token cost associated with the LLM completion
 
           product_id: Identifier of the product from your own system that you wish to use to correlate
               usage between Revenium & your application.
@@ -440,7 +423,18 @@ class AsyncAIResource(AsyncAPIResource):
 
           response_quality_score: The quality score of the response
 
-          subscriber: The subscriber metadata
+          subscriber_credential: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users.
+
+          subscriber_credential_name: Populate the name of the subscriber credential from your system to allow
+              Revenium to track usage & costs for individual users.
+
+          subscriber_email: The email address of the subscriber
+
+          subscriber_id: Populate the ID of the subscriber from your system to allow Revenium to track
+              usage & costs for individual users. i.e. user-123. If several
+              subscriberCredentials have the same subscriberId, Revenium’s reporting will show
+              usage for the entire organization broken down by user.
 
           subscription_id: Unique identifier of the subscription from your own system that you wish to use
               to correlate usage between Revenium & your application.
@@ -457,9 +451,7 @@ class AsyncAIResource(AsyncAPIResource):
 
           time_to_first_token: The time to first token in milliseconds
 
-          total_cost: The total cost associated with the LLM completion. Note that if you send a
-              valuefor this parameter in your request, it will override Revenium's automatic
-              calculation of tokencost by AI model.
+          total_cost: The total cost associated with the LLM completion
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
@@ -509,14 +501,11 @@ class AsyncAIResource(AsyncAPIResource):
                     "total_token_count": total_token_count,
                     "transaction_id": transaction_id,
                     "agent": agent,
-                    "cache_creation_token_cost": cache_creation_token_cost,
                     "cache_creation_token_count": cache_creation_token_count,
-                    "cache_read_token_cost": cache_read_token_cost,
                     "cache_read_token_count": cache_read_token_count,
                     "error_reason": error_reason,
                     "input_token_cost": input_token_cost,
                     "mediation_latency": mediation_latency,
-                    "middleware_source": middleware_source,
                     "model_source": model_source,
                     "operation_type": operation_type,
                     "organization_id": organization_id,
@@ -524,7 +513,10 @@ class AsyncAIResource(AsyncAPIResource):
                     "product_id": product_id,
                     "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
-                    "subscriber": subscriber,
+                    "subscriber_credential": subscriber_credential,
+                    "subscriber_credential_name": subscriber_credential_name,
+                    "subscriber_email": subscriber_email,
+                    "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
                     "system_fingerprint": system_fingerprint,
                     "task_type": task_type,
