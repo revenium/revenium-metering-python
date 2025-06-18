@@ -6,7 +6,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["AICreateCompletionParams"]
+__all__ = ["AICreateCompletionParams", "Subscriber", "SubscriberCredential"]
 
 
 class AICreateCompletionParams(TypedDict, total=False):
@@ -45,7 +45,9 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     stop_reason: Required[
         Annotated[
-            Literal["END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR"],
+            Literal[
+                "END", "END_SEQUENCE", "TIMEOUT", "TOKEN_LIMIT", "COST_LIMIT", "COMPLETION_LIMIT", "ERROR", "CANCELLED"
+            ],
             PropertyInfo(alias="stopReason"),
         ]
     ]
@@ -60,8 +62,22 @@ class AICreateCompletionParams(TypedDict, total=False):
     agent: str
     """The AI agent that is making the request"""
 
+    cache_creation_token_cost: Annotated[float, PropertyInfo(alias="cacheCreationTokenCost")]
+    """The cache creation token cost associated with the LLM completion.
+
+    Note that if you send a valuefor this parameter in your request, it will
+    override Revenium's automatic calculation of tokencost by AI model.
+    """
+
     cache_creation_token_count: Annotated[int, PropertyInfo(alias="cacheCreationTokenCount")]
     """The number of cached creation tokens in the completion"""
+
+    cache_read_token_cost: Annotated[float, PropertyInfo(alias="cacheReadTokenCost")]
+    """The cache read token cost associated with the LLM completion.
+
+    Note that if you send a valuefor this parameter in your request, it will
+    override Revenium's automatic calculation of tokencost by AI model.
+    """
 
     cache_read_token_count: Annotated[int, PropertyInfo(alias="cacheReadTokenCount")]
     """The number of cached read tokens in the completion"""
@@ -74,6 +90,9 @@ class AICreateCompletionParams(TypedDict, total=False):
 
     mediation_latency: Annotated[int, PropertyInfo(alias="mediationLatency")]
     """The latency, in milliseconds, of latency by an AI or API gateway"""
+
+    middleware_source: Annotated[str, PropertyInfo(alias="middlewareSource")]
+    """The source middleware or SDK that generated this AI completion request"""
 
     model_source: Annotated[str, PropertyInfo(alias="modelSource")]
     """The source of the AI model used for the completion"""
@@ -89,11 +108,16 @@ class AICreateCompletionParams(TypedDict, total=False):
     Populate the ID of the subscriber’s organization from your system to allow
     Revenium to track usage & costs by company. i.e. AcmeCorp. If several
     subscriberIds have the same organizationId, Revenium’s reporting will show usage
-    for the entire organization broken down by user.
+    for the entire organization broken down by subscriberId.
     """
 
     output_token_cost: Annotated[float, PropertyInfo(alias="outputTokenCost")]
-    """The output token cost associated with the LLM completion"""
+    """The output token cost associated with the LLM completion.
+
+    Note that if you send a valuefor this parameter in your request, it will
+    override Revenium's automatic calculation of tokencost by AI model. This option
+    may not be available on all Revenium plans.
+    """
 
     product_id: Annotated[str, PropertyInfo(alias="productId")]
     """
@@ -107,28 +131,8 @@ class AICreateCompletionParams(TypedDict, total=False):
     response_quality_score: Annotated[float, PropertyInfo(alias="responseQualityScore")]
     """The quality score of the response"""
 
-    subscriber_credential: Annotated[str, PropertyInfo(alias="subscriberCredential")]
-    """
-    Populate the ID of the subscriber from your system to allow Revenium to track
-    usage & costs for individual users.
-    """
-
-    subscriber_credential_name: Annotated[str, PropertyInfo(alias="subscriberCredentialName")]
-    """
-    Populate the name of the subscriber credential from your system to allow
-    Revenium to track usage & costs for individual users.
-    """
-
-    subscriber_email: Annotated[str, PropertyInfo(alias="subscriberEmail")]
-    """The email address of the subscriber"""
-
-    subscriber_id: Annotated[str, PropertyInfo(alias="subscriberId")]
-    """
-    Populate the ID of the subscriber from your system to allow Revenium to track
-    usage & costs for individual users. i.e. user-123. If several
-    subscriberCredentials have the same subscriberId, Revenium’s reporting will show
-    usage for the entire organization broken down by user.
-    """
+    subscriber: Subscriber
+    """The subscriber metadata"""
 
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]
     """
@@ -157,7 +161,46 @@ class AICreateCompletionParams(TypedDict, total=False):
     """The time to first token in milliseconds"""
 
     total_cost: Annotated[float, PropertyInfo(alias="totalCost")]
-    """The total cost associated with the LLM completion"""
+    """The total cost associated with the LLM completion.
+
+    Note that if you send a valuefor this parameter in your request, it will
+    override Revenium's automatic calculation of tokencost by AI model.
+    """
 
     trace_id: Annotated[str, PropertyInfo(alias="traceId")]
     """Trace multiple LLM calls belonging to same overall request"""
+
+
+class SubscriberCredential(TypedDict, total=False):
+    name: str
+    """An alias for an API key used by one or more users.
+
+    Used to track cost & performance by individual API keys.
+    """
+
+    value: str
+    """The key value associated with the subscriber (most commonly an API key).
+
+    Used to track cost & performance by API key value (normally used when the only
+    identifier for a user is an API key).
+    """
+
+
+class Subscriber(TypedDict, total=False):
+    id: str
+    """
+    Track cost & performance by individual users (if customers are anonymous or
+    tracking by emails is not desired). If several subscriberIds are submitted with
+    the same organizationId, Revenium’s reporting will show usage for the entire
+    organization broken down by subscriberId.
+    """
+
+    credential: SubscriberCredential
+    """The credential used by the subscriber"""
+
+    email: str
+    """The email address of the subscriber.
+
+    Used to track cost & performance by individual users if customer e-mail
+    addresses are known.
+    """
