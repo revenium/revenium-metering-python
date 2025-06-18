@@ -23,9 +23,7 @@ from pydantic import ValidationError
 
 from revenium_metering import ReveniumMetering, AsyncReveniumMetering, APIResponseValidationError
 from revenium_metering._types import Omit
-from revenium_metering._utils import maybe_transform
 from revenium_metering._models import BaseModel, FinalRequestOptions
-from revenium_metering._constants import RAW_RESPONSE_HEADER
 from revenium_metering._exceptions import (
     APIStatusError,
     APITimeoutError,
@@ -40,7 +38,6 @@ from revenium_metering._base_client import (
     DefaultAsyncHttpxClient,
     make_request_options,
 )
-from revenium_metering.types.ai_create_completion_params import AICreateCompletionParams
 
 from .utils import update_env
 
@@ -730,72 +727,49 @@ class TestReveniumMetering:
 
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: ReveniumMetering) -> None:
         respx_mock.post("/v2/ai/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/v2/ai/completions",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            completion_start_time="2025-03-02T15:04:05Z",
-                            cost_type="AI",
-                            input_token_count=50,
-                            is_streamed=False,
-                            model="gpt4",
-                            output_token_count=150,
-                            provider="OpenAI",
-                            request_duration=1000,
-                            request_time="2025-03-02T15:04:05Z",
-                            response_time="2025-03-02T15:04:06Z",
-                            stop_reason="END",
-                            total_token_count=200,
-                            transaction_id="123e4567-e89b-12d3-a456-426614174000",
-                        ),
-                        AICreateCompletionParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            client.ai.with_streaming_response.create_completion(
+                completion_start_time="2025-03-02T15:04:05Z",
+                cost_type="AI",
+                input_token_count=50,
+                is_streamed=False,
+                model="gpt4",
+                output_token_count=150,
+                provider="OpenAI",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
+                stop_reason="END",
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
+            ).__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: ReveniumMetering) -> None:
         respx_mock.post("/v2/ai/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/v2/ai/completions",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            completion_start_time="2025-03-02T15:04:05Z",
-                            cost_type="AI",
-                            input_token_count=50,
-                            is_streamed=False,
-                            model="gpt4",
-                            output_token_count=150,
-                            provider="OpenAI",
-                            request_duration=1000,
-                            request_time="2025-03-02T15:04:05Z",
-                            response_time="2025-03-02T15:04:06Z",
-                            stop_reason="END",
-                            total_token_count=200,
-                            transaction_id="123e4567-e89b-12d3-a456-426614174000",
-                        ),
-                        AICreateCompletionParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            client.ai.with_streaming_response.create_completion(
+                completion_start_time="2025-03-02T15:04:05Z",
+                cost_type="AI",
+                input_token_count=50,
+                is_streamed=False,
+                model="gpt4",
+                output_token_count=150,
+                provider="OpenAI",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
+                stop_reason="END",
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
+            ).__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1639,72 +1613,53 @@ class TestAsyncReveniumMetering:
 
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncReveniumMetering
+    ) -> None:
         respx_mock.post("/v2/ai/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/v2/ai/completions",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            completion_start_time="2025-03-02T15:04:05Z",
-                            cost_type="AI",
-                            input_token_count=50,
-                            is_streamed=False,
-                            model="gpt4",
-                            output_token_count=150,
-                            provider="OpenAI",
-                            request_duration=1000,
-                            request_time="2025-03-02T15:04:05Z",
-                            response_time="2025-03-02T15:04:06Z",
-                            stop_reason="END",
-                            total_token_count=200,
-                            transaction_id="123e4567-e89b-12d3-a456-426614174000",
-                        ),
-                        AICreateCompletionParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            await async_client.ai.with_streaming_response.create_completion(
+                completion_start_time="2025-03-02T15:04:05Z",
+                cost_type="AI",
+                input_token_count=50,
+                is_streamed=False,
+                model="gpt4",
+                output_token_count=150,
+                provider="OpenAI",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
+                stop_reason="END",
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
+            ).__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("revenium_metering._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_status_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncReveniumMetering
+    ) -> None:
         respx_mock.post("/v2/ai/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/v2/ai/completions",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(
-                            completion_start_time="2025-03-02T15:04:05Z",
-                            cost_type="AI",
-                            input_token_count=50,
-                            is_streamed=False,
-                            model="gpt4",
-                            output_token_count=150,
-                            provider="OpenAI",
-                            request_duration=1000,
-                            request_time="2025-03-02T15:04:05Z",
-                            response_time="2025-03-02T15:04:06Z",
-                            stop_reason="END",
-                            total_token_count=200,
-                            transaction_id="123e4567-e89b-12d3-a456-426614174000",
-                        ),
-                        AICreateCompletionParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            await async_client.ai.with_streaming_response.create_completion(
+                completion_start_time="2025-03-02T15:04:05Z",
+                cost_type="AI",
+                input_token_count=50,
+                is_streamed=False,
+                model="gpt4",
+                output_token_count=150,
+                provider="OpenAI",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
+                stop_reason="END",
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
+            ).__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
