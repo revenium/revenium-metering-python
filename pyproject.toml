@@ -3,7 +3,7 @@ name = "revenium_metering"
 version = "6.2.0"
 description = "The official Python library for the revenium-metering API"
 dynamic = ["readme"]
-license = "Apache-2.0"
+license = "MIT"
 authors = [
 { name = "Revenium Metering", email = "info@revenium.io" },
 ]
@@ -30,7 +30,7 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "Operating System :: Microsoft :: Windows",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License"
+  "License :: OSI Approved :: MIT License"
 ]
 
 [project.urls]
