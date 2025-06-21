@@ -1,5 +1,24 @@
 # Changelog
 
+## 6.5.0 (2025-06-21)
+
+Full Changelog: [v6.4.0...v6.5.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.5.0)
+
+### Features
+
+* **api:** api update ([ec2a261](https://github.com/revenium/revenium-metering-python/commit/ec2a261849a0e04229961797431b835ab4111217))
+* **client:** add support for aiohttp ([cf19fab](https://github.com/revenium/revenium-metering-python/commit/cf19fab1032a40c1bef71d16412eeb85d7f7bd5e))
+
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([b6c435d](https://github.com/revenium/revenium-metering-python/commit/b6c435d5a8639cd7af216ced77c566a41d9c07b0))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([bc1aa5a](https://github.com/revenium/revenium-metering-python/commit/bc1aa5abe5b1f2d84a239eaf59da6348210a126c))
+
 ## 6.4.0 (2025-06-18)
 
 Full Changelog: [v6.3.0...v6.4.0](https://github.com/revenium/revenium-metering-python/compare/v6.3.0...v6.4.0)

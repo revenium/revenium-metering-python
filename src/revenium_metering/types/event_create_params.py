@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Dict
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -11,7 +10,7 @@ __all__ = ["EventCreateParams"]
 
 
 class EventCreateParams(TypedDict, total=False):
-    payload: Required[Dict[str, object]]
+    payload: Required[str]
     """The rating payload as a JSON object.
 
     For example, if you are sending key value pairs of 'requestTokens' and
@@ -55,5 +54,5 @@ class EventCreateParams(TypedDict, total=False):
     source_id: Annotated[str, PropertyInfo(alias="sourceId")]
     """the sourceId"""
 
-    subscriber_credential: Annotated[str, PropertyInfo(alias="subscriberCredential")]
+    subscriber_credential_id: Annotated[str, PropertyInfo(alias="subscriberCredentialId")]
     """The unique identifier of the credential"""
