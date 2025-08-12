@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestEvents:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: ReveniumMetering) -> None:
         event = client.events.create(
@@ -27,7 +27,7 @@ class TestEvents:
         )
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: ReveniumMetering) -> None:
         event = client.events.create(
@@ -39,7 +39,7 @@ class TestEvents:
         )
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: ReveniumMetering) -> None:
         response = client.events.with_raw_response.create(
@@ -53,7 +53,7 @@ class TestEvents:
         event = response.parse()
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: ReveniumMetering) -> None:
         with client.events.with_streaming_response.create(
@@ -75,7 +75,7 @@ class TestAsyncEvents:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncReveniumMetering) -> None:
         event = await async_client.events.create(
@@ -85,7 +85,7 @@ class TestAsyncEvents:
         )
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
         event = await async_client.events.create(
@@ -97,7 +97,7 @@ class TestAsyncEvents:
         )
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncReveniumMetering) -> None:
         response = await async_client.events.with_raw_response.create(
@@ -111,7 +111,7 @@ class TestAsyncEvents:
         event = await response.parse()
         assert_matches_type(MeteringResponseResource, event, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncReveniumMetering) -> None:
         async with async_client.events.with_streaming_response.create(

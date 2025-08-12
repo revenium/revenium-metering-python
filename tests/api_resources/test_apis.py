@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAPIs:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_meter_request(self, client: ReveniumMetering) -> None:
         api = client.apis.meter_request(
@@ -25,7 +25,7 @@ class TestAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_meter_request_with_all_params(self, client: ReveniumMetering) -> None:
         api = client.apis.meter_request(
@@ -42,7 +42,7 @@ class TestAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_meter_request(self, client: ReveniumMetering) -> None:
         response = client.apis.with_raw_response.meter_request(
@@ -54,7 +54,7 @@ class TestAPIs:
         api = response.parse()
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_meter_request(self, client: ReveniumMetering) -> None:
         with client.apis.with_streaming_response.meter_request(
@@ -68,7 +68,7 @@ class TestAPIs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_meter_response(self, client: ReveniumMetering) -> None:
         api = client.apis.meter_response(
@@ -77,7 +77,7 @@ class TestAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_meter_response_with_all_params(self, client: ReveniumMetering) -> None:
         api = client.apis.meter_response(
@@ -91,7 +91,7 @@ class TestAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_meter_response(self, client: ReveniumMetering) -> None:
         response = client.apis.with_raw_response.meter_response(
@@ -104,7 +104,7 @@ class TestAPIs:
         api = response.parse()
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_meter_response(self, client: ReveniumMetering) -> None:
         with client.apis.with_streaming_response.meter_response(
@@ -125,7 +125,7 @@ class TestAsyncAPIs:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_meter_request(self, async_client: AsyncReveniumMetering) -> None:
         api = await async_client.apis.meter_request(
@@ -133,7 +133,7 @@ class TestAsyncAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_meter_request_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
         api = await async_client.apis.meter_request(
@@ -150,7 +150,7 @@ class TestAsyncAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_meter_request(self, async_client: AsyncReveniumMetering) -> None:
         response = await async_client.apis.with_raw_response.meter_request(
@@ -162,7 +162,7 @@ class TestAsyncAPIs:
         api = await response.parse()
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_meter_request(self, async_client: AsyncReveniumMetering) -> None:
         async with async_client.apis.with_streaming_response.meter_request(
@@ -176,7 +176,7 @@ class TestAsyncAPIs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_meter_response(self, async_client: AsyncReveniumMetering) -> None:
         api = await async_client.apis.meter_response(
@@ -185,7 +185,7 @@ class TestAsyncAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_meter_response_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
         api = await async_client.apis.meter_response(
@@ -199,7 +199,7 @@ class TestAsyncAPIs:
         )
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_meter_response(self, async_client: AsyncReveniumMetering) -> None:
         response = await async_client.apis.with_raw_response.meter_response(
@@ -212,7 +212,7 @@ class TestAsyncAPIs:
         api = await response.parse()
         assert_matches_type(MeteringResponseResource, api, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_meter_response(self, async_client: AsyncReveniumMetering) -> None:
         async with async_client.apis.with_streaming_response.meter_response(
