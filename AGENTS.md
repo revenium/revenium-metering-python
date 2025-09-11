@@ -76,11 +76,8 @@ pytest -v
 Required environment variables:
 ```bash
 REVENIUM_METERING_API_KEY=your-revenium-key
-OPENAI_API_KEY=your-openai-key  # or provider-specific key
-# For Azure OpenAI:
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-AZURE_OPENAI_API_KEY=your-azure-key
-AZURE_OPENAI_DEPLOYMENT=your-deployment-name
+# Optional: For running tests
+REVENIUM_METERING_BASE_URL=https://api.revenium.io/meter
 ```
 
 ## Pull Request Guidelines
