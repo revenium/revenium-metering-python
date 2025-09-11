@@ -1,106 +1,107 @@
 # AI Development Guide
 
 ## Project Overview
-Java/JVM SDK for direct access to Revenium's metering API. Provides comprehensive usage tracking for API calls, compute usage, database queries, and custom metrics with usage-based pricing integration.
+Python middleware library for metering and monitoring AI provider API usage. Provides precise usage tracking with seamless integration and flexible configuration.
 
 ## Development Environment Setup
 
-### Prerequisites  
-- Java 8+ (Java 11+ recommended)
-- Maven 3.6+ or Gradle 6+
-- IDE with Java support (IntelliJ IDEA, Eclipse, VS Code)
+### Prerequisites
+- Python 3.8+
+- pip
+- Virtual environment (recommended)
 
 ### Installation
+```bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-#### Maven
-```xml
-<dependency>
-    <groupId>io.revenium.metering</groupId>
-    <artifactId>revenium-metering-sdk</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
+# Install in development mode
+pip install -e .
 
-#### Gradle
-```groovy
-implementation 'io.revenium.metering:revenium-metering-sdk:1.0.0'
+# Install development dependencies
+pip install -e .[dev]
 ```
 
 ## Development Commands
 
 ```bash
-# Maven
-mvn clean compile    # Compile sources
-mvn test            # Run tests
-mvn package         # Build JAR
-mvn clean install   # Install to local repository
+# Install package in development mode
+pip install -e .
 
-# Gradle  
-gradle clean build  # Clean and build
-gradle test         # Run tests
-gradle jar          # Build JAR
-gradle publishToMavenLocal  # Publish to local repository
+# Install with development dependencies
+pip install -e .[dev]
+
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov
+
+# Code formatting
+black .
+
+# Linting
+flake8
+
+# Type checking  
+mypy .
+
+# Build package
+python -m build
 ```
 
 ## Code Style Guidelines
-- **Java Version**: Target Java 8 compatibility, use Java 11+ features when appropriate
-- **Formatting**: Follow Google Java Style Guide or Oracle conventions
-- **Documentation**: Use JavaDoc for all public methods and classes
-- **Null Safety**: Prefer Optional<T> for nullable return values
+- **Formatting**: Black with default settings (88 characters)
+- **Linting**: flake8 for style enforcement
+- **Type Hints**: mypy for static type checking, prefer explicit types
+- **Imports**: Follow PEP 8, group imports (standard, third-party, local)
 
 ## Testing & Validation
 ```bash
-# Maven
-mvn test                    # Run all tests
-mvn test -Dtest=ClassName   # Run specific test class
-mvn jacoco:report          # Generate code coverage
+# Run full test suite
+pytest
 
-# Gradle
-gradle test                 # Run all tests  
-gradle test --tests ClassName  # Run specific test
-gradle jacocoTestReport    # Generate coverage report
+# Run with coverage report
+pytest --cov --cov-report=html
+
+# Test specific module
+pytest tests/test_middleware.py
+
+# Run tests with verbose output
+pytest -v
 ```
 
 ## Environment Setup
 Required environment variables:
 ```bash
-REVENIUM_API_KEY=your-revenium-api-key
-REVENIUM_BASE_URL=https://api.revenium.io/meter/v1/api  # Optional: defaults to this URL
-```
-
-## Spring Boot Integration
-```java
-@Configuration
-public class MeteringConfig {
-    @Bean
-    public DefaultApi meteringApi() {
-        ApiClient client = new ApiClient();
-        client.setBasePath("https://api.revenium.io/meter/v1/api");
-        client.setApiKey(System.getenv("REVENIUM_API_KEY"));
-        return new DefaultApi(client);
-    }
-}
+REVENIUM_METERING_API_KEY=your-revenium-key
+OPENAI_API_KEY=your-openai-key  # or provider-specific key
+# For Azure OpenAI:
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your-azure-key
+AZURE_OPENAI_DEPLOYMENT=your-deployment-name
 ```
 
 ## Pull Request Guidelines
-- Include comprehensive JavaDoc for public APIs
-- Add unit tests with good coverage (aim for >80%)
-- Follow established coding patterns and conventions
-- Ensure compatibility with Java 8+
-- Include integration examples for new features
+- Include type hints for all new functions and methods
+- Add tests with good coverage for new functionality
+- Follow PEP 8 style guidelines
+- Update documentation for API changes
+- Ensure compatibility with Python 3.8+
 
 ## Security Notes
 - Never log API keys or credentials in code
-- Use environment variables or secure configuration for sensitive data
-- Ensure no PII is sent unless explicitly required for billing
-- Always handle API exceptions gracefully
+- Ensure no PII is sent unless explicitly configured for billing
+- Always fail gracefully - never break the underlying API calls
+- Use environment variables for all sensitive configuration
 
 ## Common Issues
-1. **ClassNotFoundException**: Ensure dependency is properly added to build file
-2. **Authentication errors**: Verify REVENIUM_API_KEY environment variable
-3. **Build failures**: Check Java version compatibility (8+)
+1. **Import errors**: Ensure package installed with `pip install -e .`
+2. **Missing dependencies**: Install dev dependencies with `pip install -e .[dev]`
+3. **Test failures**: Check environment variables are set correctly
 
 ## Questions?
 - Check README.md for complete installation and usage examples
-- Review JavaDoc documentation for API details
+- Run pytest with -v flag for detailed test output
 - Email support@revenium.io for questions
