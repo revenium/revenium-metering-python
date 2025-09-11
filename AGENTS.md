@@ -1,48 +1,107 @@
 # AI Development Guide
 
 ## Project Overview
-This is a middleware library that automatically meters and monitors API usage, sending usage data to Revenium for billing and analytics.
+Python middleware library for metering and monitoring AI provider API usage. Provides precise usage tracking with seamless integration and flexible configuration.
+
+## Development Environment Setup
+
+### Prerequisites
+- Python 3.8+
+- pip
+- Virtual environment (recommended)
+
+### Installation
+```bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install in development mode
+pip install -e .
+
+# Install development dependencies
+pip install -e .[dev]
+```
 
 ## Development Commands
 
 ```bash
-# Install dependencies
-npm install
+# Install package in development mode
+pip install -e .
 
-# Run tests  
-npm test
+# Install with development dependencies
+pip install -e .[dev]
 
-# Build the project
-npm run build
+# Run tests
+pytest
 
-# Lint code
-npm run lint
+# Run tests with coverage
+pytest --cov
 
-# Type check (TypeScript projects)
-npm run typecheck
+# Code formatting
+black .
+
+# Linting
+flake8
+
+# Type checking  
+mypy .
+
+# Build package
+python -m build
 ```
 
-## Key Patterns
+## Code Style Guidelines
+- **Formatting**: Black with default settings (88 characters)
+- **Linting**: flake8 for style enforcement
+- **Type Hints**: mypy for static type checking, prefer explicit types
+- **Imports**: Follow PEP 8, group imports (standard, third-party, local)
 
-### Basic Usage
-See README.md for complete installation and usage examples.
+## Testing & Validation
+```bash
+# Run full test suite
+pytest
 
-### Testing
-- Mock external API calls in tests
-- Test both success and error scenarios
-- Validate that middleware doesn't break underlying API calls
+# Run with coverage report
+pytest --cov --cov-report=html
+
+# Test specific module
+pytest tests/test_middleware.py
+
+# Run tests with verbose output
+pytest -v
+```
+
+## Environment Setup
+Required environment variables:
+```bash
+REVENIUM_METERING_API_KEY=your-revenium-key
+OPENAI_API_KEY=your-openai-key  # or provider-specific key
+# For Azure OpenAI:
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your-azure-key
+AZURE_OPENAI_DEPLOYMENT=your-deployment-name
+```
+
+## Pull Request Guidelines
+- Include type hints for all new functions and methods
+- Add tests with good coverage for new functionality
+- Follow PEP 8 style guidelines
+- Update documentation for API changes
+- Ensure compatibility with Python 3.8+
 
 ## Security Notes
-- Never log API keys or credentials
+- Never log API keys or credentials in code
 - Ensure no PII is sent unless explicitly configured for billing
 - Always fail gracefully - never break the underlying API calls
+- Use environment variables for all sensitive configuration
 
 ## Common Issues
-1. **No metering data**: Check environment variables and API keys
-2. **Build/test errors**: Ensure dependencies are installed
-3. **TypeScript errors**: Check imports and type definitions
+1. **Import errors**: Ensure package installed with `pip install -e .`
+2. **Missing dependencies**: Install dev dependencies with `pip install -e .[dev]`
+3. **Test failures**: Check environment variables are set correctly
 
 ## Questions?
-- Check the README.md for detailed usage examples
-- Open an issue for bugs or feature requests  
+- Check README.md for complete installation and usage examples
+- Run pytest with -v flag for detailed test output
 - Email support@revenium.io for questions
