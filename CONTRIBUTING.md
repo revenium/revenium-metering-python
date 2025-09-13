@@ -126,3 +126,7 @@ You can release to package managers by using [the `Publish PyPI` GitHub action](
 
 If you need to manually release a package, you can run the `bin/publish-pypi` script with a `PYPI_TOKEN` set on
 the environment.
+
+## Support
+
+For questions or issues, contact support@revenium.io
