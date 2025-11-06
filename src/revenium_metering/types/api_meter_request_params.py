@@ -22,7 +22,14 @@ class APIMeterRequestParams(TypedDict, total=False):
     """The content type of the request"""
 
     credential: str
-    """The unique identifier of the credential"""
+    """The credential used to access the API (e.g., API key, OAuth token, or key
+    alias).
+
+    This identifier maps the API transaction to a specific subscriber and their
+    associated subscription/product for proper usage tracking and billing. Visible
+    on the subscriber credentials page in the Revenium platform. Credentials can be
+    API keys or key aliases depending on your system architecture.
+    """
 
     method: Literal["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
     """The HTTP method of the request"""

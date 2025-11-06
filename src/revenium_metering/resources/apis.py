@@ -7,7 +7,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import api_meter_request_params, api_meter_response_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -47,13 +47,13 @@ class APIsResource(SyncAPIResource):
         self,
         *,
         transaction_id: str,
-        content_type: str | NotGiven = NOT_GIVEN,
-        credential: str | NotGiven = NOT_GIVEN,
-        method: Literal["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"] | NotGiven = NOT_GIVEN,
-        remote_host: str | NotGiven = NOT_GIVEN,
-        request_message_size: int | NotGiven = NOT_GIVEN,
-        resource: str | NotGiven = NOT_GIVEN,
-        source_id: str | NotGiven = NOT_GIVEN,
+        content_type: str | Omit = omit,
+        credential: str | Omit = omit,
+        method: Literal["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"] | Omit = omit,
+        remote_host: str | Omit = omit,
+        request_message_size: int | Omit = omit,
+        resource: str | Omit = omit,
+        source_id: str | Omit = omit,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -75,14 +75,14 @@ class APIsResource(SyncAPIResource):
             "REVENIUM",
             "INTERNAL",
         ]
-        | NotGiven = NOT_GIVEN,
-        user_agent: str | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        user_agent: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
         """
         Meter an API request
@@ -95,7 +95,11 @@ class APIsResource(SyncAPIResource):
 
           content_type: The content type of the request
 
-          credential: The unique identifier of the credential
+          credential: The credential used to access the API (e.g., API key, OAuth token, or key
+              alias). This identifier maps the API transaction to a specific subscriber and
+              their associated subscription/product for proper usage tracking and billing.
+              Visible on the subscriber credentials page in the Revenium platform. Credentials
+              can be API keys or key aliases depending on your system architecture.
 
           method: The HTTP method of the request
 
@@ -155,17 +159,17 @@ class APIsResource(SyncAPIResource):
         *,
         response_code: int,
         transaction_id: str,
-        backend_latency: float | NotGiven = NOT_GIVEN,
-        content_type: str | NotGiven = NOT_GIVEN,
-        gateway_latency: float | NotGiven = NOT_GIVEN,
-        response_message_size: int | NotGiven = NOT_GIVEN,
-        total_duration: int | NotGiven = NOT_GIVEN,
+        backend_latency: float | Omit = omit,
+        content_type: str | Omit = omit,
+        gateway_latency: float | Omit = omit,
+        response_message_size: int | Omit = omit,
+        total_duration: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
         """
         Meter an API response
@@ -241,13 +245,13 @@ class AsyncAPIsResource(AsyncAPIResource):
         self,
         *,
         transaction_id: str,
-        content_type: str | NotGiven = NOT_GIVEN,
-        credential: str | NotGiven = NOT_GIVEN,
-        method: Literal["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"] | NotGiven = NOT_GIVEN,
-        remote_host: str | NotGiven = NOT_GIVEN,
-        request_message_size: int | NotGiven = NOT_GIVEN,
-        resource: str | NotGiven = NOT_GIVEN,
-        source_id: str | NotGiven = NOT_GIVEN,
+        content_type: str | Omit = omit,
+        credential: str | Omit = omit,
+        method: Literal["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"] | Omit = omit,
+        remote_host: str | Omit = omit,
+        request_message_size: int | Omit = omit,
+        resource: str | Omit = omit,
+        source_id: str | Omit = omit,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -269,14 +273,14 @@ class AsyncAPIsResource(AsyncAPIResource):
             "REVENIUM",
             "INTERNAL",
         ]
-        | NotGiven = NOT_GIVEN,
-        user_agent: str | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        user_agent: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
         """
         Meter an API request
@@ -289,7 +293,11 @@ class AsyncAPIsResource(AsyncAPIResource):
 
           content_type: The content type of the request
 
-          credential: The unique identifier of the credential
+          credential: The credential used to access the API (e.g., API key, OAuth token, or key
+              alias). This identifier maps the API transaction to a specific subscriber and
+              their associated subscription/product for proper usage tracking and billing.
+              Visible on the subscriber credentials page in the Revenium platform. Credentials
+              can be API keys or key aliases depending on your system architecture.
 
           method: The HTTP method of the request
 
@@ -349,17 +357,17 @@ class AsyncAPIsResource(AsyncAPIResource):
         *,
         response_code: int,
         transaction_id: str,
-        backend_latency: float | NotGiven = NOT_GIVEN,
-        content_type: str | NotGiven = NOT_GIVEN,
-        gateway_latency: float | NotGiven = NOT_GIVEN,
-        response_message_size: int | NotGiven = NOT_GIVEN,
-        total_duration: int | NotGiven = NOT_GIVEN,
+        backend_latency: float | Omit = omit,
+        content_type: str | Omit = omit,
+        gateway_latency: float | Omit = omit,
+        response_message_size: int | Omit = omit,
+        total_duration: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
         """
         Meter an API response
