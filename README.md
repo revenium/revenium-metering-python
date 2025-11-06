@@ -33,19 +33,18 @@ client = ReveniumMetering(
 )
 
 metering_response_resource = client.ai.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
+    completion_start_time="2025-10-17T17:35:00Z",
     cost_type="AI",
-    input_token_count=50,
+    input_token_count=100,
     is_streamed=False,
-    model="gpt4",
+    model="gpt-4",
     output_token_count=150,
     provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
     stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
+    total_token_count=250,
 )
 print(metering_response_resource.id)
 ```
@@ -71,19 +70,18 @@ client = AsyncReveniumMetering(
 
 async def main() -> None:
     metering_response_resource = await client.ai.create_completion(
-        completion_start_time="2025-03-02T15:04:05Z",
+        completion_start_time="2025-10-17T17:35:00Z",
         cost_type="AI",
-        input_token_count=50,
+        input_token_count=100,
         is_streamed=False,
-        model="gpt4",
+        model="gpt-4",
         output_token_count=150,
         provider="OpenAI",
-        request_duration=1000,
-        request_time="2025-03-02T15:04:05Z",
-        response_time="2025-03-02T15:04:06Z",
+        request_duration=2000,
+        request_time="2025-10-17T17:35:00Z",
+        response_time="2025-10-17T17:35:02Z",
         stop_reason="END",
-        total_token_count=200,
-        transaction_id="123e4567-e89b-12d3-a456-426614174000",
+        total_token_count=250,
     )
     print(metering_response_resource.id)
 
@@ -118,19 +116,18 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         metering_response_resource = await client.ai.create_completion(
-            completion_start_time="2025-03-02T15:04:05Z",
+            completion_start_time="2025-10-17T17:35:00Z",
             cost_type="AI",
-            input_token_count=50,
+            input_token_count=100,
             is_streamed=False,
-            model="gpt4",
+            model="gpt-4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=1000,
-            request_time="2025-03-02T15:04:05Z",
-            response_time="2025-03-02T15:04:06Z",
+            request_duration=2000,
+            request_time="2025-10-17T17:35:00Z",
+            response_time="2025-10-17T17:35:02Z",
             stop_reason="END",
-            total_token_count=200,
-            transaction_id="123e4567-e89b-12d3-a456-426614174000",
+            total_token_count=250,
         )
         print(metering_response_resource.id)
 
@@ -146,6 +143,33 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from revenium_metering import ReveniumMetering
+
+client = ReveniumMetering()
+
+metering_response_resource = client.ai.create_completion(
+    completion_start_time="2025-10-17T17:35:00Z",
+    cost_type="AI",
+    input_token_count=100,
+    is_streamed=False,
+    model="gpt-4",
+    output_token_count=150,
+    provider="OpenAI",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
+    stop_reason="END",
+    total_token_count=250,
+    subscriber={},
+)
+print(metering_response_resource.subscriber)
+```
 
 ## Handling errors
 
@@ -164,19 +188,18 @@ client = ReveniumMetering()
 
 try:
     client.ai.create_completion(
-        completion_start_time="2025-03-02T15:04:05Z",
+        completion_start_time="2025-10-17T17:35:00Z",
         cost_type="AI",
-        input_token_count=50,
+        input_token_count=100,
         is_streamed=False,
-        model="gpt4",
+        model="gpt-4",
         output_token_count=150,
         provider="OpenAI",
-        request_duration=1000,
-        request_time="2025-03-02T15:04:05Z",
-        response_time="2025-03-02T15:04:06Z",
+        request_duration=2000,
+        request_time="2025-10-17T17:35:00Z",
+        response_time="2025-10-17T17:35:02Z",
         stop_reason="END",
-        total_token_count=200,
-        transaction_id="123e4567-e89b-12d3-a456-426614174000",
+        total_token_count=250,
     )
 except revenium_metering.APIConnectionError as e:
     print("The server could not be reached")
@@ -221,19 +244,18 @@ client = ReveniumMetering(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).ai.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
+    completion_start_time="2025-10-17T17:35:00Z",
     cost_type="AI",
-    input_token_count=50,
+    input_token_count=100,
     is_streamed=False,
-    model="gpt4",
+    model="gpt-4",
     output_token_count=150,
     provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
     stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
+    total_token_count=250,
 )
 ```
 
@@ -258,19 +280,18 @@ client = ReveniumMetering(
 
 # Override per-request:
 client.with_options(timeout=5.0).ai.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
+    completion_start_time="2025-10-17T17:35:00Z",
     cost_type="AI",
-    input_token_count=50,
+    input_token_count=100,
     is_streamed=False,
-    model="gpt4",
+    model="gpt-4",
     output_token_count=150,
     provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
     stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
+    total_token_count=250,
 )
 ```
 
@@ -313,19 +334,18 @@ from revenium_metering import ReveniumMetering
 
 client = ReveniumMetering()
 response = client.ai.with_raw_response.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
+    completion_start_time="2025-10-17T17:35:00Z",
     cost_type="AI",
-    input_token_count=50,
+    input_token_count=100,
     is_streamed=False,
-    model="gpt4",
+    model="gpt-4",
     output_token_count=150,
     provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
     stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
+    total_token_count=250,
 )
 print(response.headers.get('X-My-Header'))
 
@@ -345,19 +365,18 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.ai.with_streaming_response.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
+    completion_start_time="2025-10-17T17:35:00Z",
     cost_type="AI",
-    input_token_count=50,
+    input_token_count=100,
     is_streamed=False,
-    model="gpt4",
+    model="gpt-4",
     output_token_count=150,
     provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
+    request_duration=2000,
+    request_time="2025-10-17T17:35:00Z",
+    response_time="2025-10-17T17:35:02Z",
     stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
+    total_token_count=250,
 ) as response:
     print(response.headers.get("X-My-Header"))
 

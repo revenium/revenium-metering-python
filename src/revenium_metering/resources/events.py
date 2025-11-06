@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import event_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -46,7 +47,9 @@ class EventsResource(SyncAPIResource):
     def create(
         self,
         *,
-        payload: str,
+        payload: Dict[str, object],
+        transaction_id: str,
+        source_id: str | Omit = omit,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -67,35 +70,53 @@ class EventsResource(SyncAPIResource):
             "BOOMI",
             "REVENIUM",
             "INTERNAL",
-        ],
-        transaction_id: str,
-        source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_credential_id: str | NotGiven = NOT_GIVEN,
+        ]
+        | Omit = omit,
+        subscriber_credential: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
-        """Meter an event
+        """Submit a generic metering event with a flexible payload structure.
+
+        Use this
+        endpoint to meter custom events that you wish to track in Revenium. The payload
+        should contain any key-value pairs representing metrics to track or rate for
+        usage-based revenue calculation. The key values sent here will be created as
+        'metering elements' if they do not already exist, and rated according to pricing
+        definitions for the relevant metering element on a product if they do.
 
         Args:
-          payload: The rating payload as a JSON object.
-
-        For example, if you are sending key value
-              pairs of 'requestTokens' and 'responseTokens' with values of '1' and '2'
-              respectively, the payload would be { "requestTokens": "1", "responseTokens":
-              "2"}. If these keys do not already exist in Revenium, each key you send will be
+          payload: The rating payload as a JSON object containing key-value pairs representing
+              usage metrics to track. For example, a SaaS application might send: {
+              "storageGB": 15.5, "apiCalls": 1250, "computeMinutes": 480 }. If these keys do
+              not already exist in Revenium, each key you send will be automatically
               configured as a metering element on the relevant data source.
-
-          source_type: the source type
 
           transaction_id: The unique identifier of the metering event
 
-          source_id: the sourceId
+          source_id: Optional identifier for the source that represents the feature under which usage
+              charges should be tracked. In the events endpoint, sources typically represent
+              categories for billable units such as features, services, or resources (e.g.,
+              'storageCharges' or 'CpuCharges'). If you wish for the key value pairs you send
+              to be automatically applied to a source that is used in a product to calculate
+              usage-based revenue, you should specify the relevant sourceId here. Sources must
+              be pre-configured in the Revenium platform. The ID can be found on the sources
+              page or retrieved via the list sources endpoint.
 
-          subscriber_credential_id: The unique identifier of the credential
+          source_type: Specifies the originating SDK or gateway of the metered event traffic. This is
+              used for Revenium analytics only, and does not affect how Revenium processes and
+              categorizes incoming metrics. Optional - defaults to 'UNKNOWN' if not specified.
+
+          subscriber_credential: Optional unique identifier for the subscriber/customer associated with this
+              usage event. This credential maps the metered usage to a specific subscription
+              and its associated product pricing rules. Can be any unique identifier from your
+              system (customer ID, subscription ID, API key, etc.) that you've configured as a
+              subscriber credential in the Revenium platform. Visible on the subscriber
+              credentials page in Revenium.
 
           extra_headers: Send extra headers
 
@@ -110,10 +131,10 @@ class EventsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "payload": payload,
-                    "source_type": source_type,
                     "transaction_id": transaction_id,
                     "source_id": source_id,
-                    "subscriber_credential_id": subscriber_credential_id,
+                    "source_type": source_type,
+                    "subscriber_credential": subscriber_credential,
                 },
                 event_create_params.EventCreateParams,
             ),
@@ -147,7 +168,9 @@ class AsyncEventsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        payload: str,
+        payload: Dict[str, object],
+        transaction_id: str,
+        source_id: str | Omit = omit,
         source_type: Literal[
             "UNKNOWN",
             "AI",
@@ -168,35 +191,53 @@ class AsyncEventsResource(AsyncAPIResource):
             "BOOMI",
             "REVENIUM",
             "INTERNAL",
-        ],
-        transaction_id: str,
-        source_id: str | NotGiven = NOT_GIVEN,
-        subscriber_credential_id: str | NotGiven = NOT_GIVEN,
+        ]
+        | Omit = omit,
+        subscriber_credential: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MeteringResponseResource:
-        """Meter an event
+        """Submit a generic metering event with a flexible payload structure.
+
+        Use this
+        endpoint to meter custom events that you wish to track in Revenium. The payload
+        should contain any key-value pairs representing metrics to track or rate for
+        usage-based revenue calculation. The key values sent here will be created as
+        'metering elements' if they do not already exist, and rated according to pricing
+        definitions for the relevant metering element on a product if they do.
 
         Args:
-          payload: The rating payload as a JSON object.
-
-        For example, if you are sending key value
-              pairs of 'requestTokens' and 'responseTokens' with values of '1' and '2'
-              respectively, the payload would be { "requestTokens": "1", "responseTokens":
-              "2"}. If these keys do not already exist in Revenium, each key you send will be
+          payload: The rating payload as a JSON object containing key-value pairs representing
+              usage metrics to track. For example, a SaaS application might send: {
+              "storageGB": 15.5, "apiCalls": 1250, "computeMinutes": 480 }. If these keys do
+              not already exist in Revenium, each key you send will be automatically
               configured as a metering element on the relevant data source.
-
-          source_type: the source type
 
           transaction_id: The unique identifier of the metering event
 
-          source_id: the sourceId
+          source_id: Optional identifier for the source that represents the feature under which usage
+              charges should be tracked. In the events endpoint, sources typically represent
+              categories for billable units such as features, services, or resources (e.g.,
+              'storageCharges' or 'CpuCharges'). If you wish for the key value pairs you send
+              to be automatically applied to a source that is used in a product to calculate
+              usage-based revenue, you should specify the relevant sourceId here. Sources must
+              be pre-configured in the Revenium platform. The ID can be found on the sources
+              page or retrieved via the list sources endpoint.
 
-          subscriber_credential_id: The unique identifier of the credential
+          source_type: Specifies the originating SDK or gateway of the metered event traffic. This is
+              used for Revenium analytics only, and does not affect how Revenium processes and
+              categorizes incoming metrics. Optional - defaults to 'UNKNOWN' if not specified.
+
+          subscriber_credential: Optional unique identifier for the subscriber/customer associated with this
+              usage event. This credential maps the metered usage to a specific subscription
+              and its associated product pricing rules. Can be any unique identifier from your
+              system (customer ID, subscription ID, API key, etc.) that you've configured as a
+              subscriber credential in the Revenium platform. Visible on the subscriber
+              credentials page in Revenium.
 
           extra_headers: Send extra headers
 
@@ -211,10 +252,10 @@ class AsyncEventsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "payload": payload,
-                    "source_type": source_type,
                     "transaction_id": transaction_id,
                     "source_id": source_id,
-                    "subscriber_credential_id": subscriber_credential_id,
+                    "source_type": source_type,
+                    "subscriber_credential": subscriber_credential,
                 },
                 event_create_params.EventCreateParams,
             ),
