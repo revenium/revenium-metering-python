@@ -31,7 +31,7 @@ class TestAPIs:
         api = client.apis.meter_request(
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             content_type="application/json",
-            credential="sk_live_abc123def456",
+            credential="The credential used to access the API.  Visible on the subscriber credentials in page in the Revenium platform.",
             method="GET",
             remote_host="192.168.1.1",
             request_message_size=1024,
@@ -139,7 +139,7 @@ class TestAsyncAPIs:
         api = await async_client.apis.meter_request(
             transaction_id="123e4567-e89b-12d3-a456-426614174000",
             content_type="application/json",
-            credential="sk_live_abc123def456",
+            credential="The credential used to access the API.  Visible on the subscriber credentials in page in the Revenium platform.",
             method="GET",
             remote_host="192.168.1.1",
             request_message_size=1024,

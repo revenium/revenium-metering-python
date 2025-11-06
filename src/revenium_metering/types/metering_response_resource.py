@@ -32,18 +32,10 @@ class MeteringResponseResource(BaseModel):
     """Unique identifier for the metering response"""
 
     label: str
-    """
-    A descriptive label for the metering response, typically matching the
-    resourceType value
-    """
+    """A descriptive label for the metering response"""
 
-    resource_type: str = FieldInfo(alias="resourceType")
-    """Type of the metered object.
-
-    Varies by endpoint: 'metered-event' for AI completions, 'metered.api.request'
-    for API requests, 'metered.api.response' for API responses, 'meter.event' for
-    generic events.
-    """
+    object: str
+    """Type of the object, typically 'metering'"""
 
     signature: str
     """Signature used for validating the response data"""
