@@ -92,6 +92,9 @@ class ReveniumMetering(SyncAPIClient):
         if base_url is None:
             base_url = f"https://api.revenium.ai/meter/"
 
+        # Normalize the base URL to ensure it includes /meter
+        base_url = self._normalize_base_url(base_url)
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -108,6 +111,50 @@ class ReveniumMetering(SyncAPIClient):
         self.ai = ai.AIResource(self)
         self.with_raw_response = ReveniumMeteringWithRawResponse(self)
         self.with_streaming_response = ReveniumMeteringWithStreamedResponse(self)
+
+    @staticmethod
+    def _normalize_base_url(url: str | httpx.URL) -> str:
+        """
+        Normalize the base URL to ensure it includes the /meter path segment.
+
+        This method handles both input scenarios:
+        - If the URL doesn't include /meter, it will be added
+        - If the URL already includes /meter, it won't be duplicated
+
+        Args:
+            url: The base URL to normalize (can be a string or httpx.URL)
+
+        Returns:
+            The normalized base URL as a string with /meter path segment
+        """
+        # Convert to string if it's an httpx.URL
+        url_str = str(url)
+
+        # Remove trailing slash for consistent processing
+        url_str = url_str.rstrip('/')
+
+        # Parse the URL to extract components
+        parsed = httpx.URL(url_str)
+        path = parsed.raw_path.decode('utf-8').rstrip('/')
+
+        # Check if /meter is already in the path (case-insensitive)
+        path_lower = path.lower()
+
+        # If /meter is not present, add it
+        if not path_lower.endswith('/meter'):
+            # Check if there's a /meter somewhere in the middle (shouldn't happen, but handle it)
+            if '/meter' in path_lower:
+                # Find the position of /meter and keep everything up to and including it
+                meter_index = path_lower.rfind('/meter')
+                path = path[:meter_index + 6]  # 6 is the length of '/meter'
+            else:
+                # Add /meter to the path
+                path = f"{path}/meter"
+
+        # Reconstruct the URL with the normalized path and trailing slash
+        normalized_url = parsed.copy_with(raw_path=f"{path}/".encode('utf-8'))
+
+        return str(normalized_url)
 
     @property
     @override
@@ -264,6 +311,9 @@ class AsyncReveniumMetering(AsyncAPIClient):
         if base_url is None:
             base_url = f"https://api.revenium.ai/meter/"
 
+        # Normalize the base URL to ensure it includes /meter
+        base_url = self._normalize_base_url(base_url)
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -280,6 +330,50 @@ class AsyncReveniumMetering(AsyncAPIClient):
         self.ai = ai.AsyncAIResource(self)
         self.with_raw_response = AsyncReveniumMeteringWithRawResponse(self)
         self.with_streaming_response = AsyncReveniumMeteringWithStreamedResponse(self)
+
+    @staticmethod
+    def _normalize_base_url(url: str | httpx.URL) -> str:
+        """
+        Normalize the base URL to ensure it includes the /meter path segment.
+
+        This method handles both input scenarios:
+        - If the URL doesn't include /meter, it will be added
+        - If the URL already includes /meter, it won't be duplicated
+
+        Args:
+            url: The base URL to normalize (can be a string or httpx.URL)
+
+        Returns:
+            The normalized base URL as a string with /meter path segment
+        """
+        # Convert to string if it's an httpx.URL
+        url_str = str(url)
+
+        # Remove trailing slash for consistent processing
+        url_str = url_str.rstrip('/')
+
+        # Parse the URL to extract components
+        parsed = httpx.URL(url_str)
+        path = parsed.raw_path.decode('utf-8').rstrip('/')
+
+        # Check if /meter is already in the path (case-insensitive)
+        path_lower = path.lower()
+
+        # If /meter is not present, add it
+        if not path_lower.endswith('/meter'):
+            # Check if there's a /meter somewhere in the middle (shouldn't happen, but handle it)
+            if '/meter' in path_lower:
+                # Find the position of /meter and keep everything up to and including it
+                meter_index = path_lower.rfind('/meter')
+                path = path[:meter_index + 6]  # 6 is the length of '/meter'
+            else:
+                # Add /meter to the path
+                path = f"{path}/meter"
+
+        # Reconstruct the URL with the normalized path and trailing slash
+        normalized_url = parsed.copy_with(raw_path=f"{path}/".encode('utf-8'))
+
+        return str(normalized_url)
 
     @property
     @override
