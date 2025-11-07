@@ -90,7 +90,7 @@ class ReveniumMetering(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("REVENIUM_METERING_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.revenium.io/meter/"
+            base_url = f"https://api.revenium.ai/meter/"
 
         super().__init__(
             version=__version__,
@@ -262,7 +262,7 @@ class AsyncReveniumMetering(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("REVENIUM_METERING_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.revenium.io/meter/"
+            base_url = f"https://api.revenium.ai/meter/"
 
         super().__init__(
             version=__version__,
