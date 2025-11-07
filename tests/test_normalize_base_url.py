@@ -1,7 +1,6 @@
 """Tests for base URL normalization functionality."""
 
 import httpx
-import pytest
 
 from revenium_metering import ReveniumMetering, AsyncReveniumMetering
 
