@@ -573,10 +573,10 @@ class TestReveniumMetering:
         "client",
         [
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
@@ -592,16 +592,16 @@ class TestReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
         [
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
@@ -617,7 +617,7 @@ class TestReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
@@ -1478,10 +1478,10 @@ class TestAsyncReveniumMetering:
         "client",
         [
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
@@ -1497,16 +1497,16 @@ class TestAsyncReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
         [
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
@@ -1522,7 +1522,7 @@ class TestAsyncReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
