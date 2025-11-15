@@ -41,7 +41,7 @@ from revenium_metering._base_client import (
 
 from .utils import update_env
 
-base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010/meter")
 api_key = "My API Key"
 
 
@@ -568,9 +568,9 @@ class TestReveniumMetering:
 
     def test_base_url_setter(self) -> None:
         client = ReveniumMetering(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+            base_url="https://example.com/from_init/meter", api_key=api_key, _strict_response_validation=True
         )
-        assert client.base_url == "https://example.com/from_init/"
+        assert client.base_url == "https://example.com/from_init/meter/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
 
@@ -579,18 +579,18 @@ class TestReveniumMetering:
         client.close()
 
     def test_base_url_env(self) -> None:
-        with update_env(REVENIUM_METERING_BASE_URL="http://localhost:5000/from/env"):
+        with update_env(REVENIUM_METERING_BASE_URL="http://localhost:5000/from/env/meter"):
             client = ReveniumMetering(api_key=api_key, _strict_response_validation=True)
-            assert client.base_url == "http://localhost:5000/from/env/"
+            assert client.base_url == "http://localhost:5000/from/env/meter/"
 
     @pytest.mark.parametrize(
         "client",
         [
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
@@ -606,17 +606,16 @@ class TestReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
-        client.close()
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
         [
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             ReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
@@ -632,8 +631,7 @@ class TestReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
-        client.close()
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
@@ -1473,29 +1471,27 @@ class TestAsyncReveniumMetering:
 
     async def test_base_url_setter(self) -> None:
         client = AsyncReveniumMetering(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+            base_url="https://example.com/from_init/meter", api_key=api_key, _strict_response_validation=True
         )
-        assert client.base_url == "https://example.com/from_init/"
+        assert client.base_url == "https://example.com/from_init/meter/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
 
         assert client.base_url == "https://example.com/from_setter/"
 
-        await client.close()
-
-    async def test_base_url_env(self) -> None:
-        with update_env(REVENIUM_METERING_BASE_URL="http://localhost:5000/from/env"):
+    def test_base_url_env(self) -> None:
+        with update_env(REVENIUM_METERING_BASE_URL="http://localhost:5000/from/env/meter"):
             client = AsyncReveniumMetering(api_key=api_key, _strict_response_validation=True)
-            assert client.base_url == "http://localhost:5000/from/env/"
+            assert client.base_url == "http://localhost:5000/from/env/meter/"
 
     @pytest.mark.parametrize(
         "client",
         [
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
@@ -1511,17 +1507,16 @@ class TestAsyncReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
-        await client.close()
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
         [
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+                base_url="http://localhost:5000/custom/path/meter/", api_key=api_key, _strict_response_validation=True
             ),
             AsyncReveniumMetering(
-                base_url="http://localhost:5000/custom/path/",
+                base_url="http://localhost:5000/custom/path/meter/",
                 api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
@@ -1537,8 +1532,7 @@ class TestAsyncReveniumMetering:
                 json_data={"foo": "bar"},
             ),
         )
-        assert request.url == "http://localhost:5000/custom/path/foo"
-        await client.close()
+        assert request.url == "http://localhost:5000/custom/path/meter/foo"
 
     @pytest.mark.parametrize(
         "client",
