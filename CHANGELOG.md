@@ -1,5 +1,55 @@
 # Changelog
 
+## 6.5.0 (2025-11-15)
+
+Full Changelog: [v6.4.0...v6.5.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.5.0)
+
+### Features
+
+* **api:** api update ([bf775a6](https://github.com/revenium/revenium-metering-python/commit/bf775a64ca8363a931833ef9a93228b83657aed6))
+* **api:** api update ([ec2a261](https://github.com/revenium/revenium-metering-python/commit/ec2a261849a0e04229961797431b835ab4111217))
+* **api:** manual updates ([2871417](https://github.com/revenium/revenium-metering-python/commit/2871417fceed72ea2d649b33866dd09194d77660))
+* clean up environment call outs ([aedd413](https://github.com/revenium/revenium-metering-python/commit/aedd413dc586c2e6700d5f1079610a06b1419396))
+* **client:** add support for aiohttp ([cf19fab](https://github.com/revenium/revenium-metering-python/commit/cf19fab1032a40c1bef71d16412eeb85d7f7bd5e))
+* **client:** support file upload requests ([7697c45](https://github.com/revenium/revenium-metering-python/commit/7697c45da01b6dfa30a4b831cca29054bf7e32c4))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([d345c0c](https://github.com/revenium/revenium-metering-python/commit/d345c0cc57ca6412a94390e8c00912ecdc52987c))
+* **ci:** release-doctor — report correct token name ([8e8f349](https://github.com/revenium/revenium-metering-python/commit/8e8f3499b664fcb353e105ffd002a333d4353a4d))
+* **client:** don't send Content-Type header on GET requests ([ff8d9f4](https://github.com/revenium/revenium-metering-python/commit/ff8d9f4f47ce046503f764dc6652041f99b71c4f))
+* Custom path tests now account for /meter normalization ([70b10aa](https://github.com/revenium/revenium-metering-python/commit/70b10aa7bb65a2eef4a528fffa4feb2ec33ee32f))
+* **parsing:** correctly handle nested discriminated unions ([e5ef638](https://github.com/revenium/revenium-metering-python/commit/e5ef638abb42c218640a3e9dc039919bc5c5a066))
+* **parsing:** ignore empty metadata ([c949aaf](https://github.com/revenium/revenium-metering-python/commit/c949aaffd747518539e4f7fc8ceb8d2269a0e5dd))
+* **parsing:** parse extra field types ([617dc29](https://github.com/revenium/revenium-metering-python/commit/617dc29c0bd176f67c95e8cd2d3c7c4bc928ef92))
+* remove unused import ([558c731](https://github.com/revenium/revenium-metering-python/commit/558c7315593fd8fbd9786341bc4760b8b812a3ea))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([b6c435d](https://github.com/revenium/revenium-metering-python/commit/b6c435d5a8639cd7af216ced77c566a41d9c07b0))
+* update tests to new url pattern ([16528b0](https://github.com/revenium/revenium-metering-python/commit/16528b06657a635228459652152644e24f2d7b6f))
+
+
+### Chores
+
+* **ci:** change upload type ([602777b](https://github.com/revenium/revenium-metering-python/commit/602777b55805ef4c935841aa7f8b952b15d37867))
+* **ci:** only run for pushes and fork pull requests ([1d0f8e7](https://github.com/revenium/revenium-metering-python/commit/1d0f8e7082cad59c56c17f58c2d99138112b4744))
+* **internal:** bump pinned h11 dep ([ad8f5e2](https://github.com/revenium/revenium-metering-python/commit/ad8f5e25a97a5f3f72898e4f751583162574665d))
+* **internal:** codegen related update ([a86c6e3](https://github.com/revenium/revenium-metering-python/commit/a86c6e3108af2249cd9e94d07354672fe1ebdb6a))
+* **internal:** codegen related update ([5e02826](https://github.com/revenium/revenium-metering-python/commit/5e02826e8da682d7ba52795c5b94dddd086336d4))
+* **internal:** codegen related update ([c91c303](https://github.com/revenium/revenium-metering-python/commit/c91c3039baefb74217ed971b70c3ad609c273fca))
+* **internal:** codegen related update ([078127e](https://github.com/revenium/revenium-metering-python/commit/078127e8526b98b0e68e98f0e11bb82bbc58d7b3))
+* **internal:** fix ruff target version ([bf81308](https://github.com/revenium/revenium-metering-python/commit/bf81308a9127139bb1526a99da0e24b090bd6724))
+* **internal:** update comment in script ([cfcf27b](https://github.com/revenium/revenium-metering-python/commit/cfcf27b9e5ebf4353a4cc26cec9096dde73d74bf))
+* **package:** mark python 3.13 as supported ([2134af2](https://github.com/revenium/revenium-metering-python/commit/2134af29b26cf31e3718a66c665bb71c3c4e9f8a))
+* **project:** add settings file for vscode ([7ce8d10](https://github.com/revenium/revenium-metering-python/commit/7ce8d10c77e8c1e5d41eef50667ad547133ac1ae))
+* **readme:** fix version rendering on pypi ([b9f5e75](https://github.com/revenium/revenium-metering-python/commit/b9f5e7547534e2323e4c2f06b61ab5954e7aa1e8))
+* **tests:** skip some failing tests on the latest python versions ([481dc85](https://github.com/revenium/revenium-metering-python/commit/481dc859255a4175f537cb08b096e0153f7dc650))
+* update @stainless-api/prism-cli to v5.15.0 ([91d83ce](https://github.com/revenium/revenium-metering-python/commit/91d83cebc8afc9ff30332b643ca7466fe6a1b655))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([bc1aa5a](https://github.com/revenium/revenium-metering-python/commit/bc1aa5abe5b1f2d84a239eaf59da6348210a126c))
+
 ## 6.4.0 (2025-06-18)
 
 Full Changelog: [v6.3.0...v6.4.0](https://github.com/revenium/revenium-metering-python/compare/v6.3.0...v6.4.0)
