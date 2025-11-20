@@ -86,6 +86,15 @@ class AIResource(SyncAPIResource):
         time_to_first_token: int | NotGiven = NOT_GIVEN,
         total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -190,6 +199,26 @@ class AIResource(SyncAPIResource):
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
+          credential_alias: Human-readable name for the API key being used
+
+          environment: Deployment environment identifier (e.g., 'production', 'staging',
+              'development')
+
+          operation_subtype: Additional operation detail (e.g., 'function_call', 'sql_query')
+
+          parent_transaction_id: Link to parent transaction for distributed tracing
+
+          region: Cloud region or data center (e.g., 'us-east-1', 'ap-southeast-2')
+
+          retry_number: Retry attempt counter (0 for first attempt, 1 for first retry, etc.)
+
+          trace_name: Human-readable label for this trace instance (max 256 chars)
+
+          trace_type: Categorical identifier for grouping workflows (alphanumeric, hyphens,
+              underscores; max 128 chars)
+
+          transaction_name: Human-friendly name for this operation
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -239,6 +268,15 @@ class AIResource(SyncAPIResource):
                     "time_to_first_token": time_to_first_token,
                     "total_cost": total_cost,
                     "trace_id": trace_id,
+                    "credential_alias": credential_alias,
+                    "environment": environment,
+                    "operation_subtype": operation_subtype,
+                    "parent_transaction_id": parent_transaction_id,
+                    "region": region,
+                    "retry_number": retry_number,
+                    "trace_name": trace_name,
+                    "trace_type": trace_type,
+                    "transaction_name": transaction_name,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
@@ -312,6 +350,15 @@ class AsyncAIResource(AsyncAPIResource):
         time_to_first_token: int | NotGiven = NOT_GIVEN,
         total_cost: float | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,6 +463,26 @@ class AsyncAIResource(AsyncAPIResource):
 
           trace_id: Trace multiple LLM calls belonging to same overall request
 
+          credential_alias: Human-readable name for the API key being used
+
+          environment: Deployment environment identifier (e.g., 'production', 'staging',
+              'development')
+
+          operation_subtype: Additional operation detail (e.g., 'function_call', 'sql_query')
+
+          parent_transaction_id: Link to parent transaction for distributed tracing
+
+          region: Cloud region or data center (e.g., 'us-east-1', 'ap-southeast-2')
+
+          retry_number: Retry attempt counter (0 for first attempt, 1 for first retry, etc.)
+
+          trace_name: Human-readable label for this trace instance (max 256 chars)
+
+          trace_type: Categorical identifier for grouping workflows (alphanumeric, hyphens,
+              underscores; max 128 chars)
+
+          transaction_name: Human-friendly name for this operation
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -465,6 +532,15 @@ class AsyncAIResource(AsyncAPIResource):
                     "time_to_first_token": time_to_first_token,
                     "total_cost": total_cost,
                     "trace_id": trace_id,
+                    "credential_alias": credential_alias,
+                    "environment": environment,
+                    "operation_subtype": operation_subtype,
+                    "parent_transaction_id": parent_transaction_id,
+                    "region": region,
+                    "retry_number": retry_number,
+                    "trace_name": trace_name,
+                    "trace_type": trace_type,
+                    "transaction_name": transaction_name,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),

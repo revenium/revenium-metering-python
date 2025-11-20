@@ -170,6 +170,33 @@ class AICreateCompletionParams(TypedDict, total=False):
     trace_id: Annotated[str, PropertyInfo(alias="traceId")]
     """Trace multiple LLM calls belonging to same overall request"""
 
+    credential_alias: Annotated[str, PropertyInfo(alias="credentialAlias")]
+    """Human-readable name for the API key being used"""
+
+    environment: str
+    """Deployment environment identifier (e.g., 'production', 'staging', 'development')"""
+
+    operation_subtype: Annotated[str, PropertyInfo(alias="operationSubtype")]
+    """Additional operation detail (e.g., 'function_call', 'sql_query')"""
+
+    parent_transaction_id: Annotated[str, PropertyInfo(alias="parentTransactionId")]
+    """Link to parent transaction for distributed tracing"""
+
+    region: str
+    """Cloud region or data center (e.g., 'us-east-1', 'ap-southeast-2')"""
+
+    retry_number: Annotated[int, PropertyInfo(alias="retryNumber")]
+    """Retry attempt counter (0 for first attempt, 1 for first retry, etc.)"""
+
+    trace_name: Annotated[str, PropertyInfo(alias="traceName")]
+    """Human-readable label for this trace instance (max 256 chars)"""
+
+    trace_type: Annotated[str, PropertyInfo(alias="traceType")]
+    """Categorical identifier for grouping workflows (alphanumeric, hyphens, underscores; max 128 chars)"""
+
+    transaction_name: Annotated[str, PropertyInfo(alias="transactionName")]
+    """Human-friendly name for this operation"""
+
 
 class SubscriberCredential(TypedDict, total=False):
     name: str
