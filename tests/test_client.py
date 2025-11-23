@@ -755,18 +755,19 @@ class TestReveniumMetering:
 
         with pytest.raises(APITimeoutError):
             client.ai.with_streaming_response.create_completion(
-                completion_start_time="2025-10-17T17:35:00Z",
+                completion_start_time="2025-03-02T15:04:05Z",
                 cost_type="AI",
-                input_token_count=100,
+                input_token_count=50,
                 is_streamed=False,
-                model="gpt-4",
+                model="gpt4",
                 output_token_count=150,
                 provider="OpenAI",
-                request_duration=2000,
-                request_time="2025-10-17T17:35:00Z",
-                response_time="2025-10-17T17:35:02Z",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
                 stop_reason="END",
-                total_token_count=250,
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
             ).__enter__()
 
         assert _get_open_connections(client) == 0
@@ -778,18 +779,19 @@ class TestReveniumMetering:
 
         with pytest.raises(APIStatusError):
             client.ai.with_streaming_response.create_completion(
-                completion_start_time="2025-10-17T17:35:00Z",
+                completion_start_time="2025-03-02T15:04:05Z",
                 cost_type="AI",
-                input_token_count=100,
+                input_token_count=50,
                 is_streamed=False,
-                model="gpt-4",
+                model="gpt4",
                 output_token_count=150,
                 provider="OpenAI",
-                request_duration=2000,
-                request_time="2025-10-17T17:35:00Z",
-                response_time="2025-10-17T17:35:02Z",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
                 stop_reason="END",
-                total_token_count=250,
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
             ).__enter__()
         assert _get_open_connections(client) == 0
 
@@ -820,18 +822,19 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
         )
 
         assert response.retries_taken == failures_before_success
@@ -857,18 +860,19 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -894,18 +898,19 @@ class TestReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1660,18 +1665,19 @@ class TestAsyncReveniumMetering:
 
         with pytest.raises(APITimeoutError):
             await async_client.ai.with_streaming_response.create_completion(
-                completion_start_time="2025-10-17T17:35:00Z",
+                completion_start_time="2025-03-02T15:04:05Z",
                 cost_type="AI",
-                input_token_count=100,
+                input_token_count=50,
                 is_streamed=False,
-                model="gpt-4",
+                model="gpt4",
                 output_token_count=150,
                 provider="OpenAI",
-                request_duration=2000,
-                request_time="2025-10-17T17:35:00Z",
-                response_time="2025-10-17T17:35:02Z",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
                 stop_reason="END",
-                total_token_count=250,
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1685,18 +1691,19 @@ class TestAsyncReveniumMetering:
 
         with pytest.raises(APIStatusError):
             await async_client.ai.with_streaming_response.create_completion(
-                completion_start_time="2025-10-17T17:35:00Z",
+                completion_start_time="2025-03-02T15:04:05Z",
                 cost_type="AI",
-                input_token_count=100,
+                input_token_count=50,
                 is_streamed=False,
-                model="gpt-4",
+                model="gpt4",
                 output_token_count=150,
                 provider="OpenAI",
-                request_duration=2000,
-                request_time="2025-10-17T17:35:00Z",
-                response_time="2025-10-17T17:35:02Z",
+                request_duration=1000,
+                request_time="2025-03-02T15:04:05Z",
+                response_time="2025-03-02T15:04:06Z",
                 stop_reason="END",
-                total_token_count=250,
+                total_token_count=200,
+                transaction_id="123e4567-e89b-12d3-a456-426614174000",
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1727,18 +1734,19 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
         )
 
         assert response.retries_taken == failures_before_success
@@ -1764,18 +1772,19 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1801,18 +1810,19 @@ class TestAsyncReveniumMetering:
         respx_mock.post("/v2/ai/completions").mock(side_effect=retry_handler)
 
         response = await client.ai.with_raw_response.create_completion(
-            completion_start_time="2025-10-17T17:35:00Z",
+            completion_start_time="2025-03-02T15:04:05Z",
             cost_type="AI",
-            input_token_count=100,
+            input_token_count=50,
             is_streamed=False,
-            model="gpt-4",
+            model="gpt4",
             output_token_count=150,
             provider="OpenAI",
-            request_duration=2000,
-            request_time="2025-10-17T17:35:00Z",
-            response_time="2025-10-17T17:35:02Z",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
             stop_reason="END",
-            total_token_count=250,
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
