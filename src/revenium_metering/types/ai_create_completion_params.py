@@ -98,7 +98,7 @@ class AICreateCompletionParams(TypedDict, total=False):
     """The source of the AI model used for the completion"""
 
     operation_type: Annotated[
-        Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"],
+        Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"],
         PropertyInfo(alias="operationType"),
     ]
     """The type of operation performed"""
