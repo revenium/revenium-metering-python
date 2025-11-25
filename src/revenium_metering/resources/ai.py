@@ -71,7 +71,7 @@ class AIResource(SyncAPIResource):
         mediation_latency: int | NotGiven = NOT_GIVEN,
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
-        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
+        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
         output_token_cost: float | NotGiven = NOT_GIVEN,
@@ -335,7 +335,7 @@ class AsyncAIResource(AsyncAPIResource):
         mediation_latency: int | NotGiven = NOT_GIVEN,
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
-        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "OTHER"]
+        operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
         organization_id: str | NotGiven = NOT_GIVEN,
         output_token_cost: float | NotGiven = NOT_GIVEN,
