@@ -107,6 +107,7 @@ pip install revenium_metering[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from revenium_metering import DefaultAioHttpClient
 from revenium_metering import AsyncReveniumMetering
@@ -114,7 +115,9 @@ from revenium_metering import AsyncReveniumMetering
 
 async def main() -> None:
     async with AsyncReveniumMetering(
-        api_key="My API Key",
+        api_key=os.environ.get(
+            "REVENIUM_METERING_API_KEY"
+        ),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         metering_response_resource = await client.ai.create_completion(
