@@ -1,5 +1,25 @@
 # Changelog
 
+## 6.6.0 (2025-12-03)
+
+Full Changelog: [v6.4.0...v6.6.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.6.0)
+
+### Features
+
+* **api:** Add trace visualization and observability fields
+  - Added 9 new optional fields for enhanced distributed tracing and observability
+  - `credential_alias` - Human-readable name for API keys
+  - `environment` - Deployment environment identifier (production, staging, development)
+  - `operation_subtype` - Additional operation detail (function_call, sql_query, etc.)
+  - `parent_transaction_id` - Link to parent transaction for distributed tracing
+  - `region` - Cloud region or data center identifier
+  - `retry_number` - Retry attempt counter for tracking retry behavior
+  - `trace_name` - Human-readable label for trace instances (max 256 chars)
+  - `trace_type` - Categorical identifier for grouping workflows (max 128 chars)
+  - `transaction_name` - Human-friendly name for operations
+  - All new fields are optional and fully backwards compatible
+
+
 ## 6.4.0 (2025-06-18)
 
 Full Changelog: [v6.3.0...v6.4.0](https://github.com/revenium/revenium-metering-python/compare/v6.3.0...v6.4.0)

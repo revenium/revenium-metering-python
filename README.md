@@ -1,12 +1,11 @@
 # Revenium Metering Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/revenium_metering.svg?label=pypi%20(stable)>)](https://pypi.org/project/revenium_metering/)
+[![PyPI version](https://img.shields.io/pypi/v/revenium_metering.svg)](https://pypi.org/project/revenium_metering/)
 
 The Revenium Metering Python library provides convenient access to the Revenium Metering REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainless.com/).
 
 ## REST API Documentation
 
@@ -21,8 +20,6 @@ pip install revenium_metering
 ```
 
 ## Usage
-
-The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
@@ -226,6 +223,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
+import httpx
 from revenium_metering import ReveniumMetering
 
 # Configure the default for all requests:
