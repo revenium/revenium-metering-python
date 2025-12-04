@@ -1,5 +1,37 @@
 # Changelog
 
+## 6.7.0 (2025-12-04)
+
+Full Changelog: [v6.6.0...v6.7.0](https://github.com/revenium/revenium-metering-python/compare/v6.6.0...v6.7.0)
+
+### Features
+
+* **api:** api update ([25e59d8](https://github.com/revenium/revenium-metering-python/commit/25e59d89a9d4bb6a0e312370781283823e3f7ea0))
+* **client:** add support for aiohttp ([e591eb2](https://github.com/revenium/revenium-metering-python/commit/e591eb2f06a544d7cd4beb0658e84d0afcaf9349))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([74c368d](https://github.com/revenium/revenium-metering-python/commit/74c368d77141d32bf219d484af68265ad8235ad9))
+* **ci:** release-doctor — report correct token name ([fd624de](https://github.com/revenium/revenium-metering-python/commit/fd624de08db1703e0fc24fe62e6f9764fef3712e))
+* **parsing:** correctly handle nested discriminated unions ([9f6d6c5](https://github.com/revenium/revenium-metering-python/commit/9f6d6c592375315494fae65d21368396bb547acf))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([0c7edb1](https://github.com/revenium/revenium-metering-python/commit/0c7edb19f68bd6cc14acf5a3359e7172dbbbecc1))
+
+
+### Chores
+
+* **ci:** change upload type ([c1c0fee](https://github.com/revenium/revenium-metering-python/commit/c1c0fee85d8e4fe51fec7d96c44141e3c240f24e))
+* **ci:** only run for pushes and fork pull requests ([3b20f74](https://github.com/revenium/revenium-metering-python/commit/3b20f74535b54c8fafe50b3495b2bb32a3c272e8))
+* **internal:** bump pinned h11 dep ([13105ed](https://github.com/revenium/revenium-metering-python/commit/13105ed25ca252a960a989b3f6aa54432362ca41))
+* **internal:** codegen related update ([c0a6c5f](https://github.com/revenium/revenium-metering-python/commit/c0a6c5f72d74d6e614e0c787c902678e3e397c64))
+* **package:** mark python 3.13 as supported ([30ac5cd](https://github.com/revenium/revenium-metering-python/commit/30ac5cda23e66c936d6ff9db87e55c8b996d209e))
+* **tests:** skip some failing tests on the latest python versions ([ffe508e](https://github.com/revenium/revenium-metering-python/commit/ffe508e37228ede2c7ae4435c01259648bced4ef))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([b8a2f81](https://github.com/revenium/revenium-metering-python/commit/b8a2f81363f5665301bed23de9af4e72a860c1d9))
+
 ## 6.6.0 (2025-12-03)
 
 Full Changelog: [v6.4.0...v6.6.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.6.0)
