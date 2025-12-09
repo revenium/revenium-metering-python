@@ -28,6 +28,10 @@ class _Links(BaseModel):
 
 
 class MeteringResponseResource(BaseModel):
+    """
+    Metering response resource details for the metering API, providing metadata about response creation and validation.
+    """
+
     id: str
     """Unique identifier for the metering response"""
 
