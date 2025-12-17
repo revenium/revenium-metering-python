@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import ai, apis, events
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, ReveniumMeteringError
 from ._base_client import (
@@ -29,6 +29,12 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+
+if TYPE_CHECKING:
+    from .resources import ai, apis, events
+    from .resources.ai import AIResource, AsyncAIResource
+    from .resources.apis import APIsResource, AsyncAPIsResource
+    from .resources.events import EventsResource, AsyncEventsResource
 
 __all__ = [
     "Timeout",
@@ -43,12 +49,6 @@ __all__ = [
 
 
 class ReveniumMetering(SyncAPIClient):
-    events: events.EventsResource
-    apis: apis.APIsResource
-    ai: ai.AIResource
-    with_raw_response: ReveniumMeteringWithRawResponse
-    with_streaming_response: ReveniumMeteringWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -103,11 +103,31 @@ class ReveniumMetering(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.events = events.EventsResource(self)
-        self.apis = apis.APIsResource(self)
-        self.ai = ai.AIResource(self)
-        self.with_raw_response = ReveniumMeteringWithRawResponse(self)
-        self.with_streaming_response = ReveniumMeteringWithStreamedResponse(self)
+    @cached_property
+    def events(self) -> EventsResource:
+        from .resources.events import EventsResource
+
+        return EventsResource(self)
+
+    @cached_property
+    def apis(self) -> APIsResource:
+        from .resources.apis import APIsResource
+
+        return APIsResource(self)
+
+    @cached_property
+    def ai(self) -> AIResource:
+        from .resources.ai import AIResource
+
+        return AIResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> ReveniumMeteringWithRawResponse:
+        return ReveniumMeteringWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> ReveniumMeteringWithStreamedResponse:
+        return ReveniumMeteringWithStreamedResponse(self)
 
     @property
     @override
@@ -215,12 +235,6 @@ class ReveniumMetering(SyncAPIClient):
 
 
 class AsyncReveniumMetering(AsyncAPIClient):
-    events: events.AsyncEventsResource
-    apis: apis.AsyncAPIsResource
-    ai: ai.AsyncAIResource
-    with_raw_response: AsyncReveniumMeteringWithRawResponse
-    with_streaming_response: AsyncReveniumMeteringWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -275,11 +289,31 @@ class AsyncReveniumMetering(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.events = events.AsyncEventsResource(self)
-        self.apis = apis.AsyncAPIsResource(self)
-        self.ai = ai.AsyncAIResource(self)
-        self.with_raw_response = AsyncReveniumMeteringWithRawResponse(self)
-        self.with_streaming_response = AsyncReveniumMeteringWithStreamedResponse(self)
+    @cached_property
+    def events(self) -> AsyncEventsResource:
+        from .resources.events import AsyncEventsResource
+
+        return AsyncEventsResource(self)
+
+    @cached_property
+    def apis(self) -> AsyncAPIsResource:
+        from .resources.apis import AsyncAPIsResource
+
+        return AsyncAPIsResource(self)
+
+    @cached_property
+    def ai(self) -> AsyncAIResource:
+        from .resources.ai import AsyncAIResource
+
+        return AsyncAIResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncReveniumMeteringWithRawResponse:
+        return AsyncReveniumMeteringWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncReveniumMeteringWithStreamedResponse:
+        return AsyncReveniumMeteringWithStreamedResponse(self)
 
     @property
     @override
@@ -387,31 +421,103 @@ class AsyncReveniumMetering(AsyncAPIClient):
 
 
 class ReveniumMeteringWithRawResponse:
+    _client: ReveniumMetering
+
     def __init__(self, client: ReveniumMetering) -> None:
-        self.events = events.EventsResourceWithRawResponse(client.events)
-        self.apis = apis.APIsResourceWithRawResponse(client.apis)
-        self.ai = ai.AIResourceWithRawResponse(client.ai)
+        self._client = client
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithRawResponse:
+        from .resources.events import EventsResourceWithRawResponse
+
+        return EventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def apis(self) -> apis.APIsResourceWithRawResponse:
+        from .resources.apis import APIsResourceWithRawResponse
+
+        return APIsResourceWithRawResponse(self._client.apis)
+
+    @cached_property
+    def ai(self) -> ai.AIResourceWithRawResponse:
+        from .resources.ai import AIResourceWithRawResponse
+
+        return AIResourceWithRawResponse(self._client.ai)
 
 
 class AsyncReveniumMeteringWithRawResponse:
+    _client: AsyncReveniumMetering
+
     def __init__(self, client: AsyncReveniumMetering) -> None:
-        self.events = events.AsyncEventsResourceWithRawResponse(client.events)
-        self.apis = apis.AsyncAPIsResourceWithRawResponse(client.apis)
-        self.ai = ai.AsyncAIResourceWithRawResponse(client.ai)
+        self._client = client
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        from .resources.events import AsyncEventsResourceWithRawResponse
+
+        return AsyncEventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def apis(self) -> apis.AsyncAPIsResourceWithRawResponse:
+        from .resources.apis import AsyncAPIsResourceWithRawResponse
+
+        return AsyncAPIsResourceWithRawResponse(self._client.apis)
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithRawResponse:
+        from .resources.ai import AsyncAIResourceWithRawResponse
+
+        return AsyncAIResourceWithRawResponse(self._client.ai)
 
 
 class ReveniumMeteringWithStreamedResponse:
+    _client: ReveniumMetering
+
     def __init__(self, client: ReveniumMetering) -> None:
-        self.events = events.EventsResourceWithStreamingResponse(client.events)
-        self.apis = apis.APIsResourceWithStreamingResponse(client.apis)
-        self.ai = ai.AIResourceWithStreamingResponse(client.ai)
+        self._client = client
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithStreamingResponse:
+        from .resources.events import EventsResourceWithStreamingResponse
+
+        return EventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def apis(self) -> apis.APIsResourceWithStreamingResponse:
+        from .resources.apis import APIsResourceWithStreamingResponse
+
+        return APIsResourceWithStreamingResponse(self._client.apis)
+
+    @cached_property
+    def ai(self) -> ai.AIResourceWithStreamingResponse:
+        from .resources.ai import AIResourceWithStreamingResponse
+
+        return AIResourceWithStreamingResponse(self._client.ai)
 
 
 class AsyncReveniumMeteringWithStreamedResponse:
+    _client: AsyncReveniumMetering
+
     def __init__(self, client: AsyncReveniumMetering) -> None:
-        self.events = events.AsyncEventsResourceWithStreamingResponse(client.events)
-        self.apis = apis.AsyncAPIsResourceWithStreamingResponse(client.apis)
-        self.ai = ai.AsyncAIResourceWithStreamingResponse(client.ai)
+        self._client = client
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        from .resources.events import AsyncEventsResourceWithStreamingResponse
+
+        return AsyncEventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def apis(self) -> apis.AsyncAPIsResourceWithStreamingResponse:
+        from .resources.apis import AsyncAPIsResourceWithStreamingResponse
+
+        return AsyncAPIsResourceWithStreamingResponse(self._client.apis)
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
+        from .resources.ai import AsyncAIResourceWithStreamingResponse
+
+        return AsyncAIResourceWithStreamingResponse(self._client.ai)
 
 
 Client = ReveniumMetering
