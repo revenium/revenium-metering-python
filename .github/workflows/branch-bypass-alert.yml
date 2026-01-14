@@ -12,7 +12,8 @@ jobs:
         id: check
         run: |
           COMMIT_MSG="${{ github.event.head_commit.message }}"
-          if [[ "$COMMIT_MSG" =~ ^Merge\ pull\ request ]] || [[ "$COMMIT_MSG" =~ \(#[0-9]+\)$ ]]; then
+          # PR merges start with "Merge pull request" or contain "(#123)" for squash merges
+          if [[ "$COMMIT_MSG" =~ ^Merge\ pull\ request ]] || [[ "$COMMIT_MSG" =~ \(#[0-9]+\) ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
