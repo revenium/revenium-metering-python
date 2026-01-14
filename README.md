@@ -90,6 +90,54 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install revenium_metering[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from revenium_metering import DefaultAioHttpClient
+from revenium_metering import AsyncReveniumMetering
+
+
+async def main() -> None:
+    async with AsyncReveniumMetering(
+        api_key=os.environ.get(
+            "REVENIUM_METERING_API_KEY"
+        ),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        metering_response_resource = await client.ai.create_completion(
+            completion_start_time="2025-03-02T15:04:05Z",
+            cost_type="AI",
+            input_token_count=50,
+            is_streamed=False,
+            model="gpt4",
+            output_token_count=150,
+            provider="OpenAI",
+            request_duration=1000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:06Z",
+            stop_reason="END",
+            total_token_count=200,
+            transaction_id="123e4567-e89b-12d3-a456-426614174000",
+        )
+        print(metering_response_resource.id)
+
+
+asyncio.run(main())
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -98,34 +146,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from revenium_metering import ReveniumMetering
-
-client = ReveniumMetering()
-
-metering_response_resource = client.ai.create_completion(
-    completion_start_time="2025-03-02T15:04:05Z",
-    cost_type="AI",
-    input_token_count=50,
-    is_streamed=False,
-    model="gpt4",
-    output_token_count=150,
-    provider="OpenAI",
-    request_duration=1000,
-    request_time="2025-03-02T15:04:05Z",
-    response_time="2025-03-02T15:04:06Z",
-    stop_reason="END",
-    total_token_count=200,
-    transaction_id="123e4567-e89b-12d3-a456-426614174000",
-    subscriber={},
-)
-print(metering_response_resource.subscriber)
-```
 
 ## Handling errors
 
@@ -220,7 +240,7 @@ client.with_options(max_retries=5).ai.create_completion(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 import httpx
