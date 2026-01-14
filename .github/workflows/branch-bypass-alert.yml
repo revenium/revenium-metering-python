@@ -1,0 +1,33 @@
+name: Branch Protection Bypass Alert
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  check-bypass:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if push was via PR merge
+        id: check
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          if [[ "$COMMIT_MSG" =~ ^Merge\ pull\ request ]] || [[ "$COMMIT_MSG" =~ \(#[0-9]+\)$ ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack DM alert
+        if: steps.check.outputs.skip == 'false'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_USER_ID: ${{ secrets.SLACK_ADMIN_USER_ID }}
+        run: |
+          curl -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"channel\": \"$SLACK_USER_ID\",
+              \"text\": \":warning: *Branch Protection Bypass Detected*\n\n*Repo:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Pusher:* ${{ github.actor }}\n*Commit:* \`${{ github.sha }}\`\n*Message:* ${{ github.event.head_commit.message }}\n\n<${{ github.event.head_commit.url }}|View Commit>\"
+            }"
