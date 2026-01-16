@@ -1,5 +1,21 @@
 # Changelog
 
+## 6.7.0 (2026-01-14)
+
+Full Changelog: [v6.6.0...v6.7.0](https://github.com/revenium/revenium-metering-python/compare/v6.6.0...v6.7.0)
+
+### Features
+
+* **api:** Add prompt capture fields for AI completions
+  - Added 4 new optional fields for capturing prompts and responses
+  - `system_prompt` - System prompt content (max 50,000 chars)
+  - `input_messages` - User/assistant messages as JSON string (max 50,000 chars)
+  - `output_response` - AI assistant's response content (max 50,000 chars)
+  - `prompts_truncated` - Boolean flag indicating if any field was truncated
+  - All fields are optional and disabled by default for security
+  - Enables analytics and debugging of AI interactions
+  - Fully backwards compatible with existing integrations
+
 ## 6.6.0 (2025-12-03)
 
 Full Changelog: [v6.4.0...v6.6.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.6.0)
