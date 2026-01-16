@@ -197,6 +197,18 @@ class AICreateCompletionParams(TypedDict, total=False):
     transaction_name: Annotated[str, PropertyInfo(alias="transactionName")]
     """Human-friendly name for this operation"""
 
+    system_prompt: Annotated[str, PropertyInfo(alias="systemPrompt")]
+    """The system prompt content from the LLM request (truncated to 50,000 characters if longer)"""
+
+    input_messages: Annotated[str, PropertyInfo(alias="inputMessages")]
+    """JSON string of input messages from the LLM request (truncated to 50,000 characters if longer)"""
+
+    output_response: Annotated[str, PropertyInfo(alias="outputResponse")]
+    """The output response content from the LLM completion (truncated to 50,000 characters if longer)"""
+
+    prompts_truncated: Annotated[bool, PropertyInfo(alias="promptsTruncated")]
+    """Indicates if any prompt or response field was truncated due to length limits"""
+
 
 class SubscriberCredential(TypedDict, total=False):
     name: str

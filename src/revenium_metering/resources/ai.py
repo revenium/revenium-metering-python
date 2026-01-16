@@ -95,6 +95,10 @@ class AIResource(SyncAPIResource):
         trace_name: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         transaction_name: str | NotGiven = NOT_GIVEN,
+        system_prompt: str | NotGiven = NOT_GIVEN,
+        input_messages: str | NotGiven = NOT_GIVEN,
+        output_response: str | NotGiven = NOT_GIVEN,
+        prompts_truncated: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -277,6 +281,10 @@ class AIResource(SyncAPIResource):
                     "trace_name": trace_name,
                     "trace_type": trace_type,
                     "transaction_name": transaction_name,
+                    "system_prompt": system_prompt,
+                    "input_messages": input_messages,
+                    "output_response": output_response,
+                    "prompts_truncated": prompts_truncated,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
@@ -359,6 +367,10 @@ class AsyncAIResource(AsyncAPIResource):
         trace_name: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         transaction_name: str | NotGiven = NOT_GIVEN,
+        system_prompt: str | NotGiven = NOT_GIVEN,
+        input_messages: str | NotGiven = NOT_GIVEN,
+        output_response: str | NotGiven = NOT_GIVEN,
+        prompts_truncated: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -541,6 +553,10 @@ class AsyncAIResource(AsyncAPIResource):
                     "trace_name": trace_name,
                     "trace_type": trace_type,
                     "transaction_name": transaction_name,
+                    "system_prompt": system_prompt,
+                    "input_messages": input_messages,
+                    "output_response": output_response,
+                    "prompts_truncated": prompts_truncated,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
