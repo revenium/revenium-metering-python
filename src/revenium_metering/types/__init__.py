@@ -7,3 +7,6 @@ from .api_meter_request_params import APIMeterRequestParams as APIMeterRequestPa
 from .api_meter_response_params import APIMeterResponseParams as APIMeterResponseParams
 from .metering_response_resource import MeteringResponseResource as MeteringResponseResource
 from .ai_create_completion_params import AICreateCompletionParams as AICreateCompletionParams
+from .ai_create_audio_params import AICreateAudioParams as AICreateAudioParams
+from .ai_create_video_params import AICreateVideoParams as AICreateVideoParams
+from .ai_create_image_params import AICreateImageParams as AICreateImageParams
