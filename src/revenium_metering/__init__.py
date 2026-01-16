@@ -39,6 +39,10 @@ from ._exceptions import (
 from ._base_client import DefaultHttpxClient, DefaultAsyncHttpxClient
 from ._utils._logs import setup_logging as _setup_logging
 
+# Tool Registry: Decorator and Context
+from .decorator import meter, report_tool_call, configure
+from .context import set_context, get_context, context, clear_context, ReveniumContext
+
 __all__ = [
     "types",
     "__version__",
@@ -78,6 +82,15 @@ __all__ = [
     "DEFAULT_CONNECTION_LIMITS",
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
+    # Tool Registry
+    "meter",
+    "report_tool_call",
+    "configure",
+    "set_context",
+    "get_context",
+    "context",
+    "clear_context",
+    "ReveniumContext",
 ]
 
 if not _t.TYPE_CHECKING:
