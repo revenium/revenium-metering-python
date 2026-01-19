@@ -1,12 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+# v6.6.1 - Added video/image/audio methods (REVAI-199)
 
 from __future__ import annotations
 
+from typing import Dict, Any
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import ai_create_completion_params
+from ..types import ai_create_completion_params, ai_create_video_params, ai_create_image_params, ai_create_audio_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -286,6 +288,312 @@ class AIResource(SyncAPIResource):
             cast_to=MeteringResponseResource,
         )
 
+    def create_video(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        duration_seconds: float | NotGiven = NOT_GIVEN,
+        requested_duration_seconds: float | NotGiven = NOT_GIVEN,
+        credits_consumed: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_video_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["VIDEO"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_video_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """
+        Record video generation usage (REVAI-199)
+
+        Args:
+            transaction_id: The unique identifier of the video generation transaction
+            provider: Vendor providing the video generation service (e.g., RUNWAY, KLING, FAL)
+            model: The model used for generating the video
+            request_time: The timestamp when the request was made (ISO 8601)
+            response_time: The timestamp when the response was generated (ISO 8601)
+            request_duration: The duration of the request in milliseconds
+            stop_reason: The reason for stopping the video generation
+            attributes: Video-specific billing attributes (duration, credits_used, etc.)
+        """
+        return self._post(
+            "/v2/ai/video",
+            body=maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "duration_seconds": duration_seconds,
+                    "requested_duration_seconds": requested_duration_seconds,
+                    "credits_consumed": credits_consumed,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_video_params.AICreateVideoParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
+    def create_image(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        actual_image_count: int | NotGiven = NOT_GIVEN,
+        requested_image_count: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_image_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["IMAGE"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_image_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """
+        Record image generation usage (REVAI-199)
+
+        Args:
+            transaction_id: The unique identifier of the image generation transaction
+            provider: Vendor providing the image generation service (e.g., FAL, OPENAI)
+            model: The model used for generating the image
+            request_time: The timestamp when the request was made (ISO 8601)
+            response_time: The timestamp when the response was generated (ISO 8601)
+            request_duration: The duration of the request in milliseconds
+            stop_reason: The reason for stopping the image generation
+            attributes: Image-specific billing attributes (image_count, megapixels, etc.)
+        """
+        return self._post(
+            "/v2/ai/images",
+            body=maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "actual_image_count": actual_image_count,
+                    "requested_image_count": requested_image_count,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_image_params.AICreateImageParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
+    def create_audio(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        duration_seconds: float | NotGiven = NOT_GIVEN,
+        character_count: int | NotGiven = NOT_GIVEN,
+        input_audio_token_count: int | NotGiven = NOT_GIVEN,
+        output_audio_token_count: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_audio_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["AUDIO"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_audio_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """
+        Record audio processing usage (REVAI-199)
+
+        Args:
+            transaction_id: The unique identifier of the audio transaction
+            provider: Vendor providing the audio service (e.g., OPENAI, ELEVENLABS)
+            model: The model used for audio processing (e.g., whisper-1, tts-1-hd)
+            request_time: The timestamp when the request was made (ISO 8601)
+            response_time: The timestamp when the response was generated (ISO 8601)
+            request_duration: The duration of the request in milliseconds
+            stop_reason: The reason for stopping the audio processing
+            attributes: Audio-specific billing attributes (duration, character_count, etc.)
+        """
+        return self._post(
+            "/v2/ai/audio",
+            body=maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "duration_seconds": duration_seconds,
+                    "character_count": character_count,
+                    "input_audio_token_count": input_audio_token_count,
+                    "output_audio_token_count": output_audio_token_count,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_audio_params.AICreateAudioParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
 
 class AsyncAIResource(AsyncAPIResource):
     @cached_property
@@ -550,6 +858,276 @@ class AsyncAIResource(AsyncAPIResource):
             cast_to=MeteringResponseResource,
         )
 
+    async def create_video(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        duration_seconds: float | NotGiven = NOT_GIVEN,
+        requested_duration_seconds: float | NotGiven = NOT_GIVEN,
+        credits_consumed: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_video_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["VIDEO"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_video_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """Record video generation usage (REVAI-199) - Async version"""
+        return await self._post(
+            "/v2/ai/video",
+            body=await async_maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "duration_seconds": duration_seconds,
+                    "requested_duration_seconds": requested_duration_seconds,
+                    "credits_consumed": credits_consumed,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_video_params.AICreateVideoParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
+    async def create_image(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        actual_image_count: int | NotGiven = NOT_GIVEN,
+        requested_image_count: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_image_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["IMAGE"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_image_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """Record image generation usage (REVAI-199) - Async version"""
+        return await self._post(
+            "/v2/ai/images",
+            body=await async_maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "actual_image_count": actual_image_count,
+                    "requested_image_count": requested_image_count,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_image_params.AICreateImageParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
+    async def create_audio(
+        self,
+        *,
+        transaction_id: str,
+        provider: str,
+        model: str,
+        request_time: str,
+        response_time: str,
+        request_duration: int,
+        stop_reason: Literal["END", "ERROR", "TIMEOUT", "CANCELLED"],
+        # Billing fields - at least one required (TOP LEVEL per API spec)
+        duration_seconds: float | NotGiven = NOT_GIVEN,
+        character_count: int | NotGiven = NOT_GIVEN,
+        input_audio_token_count: int | NotGiven = NOT_GIVEN,
+        output_audio_token_count: int | NotGiven = NOT_GIVEN,
+        # Optional attributes for additional metadata
+        attributes: ai_create_audio_params.Attributes | NotGiven = NOT_GIVEN,
+        model_source: str | NotGiven = NOT_GIVEN,
+        operation_type: Literal["AUDIO"] | NotGiven = NOT_GIVEN,
+        operation_subtype: str | NotGiven = NOT_GIVEN,
+        middleware_source: str | NotGiven = NOT_GIVEN,
+        agent: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,
+        subscription_id: str | NotGiven = NOT_GIVEN,
+        subscriber: ai_create_audio_params.Subscriber | NotGiven = NOT_GIVEN,
+        trace_id: str | NotGiven = NOT_GIVEN,
+        environment: str | NotGiven = NOT_GIVEN,
+        parent_transaction_id: str | NotGiven = NOT_GIVEN,
+        transaction_name: str | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        credential_alias: str | NotGiven = NOT_GIVEN,
+        trace_type: str | NotGiven = NOT_GIVEN,
+        trace_name: str | NotGiven = NOT_GIVEN,
+        retry_number: int | NotGiven = NOT_GIVEN,
+        response_quality_score: float | NotGiven = NOT_GIVEN,
+        error_reason: str | NotGiven = NOT_GIVEN,
+        total_cost: float | NotGiven = NOT_GIVEN,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MeteringResponseResource:
+        """Record audio processing usage (REVAI-199) - Async version"""
+        return await self._post(
+            "/v2/ai/audio",
+            body=await async_maybe_transform(
+                {
+                    "transaction_id": transaction_id,
+                    "provider": provider,
+                    "model": model,
+                    "request_time": request_time,
+                    "response_time": response_time,
+                    "request_duration": request_duration,
+                    "stop_reason": stop_reason,
+                    # Billing fields at TOP LEVEL (per API spec)
+                    "duration_seconds": duration_seconds,
+                    "character_count": character_count,
+                    "input_audio_token_count": input_audio_token_count,
+                    "output_audio_token_count": output_audio_token_count,
+                    # Optional metadata
+                    "attributes": attributes,
+                    "model_source": model_source,
+                    "operation_type": operation_type,
+                    "operation_subtype": operation_subtype,
+                    "middleware_source": middleware_source,
+                    "agent": agent,
+                    "organization_id": organization_id,
+                    "product_id": product_id,
+                    "subscription_id": subscription_id,
+                    "subscriber": subscriber,
+                    "trace_id": trace_id,
+                    "environment": environment,
+                    "parent_transaction_id": parent_transaction_id,
+                    "transaction_name": transaction_name,
+                    "region": region,
+                    "credential_alias": credential_alias,
+                    "trace_type": trace_type,
+                    "trace_name": trace_name,
+                    "retry_number": retry_number,
+                    "response_quality_score": response_quality_score,
+                    "error_reason": error_reason,
+                    "total_cost": total_cost,
+                },
+                ai_create_audio_params.AICreateAudioParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MeteringResponseResource,
+        )
+
 
 class AIResourceWithRawResponse:
     def __init__(self, ai: AIResource) -> None:
@@ -557,6 +1135,15 @@ class AIResourceWithRawResponse:
 
         self.create_completion = to_raw_response_wrapper(
             ai.create_completion,
+        )
+        self.create_video = to_raw_response_wrapper(
+            ai.create_video,
+        )
+        self.create_image = to_raw_response_wrapper(
+            ai.create_image,
+        )
+        self.create_audio = to_raw_response_wrapper(
+            ai.create_audio,
         )
 
 
@@ -567,6 +1154,15 @@ class AsyncAIResourceWithRawResponse:
         self.create_completion = async_to_raw_response_wrapper(
             ai.create_completion,
         )
+        self.create_video = async_to_raw_response_wrapper(
+            ai.create_video,
+        )
+        self.create_image = async_to_raw_response_wrapper(
+            ai.create_image,
+        )
+        self.create_audio = async_to_raw_response_wrapper(
+            ai.create_audio,
+        )
 
 
 class AIResourceWithStreamingResponse:
@@ -576,6 +1172,15 @@ class AIResourceWithStreamingResponse:
         self.create_completion = to_streamed_response_wrapper(
             ai.create_completion,
         )
+        self.create_video = to_streamed_response_wrapper(
+            ai.create_video,
+        )
+        self.create_image = to_streamed_response_wrapper(
+            ai.create_image,
+        )
+        self.create_audio = to_streamed_response_wrapper(
+            ai.create_audio,
+        )
 
 
 class AsyncAIResourceWithStreamingResponse:
@@ -584,4 +1189,13 @@ class AsyncAIResourceWithStreamingResponse:
 
         self.create_completion = async_to_streamed_response_wrapper(
             ai.create_completion,
+        )
+        self.create_video = async_to_streamed_response_wrapper(
+            ai.create_video,
+        )
+        self.create_image = async_to_streamed_response_wrapper(
+            ai.create_image,
+        )
+        self.create_audio = async_to_streamed_response_wrapper(
+            ai.create_audio,
         )
