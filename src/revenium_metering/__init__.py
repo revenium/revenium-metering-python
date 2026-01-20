@@ -17,8 +17,12 @@ from ._client import (
     AsyncReveniumMetering,
 )
 from ._models import BaseModel
+from .context import ReveniumContext, context, get_context, set_context, clear_context
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
+
+# Tool Registry: Decorator and Context
+from .decorator import meter, configure, report_tool_call
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
@@ -78,6 +82,15 @@ __all__ = [
     "DEFAULT_CONNECTION_LIMITS",
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
+    # Tool Registry
+    "meter",
+    "report_tool_call",
+    "configure",
+    "set_context",
+    "get_context",
+    "context",
+    "clear_context",
+    "ReveniumContext",
 ]
 
 if not _t.TYPE_CHECKING:
