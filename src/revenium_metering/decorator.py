@@ -6,14 +6,14 @@ Automatically meters function execution with timing, success/failure, and attrib
 Data flow: Python SDK -> Metering API (/v2/tool/events) -> Kafka -> Clickhouse
 """
 
-import asyncio
-import functools
 import time
 import uuid
+import asyncio
+import functools
+from typing import Any, Dict, List, TypeVar, Callable, Optional
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Optional, TypeVar
 
-from .context import get_context, ReveniumContext
+from .context import ReveniumContext, get_context
 from ._utils._logs import logger
 
 __all__ = ["meter", "report_tool_call", "configure"]

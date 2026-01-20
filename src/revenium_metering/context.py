@@ -4,10 +4,10 @@ Context management for Revenium metering.
 Provides global and scoped context for attribution fields.
 """
 
-from contextvars import ContextVar
+from typing import Any, Dict, List, Optional
 from contextlib import contextmanager
-from dataclasses import dataclass, field
-from typing import Optional, Dict, Any, List
+from contextvars import ContextVar
+from dataclasses import field, dataclass
 
 __all__ = ["ReveniumContext", "set_context", "get_context", "context", "clear_context"]
 
