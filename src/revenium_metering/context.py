@@ -4,7 +4,9 @@ Context management for Revenium metering.
 Provides global and scoped context for attribution fields.
 """
 
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional, Generator
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import field, dataclass
@@ -12,16 +14,17 @@ from dataclasses import field, dataclass
 __all__ = ["ReveniumContext", "set_context", "get_context", "context", "clear_context"]
 
 
-def _merge_field(kwargs: Dict[str, Any], key: str, default: Any) -> Any:
+def _merge_field(kwargs: Dict[str, Any], key: str, default: Optional[str]) -> Optional[str]:
     """Merge a field, only using default if key is not in kwargs or value is None."""
     if key in kwargs and kwargs[key] is not None:
-        return kwargs[key]
+        return str(kwargs[key])
     return default
 
 
 @dataclass
 class ReveniumContext:
     """Attribution context for Revenium metering."""
+
     agent: Optional[str] = None
     organization_id: Optional[str] = None
     product: Optional[str] = None
@@ -29,10 +32,11 @@ class ReveniumContext:
     workflow_id: Optional[str] = None
     trace_id: Optional[str] = None
     transaction_id: Optional[str] = None
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: Dict[str, Any] = field(default_factory=lambda: {})
 
-    def merge(self, **kwargs) -> "ReveniumContext":
+    def merge(self, **kwargs: Any) -> ReveniumContext:
         """Create a new context with overrides (None values don't override)."""
+        extra_dict: Dict[str, Any] = kwargs.get("extra", {})
         return ReveniumContext(
             agent=_merge_field(kwargs, "agent", self.agent),
             organization_id=_merge_field(kwargs, "organization_id", self.organization_id),
@@ -41,12 +45,12 @@ class ReveniumContext:
             workflow_id=_merge_field(kwargs, "workflow_id", self.workflow_id),
             trace_id=_merge_field(kwargs, "trace_id", self.trace_id),
             transaction_id=_merge_field(kwargs, "transaction_id", self.transaction_id),
-            extra={**self.extra, **kwargs.get("extra", {})},
+            extra={**self.extra, **extra_dict},
         )
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for API calls."""
-        result = {}
+        result: Dict[str, Any] = {}
         if self.agent:
             result["agent"] = self.agent
         if self.organization_id:
@@ -66,9 +70,9 @@ class ReveniumContext:
 
 
 # ContextVar for async-safe context (works with both threads and asyncio Tasks)
-_context_stack: ContextVar[List[ReveniumContext]] = ContextVar(
+_context_stack: ContextVar[Optional[List[ReveniumContext]]] = ContextVar(
     "revenium_context_stack",
-    default=None,  # type: ignore
+    default=None,
 )
 
 
@@ -89,7 +93,7 @@ def set_context(
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
     transaction_id: Optional[str] = None,
-    **extra,
+    **extra: Any,
 ) -> None:
     """
     Set global context for all subsequent metered calls.
@@ -134,8 +138,8 @@ def context(
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
     transaction_id: Optional[str] = None,
-    **extra,
-):
+    **extra: Any,
+) -> Generator[ReveniumContext, None, None]:
     """
     Context manager for scoped context overrides.
 
