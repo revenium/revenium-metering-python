@@ -21,6 +21,7 @@ import uuid
 from datetime import datetime, timezone
 
 import anthropic
+
 from revenium_metering import ReveniumMetering
 
 
@@ -65,7 +66,7 @@ def analyze_code_with_claude(prompt: str) -> dict:
     }
 
 
-def meter_ai_call(metering_client: ReveniumMetering, usage: dict, tool_id: str = "dev-progress-tracker"):
+def meter_ai_call(metering_client: ReveniumMetering, usage: dict):
     """Send the AI usage to Revenium metering."""
     transaction_id = str(uuid.uuid4())
 
@@ -139,7 +140,7 @@ def run_demo():
         print(f"  Claude: {usage['response_text'][:100]}...")
 
         # Meter the AI call
-        meter_ai_call(metering, usage, tool_id)
+        meter_ai_call(metering, usage)
 
         # Small delay between calls
         time.sleep(0.5)
