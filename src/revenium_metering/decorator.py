@@ -219,19 +219,27 @@ def report_tool_call(
 
 
 def _extract_output_fields(result: Any, output_fields: Optional[List[str]]) -> Optional[Dict[str, Any]]:
-    """Extract specified fields from the result for usage metadata."""
+    """Extract specified fields from the result for usage metadata.
+
+    Wrapped in try/except to avoid overriding the wrapped function's exception
+    if a property accessor throws.
+    """
     if not output_fields or result is None:
         return None
 
-    usage_metadata: Dict[str, Any] = {}
-    for field_name in output_fields:
-        if isinstance(result, dict):
-            if field_name in result:
-                usage_metadata[field_name] = result[field_name]
-        elif hasattr(result, field_name):
-            usage_metadata[field_name] = getattr(result, field_name)
+    try:
+        usage_metadata: Dict[str, Any] = {}
+        for field_name in output_fields:
+            if isinstance(result, dict):
+                if field_name in result:
+                    usage_metadata[field_name] = result[field_name]
+            elif hasattr(result, field_name):
+                usage_metadata[field_name] = getattr(result, field_name)
 
-    return usage_metadata if usage_metadata else None
+        return usage_metadata if usage_metadata else None
+    except Exception:
+        # Don't let output field extraction errors override the wrapped function's result
+        return None
 
 
 def meter(

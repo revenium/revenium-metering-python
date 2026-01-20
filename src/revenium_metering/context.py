@@ -105,8 +105,7 @@ def set_context(
             product="gold-tier"
         )
     """
-    stack = _get_context_stack()
-    stack[0] = ReveniumContext(
+    new_base = ReveniumContext(
         agent=agent,
         organization_id=organization_id,
         product=product,
@@ -116,6 +115,13 @@ def set_context(
         transaction_id=transaction_id,
         extra=extra,
     )
+    # Replace the base context, keeping any scoped contexts on top
+    current_stack = _context_stack.get()
+    if current_stack is None or len(current_stack) <= 1:
+        _context_stack.set([new_base])
+    else:
+        # Preserve scoped contexts, replace base
+        _context_stack.set([new_base, *current_stack[1:]])
 
 
 def get_context() -> ReveniumContext:
@@ -148,8 +154,8 @@ def context(
             # Calls here use the scoped context
             scrape(url)
     """
-    stack = _get_context_stack()
-    current = get_context()
+    current_stack = _get_context_stack()
+    current = current_stack[-1] if current_stack else ReveniumContext()
     new_context = current.merge(
         agent=agent,
         organization_id=organization_id,
@@ -160,8 +166,10 @@ def context(
         transaction_id=transaction_id,
         extra=extra,
     )
-    stack.append(new_context)
+    # Use copy-on-write to avoid mutating shared list across async Tasks
+    new_stack = [*current_stack, new_context]
+    token = _context_stack.set(new_stack)
     try:
         yield new_context
     finally:
-        stack.pop()
+        _context_stack.reset(token)
