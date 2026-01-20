@@ -4,12 +4,19 @@ Context management for Revenium metering.
 Provides global and scoped context for attribution fields.
 """
 
-import threading
+from contextvars import ContextVar
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 __all__ = ["ReveniumContext", "set_context", "get_context", "context", "clear_context"]
+
+
+def _merge_field(kwargs: Dict[str, Any], key: str, default: Any) -> Any:
+    """Merge a field, only using default if key is not in kwargs or value is None."""
+    if key in kwargs and kwargs[key] is not None:
+        return kwargs[key]
+    return default
 
 
 @dataclass
@@ -27,13 +34,13 @@ class ReveniumContext:
     def merge(self, **kwargs) -> "ReveniumContext":
         """Create a new context with overrides (None values don't override)."""
         return ReveniumContext(
-            agent=kwargs.get("agent") or self.agent,
-            organization_id=kwargs.get("organization_id") or self.organization_id,
-            product=kwargs.get("product") or self.product,
-            subscriber_credential=kwargs.get("subscriber_credential") or self.subscriber_credential,
-            workflow_id=kwargs.get("workflow_id") or self.workflow_id,
-            trace_id=kwargs.get("trace_id") or self.trace_id,
-            transaction_id=kwargs.get("transaction_id") or self.transaction_id,
+            agent=_merge_field(kwargs, "agent", self.agent),
+            organization_id=_merge_field(kwargs, "organization_id", self.organization_id),
+            product=_merge_field(kwargs, "product", self.product),
+            subscriber_credential=_merge_field(kwargs, "subscriber_credential", self.subscriber_credential),
+            workflow_id=_merge_field(kwargs, "workflow_id", self.workflow_id),
+            trace_id=_merge_field(kwargs, "trace_id", self.trace_id),
+            transaction_id=_merge_field(kwargs, "transaction_id", self.transaction_id),
             extra={**self.extra, **kwargs.get("extra", {})},
         )
 
@@ -58,15 +65,20 @@ class ReveniumContext:
         return result
 
 
-# Thread-local storage for context
-_context_local = threading.local()
+# ContextVar for async-safe context (works with both threads and asyncio Tasks)
+_context_stack: ContextVar[List[ReveniumContext]] = ContextVar(
+    "revenium_context_stack",
+    default=None,  # type: ignore
+)
 
 
-def _get_context_stack() -> list:
-    """Get the context stack for the current thread."""
-    if not hasattr(_context_local, "stack"):
-        _context_local.stack = [ReveniumContext()]
-    return _context_local.stack
+def _get_context_stack() -> List[ReveniumContext]:
+    """Get the context stack for the current context (thread or asyncio Task)."""
+    stack = _context_stack.get()
+    if stack is None:
+        stack = [ReveniumContext()]
+        _context_stack.set(stack)
+    return stack
 
 
 def set_context(
@@ -110,7 +122,7 @@ def get_context() -> ReveniumContext:
 
 def clear_context() -> None:
     """Clear all context."""
-    _context_local.stack = [ReveniumContext()]
+    _context_stack.set([ReveniumContext()])
 
 
 @contextmanager

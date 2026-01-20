@@ -14,8 +14,9 @@ from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional, TypeVar
 
 from .context import get_context, ReveniumContext
+from ._utils._logs import logger
 
-__all__ = ["meter", "report_tool_call"]
+__all__ = ["meter", "report_tool_call", "configure"]
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -107,10 +108,79 @@ def _send_tool_event(
                 json=event_payload,
             )
             response.raise_for_status()
-            print(f"    [metered] {tool_id}:{operation or 'execute'} {duration_ms}ms")
+            logger.debug("[metered] %s:%s %dms", tool_id, operation or "execute", duration_ms)
     except Exception as e:
         # Non-blocking - just log and continue
-        print(f"[revenium] metering error: {e}")
+        logger.warning("metering error: %s", e)
+
+
+async def _send_tool_event_async(
+    tool_id: str,
+    operation: Optional[str],
+    duration_ms: int,
+    success: bool,
+    error_message: Optional[str],
+    usage_metadata: Optional[Dict[str, Any]],
+    context: ReveniumContext,
+) -> None:
+    """
+    Async version of _send_tool_event for use in async contexts.
+
+    Uses httpx.AsyncClient to avoid blocking the event loop.
+    """
+    import httpx
+
+    url = _metering_url or "http://localhost:8082"
+    key = _api_key or "demo-key"
+
+    transaction_id = context.transaction_id or str(uuid.uuid4())
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    # Build payload matching ToolEventMetadataResource
+    event_payload: Dict[str, Any] = {
+        "transactionId": transaction_id,
+        "toolId": tool_id,
+        "operation": operation or "execute",
+        "durationMs": duration_ms,
+        "success": success,
+        "timestamp": timestamp,
+    }
+
+    if error_message:
+        event_payload["errorMessage"] = error_message
+
+    if usage_metadata:
+        event_payload["usageMetadata"] = usage_metadata
+
+    # Add context fields (agent, product, organizationId, etc.)
+    if context.agent:
+        event_payload["agent"] = context.agent
+    if context.organization_id:
+        event_payload["organizationId"] = context.organization_id
+    if context.product:
+        event_payload["product"] = context.product
+    if context.subscriber_credential:
+        event_payload["subscriberCredential"] = context.subscriber_credential
+    if context.workflow_id:
+        event_payload["workflowId"] = context.workflow_id
+    if context.trace_id:
+        event_payload["traceId"] = context.trace_id
+
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.post(
+                f"{url}/v2/tool/events",
+                headers={
+                    "x-api-key": key,
+                    "Content-Type": "application/json",
+                },
+                json=event_payload,
+            )
+            response.raise_for_status()
+            logger.debug("[metered] %s:%s %dms", tool_id, operation or "execute", duration_ms)
+    except Exception as e:
+        # Non-blocking - just log and continue
+        logger.warning("metering error: %s", e)
 
 
 def report_tool_call(
@@ -201,8 +271,10 @@ def meter(
                 subscriber_credential=subscriber_credential,
                 workflow_id=workflow_id,
                 trace_id=trace_id,
-                transaction_id=str(uuid.uuid4()),
             )
+            # Only generate transaction_id if not provided by context
+            if not ctx.transaction_id:
+                ctx = ctx.merge(transaction_id=str(uuid.uuid4()))
 
             start_time = time.perf_counter()
             success = True
@@ -248,8 +320,10 @@ def meter(
                 subscriber_credential=subscriber_credential,
                 workflow_id=workflow_id,
                 trace_id=trace_id,
-                transaction_id=str(uuid.uuid4()),
             )
+            # Only generate transaction_id if not provided by context
+            if not ctx.transaction_id:
+                ctx = ctx.merge(transaction_id=str(uuid.uuid4()))
 
             start_time = time.perf_counter()
             success = True
@@ -276,7 +350,7 @@ def meter(
                         elif isinstance(result, dict) and field in result:
                             usage_metadata[field] = result[field]
 
-                _send_tool_event(
+                await _send_tool_event_async(
                     tool_id=tool_id,
                     operation=operation,
                     duration_ms=duration_ms,
