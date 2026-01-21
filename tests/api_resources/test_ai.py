@@ -138,6 +138,215 @@ class TestAI:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_audio(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_audio(
+            model="whisper-1",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="audio-txn-123",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_audio_with_all_params(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_audio(
+            model="whisper-1",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="audio-txn-123",
+            duration_seconds=120.5,
+            character_count=500,
+            input_audio_token_count=1500,
+            output_audio_token_count=2000,
+            input_token_count=100,
+            output_token_count=150,
+            operation_subtype="transcription",
+            billing_unit="PER_MINUTE",
+            language="en",
+            voice="alloy",
+            audio_format="mp3",
+            quality="hd",
+            speed=1.0,
+            sample_rate=44100,
+            response_format="verbose_json",
+            source_language="es",
+            target_language="en",
+            is_realtime=False,
+            total_cost=0.006,
+            error_reason="Audio file too large",
+            error_code=413,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "OpenAI Key",
+                    "value": "sk-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="audio-product",
+            trace_id="trace-123",
+            trace_type="audio-workflow",
+            trace_name="Audio Transcription",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Transcribe Audio",
+            task_type="transcription",
+            agent="audio-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="openai-python-sdk",
+            model_source="OPENAI",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_video(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_video(
+            model="gen-3",
+            provider="RunwayML",
+            request_duration=30000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:35Z",
+            transaction_id="video-txn-123",
+            duration_seconds=10.0,
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_video_with_all_params(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_video(
+            model="gen-3",
+            provider="RunwayML",
+            request_duration=30000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:35Z",
+            transaction_id="video-txn-123",
+            duration_seconds=10.0,
+            credits_consumed=10.0,
+            requested_duration_seconds=15.0,
+            credit_rate=1.0,
+            fps=30,
+            resolution="1080p",
+            video_job_id="job-12345",
+            async_operation=False,
+            operation_subtype="generation",
+            total_cost=0.50,
+            error_reason="Video generation failed",
+            error_code=500,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "RunwayML Key",
+                    "value": "rw-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="video-product",
+            trace_id="trace-123",
+            trace_type="video-workflow",
+            trace_name="Video Generation",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Generate Video",
+            task_type="video_generation",
+            agent="video-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="runway-sdk",
+            model_source="RUNWAY",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_image(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_image(
+            model="dall-e-3",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="image-txn-123",
+            requested_image_count=2,
+            actual_image_count=2,
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_image_with_all_params(self, client: ReveniumMetering) -> None:
+        ai = client.ai.create_image(
+            model="dall-e-3",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="image-txn-123",
+            requested_image_count=2,
+            actual_image_count=2,
+            resolution="1024x1024",
+            quality="hd",
+            style="vivid",
+            format="url",
+            revised_prompt_provided=True,
+            operation_subtype="generation",
+            total_cost=0.08,
+            error_reason="Invalid prompt",
+            error_code=400,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "OpenAI Key",
+                    "value": "sk-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="image-product",
+            trace_id="trace-123",
+            trace_type="image-workflow",
+            trace_name="Image Generation",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Generate Image",
+            task_type="image_generation",
+            agent="image-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="openai-python-sdk",
+            model_source="OPENAI",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
 
 class TestAsyncAI:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -262,3 +471,212 @@ class TestAsyncAI:
             assert_matches_type(MeteringResponseResource, ai, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_audio(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_audio(
+            model="whisper-1",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="audio-txn-123",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_audio_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_audio(
+            model="whisper-1",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="audio-txn-123",
+            duration_seconds=120.5,
+            character_count=500,
+            input_audio_token_count=1500,
+            output_audio_token_count=2000,
+            input_token_count=100,
+            output_token_count=150,
+            operation_subtype="transcription",
+            billing_unit="PER_MINUTE",
+            language="en",
+            voice="alloy",
+            audio_format="mp3",
+            quality="hd",
+            speed=1.0,
+            sample_rate=44100,
+            response_format="verbose_json",
+            source_language="es",
+            target_language="en",
+            is_realtime=False,
+            total_cost=0.006,
+            error_reason="Audio file too large",
+            error_code=413,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "OpenAI Key",
+                    "value": "sk-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="audio-product",
+            trace_id="trace-123",
+            trace_type="audio-workflow",
+            trace_name="Audio Transcription",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Transcribe Audio",
+            task_type="transcription",
+            agent="audio-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="openai-python-sdk",
+            model_source="OPENAI",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_video(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_video(
+            model="gen-3",
+            provider="RunwayML",
+            request_duration=30000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:35Z",
+            transaction_id="video-txn-123",
+            duration_seconds=10.0,
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_video_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_video(
+            model="gen-3",
+            provider="RunwayML",
+            request_duration=30000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:35Z",
+            transaction_id="video-txn-123",
+            duration_seconds=10.0,
+            credits_consumed=10.0,
+            requested_duration_seconds=15.0,
+            credit_rate=1.0,
+            fps=30,
+            resolution="1080p",
+            video_job_id="job-12345",
+            async_operation=False,
+            operation_subtype="generation",
+            total_cost=0.50,
+            error_reason="Video generation failed",
+            error_code=500,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "RunwayML Key",
+                    "value": "rw-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="video-product",
+            trace_id="trace-123",
+            trace_type="video-workflow",
+            trace_name="Video Generation",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Generate Video",
+            task_type="video_generation",
+            agent="video-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="runway-sdk",
+            model_source="RUNWAY",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_image(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_image(
+            model="dall-e-3",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="image-txn-123",
+            requested_image_count=2,
+            actual_image_count=2,
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_image_with_all_params(self, async_client: AsyncReveniumMetering) -> None:
+        ai = await async_client.ai.create_image(
+            model="dall-e-3",
+            provider="OpenAI",
+            request_duration=5000,
+            request_time="2025-03-02T15:04:05Z",
+            response_time="2025-03-02T15:04:10Z",
+            transaction_id="image-txn-123",
+            requested_image_count=2,
+            actual_image_count=2,
+            resolution="1024x1024",
+            quality="hd",
+            style="vivid",
+            format="url",
+            revised_prompt_provided=True,
+            operation_subtype="generation",
+            total_cost=0.08,
+            error_reason="Invalid prompt",
+            error_code=400,
+            billing_skipped=False,
+            skip_reason="FREE_TIER",
+            subscriber={
+                "id": "subscriber-123",
+                "credential": {
+                    "name": "OpenAI Key",
+                    "value": "sk-123",
+                },
+                "email": "user@example.com",
+            },
+            subscriber_email="user@example.com",
+            subscriber_id="subscriber-123",
+            subscription_id="sub-456",
+            organization_id="org-789",
+            product_id="image-product",
+            trace_id="trace-123",
+            trace_type="image-workflow",
+            trace_name="Image Generation",
+            parent_transaction_id="parent-txn-123",
+            transaction_name="Generate Image",
+            task_type="image_generation",
+            agent="image-agent",
+            environment="production",
+            region="us-east-1",
+            retry_number=0,
+            middleware_source="openai-python-sdk",
+            model_source="OPENAI",
+            credential_alias="Production Key",
+        )
+        assert_matches_type(MeteringResponseResource, ai, path=["response"])

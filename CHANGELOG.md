@@ -1,5 +1,39 @@
 # Changelog
 
+## 6.8.0 (2026-01-16)
+
+Full Changelog: [v6.7.0...v6.8.0](https://github.com/revenium/revenium-metering-python/compare/v6.7.0...v6.8.0)
+
+### Features
+
+* **api:** Add multi-modal AI metering methods
+  - Added `create_audio()` - meter audio operations (transcription, TTS, translation)
+    - Supports duration_seconds, character_count, tokens, language, voice, format, quality, sample_rate
+  - Added `create_video()` - meter video generation operations
+    - Supports duration_seconds, credits_consumed, fps, resolution, aspect_ratio, is_async
+  - Added `create_image()` - meter image generation operations
+    - Supports requested_image_count, actual_image_count, resolution, quality, style, format, revised_prompt
+  - New type definitions: `AICreateAudioParams`, `AICreateVideoParams`, `AICreateImageParams`
+  - Updated wrapper classes to support new methods
+  - All methods support full metadata fields including billing, subscription, tracing, and error handling
+  - Fully backwards compatible with existing integrations
+
+## 6.7.0 (2026-01-14)
+
+Full Changelog: [v6.6.0...v6.7.0](https://github.com/revenium/revenium-metering-python/compare/v6.6.0...v6.7.0)
+
+### Features
+
+* **api:** Add prompt capture fields for AI completions
+  - Added 4 new optional fields for capturing prompts and responses
+  - `system_prompt` - System prompt content (max 50,000 chars)
+  - `input_messages` - User/assistant messages as JSON string (max 50,000 chars)
+  - `output_response` - AI assistant's response content (max 50,000 chars)
+  - `prompts_truncated` - Boolean flag indicating if any field was truncated
+  - All fields are optional and disabled by default for security
+  - Enables analytics and debugging of AI interactions
+  - Fully backwards compatible with existing integrations
+
 ## 6.6.0 (2025-12-03)
 
 Full Changelog: [v6.4.0...v6.6.0](https://github.com/revenium/revenium-metering-python/compare/v6.4.0...v6.6.0)
