@@ -6,7 +6,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ai_create_audio_params, ai_create_completion_params, ai_create_image_params, ai_create_video_params
+from ..types import (
+    ai_create_audio_params,
+    ai_create_image_params,
+    ai_create_video_params,
+    ai_create_completion_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -73,9 +78,11 @@ class AIResource(SyncAPIResource):
         model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
         output_token_cost: float | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber: ai_create_completion_params.Subscriber | NotGiven = NOT_GIVEN,
@@ -259,9 +266,9 @@ class AIResource(SyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "operation_type": operation_type,
-                    "organization_id": organization_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
                     "output_token_cost": output_token_cost,
-                    "product_id": product_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
                     "subscriber": subscriber,
@@ -330,8 +337,10 @@ class AIResource(SyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -497,8 +506,8 @@ class AIResource(SyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,
@@ -548,8 +557,10 @@ class AIResource(SyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -688,8 +699,8 @@ class AIResource(SyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,
@@ -738,8 +749,10 @@ class AIResource(SyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -875,8 +888,8 @@ class AIResource(SyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,
@@ -950,9 +963,11 @@ class AsyncAIResource(AsyncAPIResource):
         model_source: str | NotGiven = NOT_GIVEN,
         operation_type: Literal["CHAT", "GENERATE", "EMBED", "CLASSIFY", "SUMMARIZE", "TRANSLATE", "TOOL_CALL", "RERANK", "SEARCH", "MODERATION", "VISION", "TRANSFORM", "GUARDRAIL", "OTHER"]
         | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
         output_token_cost: float | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         reasoning_token_count: int | NotGiven = NOT_GIVEN,
         response_quality_score: float | NotGiven = NOT_GIVEN,
         subscriber: ai_create_completion_params.Subscriber | NotGiven = NOT_GIVEN,
@@ -1136,9 +1151,9 @@ class AsyncAIResource(AsyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "operation_type": operation_type,
-                    "organization_id": organization_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
                     "output_token_cost": output_token_cost,
-                    "product_id": product_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "reasoning_token_count": reasoning_token_count,
                     "response_quality_score": response_quality_score,
                     "subscriber": subscriber,
@@ -1207,8 +1222,10 @@ class AsyncAIResource(AsyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -1374,8 +1391,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,
@@ -1425,8 +1442,10 @@ class AsyncAIResource(AsyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -1565,8 +1584,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,
@@ -1615,8 +1634,10 @@ class AsyncAIResource(AsyncAPIResource):
         subscriber_email: str | NotGiven = NOT_GIVEN,
         subscriber_id: str | NotGiven = NOT_GIVEN,
         subscription_id: str | NotGiven = NOT_GIVEN,
-        organization_id: str | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
+        organization_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use organization_name
+        product_id: str | NotGiven = NOT_GIVEN,  # DEPRECATED: Use product_name
+        organization_name: str | NotGiven = NOT_GIVEN,
+        product_name: str | NotGiven = NOT_GIVEN,
         trace_id: str | NotGiven = NOT_GIVEN,
         trace_type: str | NotGiven = NOT_GIVEN,
         trace_name: str | NotGiven = NOT_GIVEN,
@@ -1752,8 +1773,8 @@ class AsyncAIResource(AsyncAPIResource):
                     "subscriber_email": subscriber_email,
                     "subscriber_id": subscriber_id,
                     "subscription_id": subscription_id,
-                    "organization_id": organization_id,
-                    "product_id": product_id,
+                    "organization_name": organization_name if organization_name is not NOT_GIVEN else organization_id,
+                    "product_name": product_name if product_name is not NOT_GIVEN else product_id,
                     "trace_id": trace_id,
                     "trace_type": trace_type,
                     "trace_name": trace_name,

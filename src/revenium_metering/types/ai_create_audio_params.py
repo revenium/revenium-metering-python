@@ -116,11 +116,31 @@ class AICreateAudioParams(TypedDict, total=False):
     subscription_id: Annotated[str, PropertyInfo(alias="subscriptionId")]
     """Unique identifier of the subscription"""
 
+    organization_name: Annotated[str, PropertyInfo(alias="organizationName")]
+    """
+    Organization or company name for multi-tenant applications.
+    Used for lookup and auto-creation of organizations in Revenium.
+    Example: "AcmeCorp", "Engineering-Dept"
+    """
+
     organization_id: Annotated[str, PropertyInfo(alias="organizationId")]
-    """ID of the subscriber's organization"""
+    """
+    DEPRECATED: Use organization_name instead. This field will be removed in a future version.
+    Organization name (e.g., "AcmeCorp"). Despite the field name, this is a NAME, not an ID.
+    """
+
+    product_name: Annotated[str, PropertyInfo(alias="productName")]
+    """
+    Product or feature name that is using AI services.
+    Used for lookup and auto-creation of products in Revenium.
+    Example: "chatbot", "email-assistant"
+    """
 
     product_id: Annotated[str, PropertyInfo(alias="productId")]
-    """Identifier of the product"""
+    """
+    DEPRECATED: Use product_name instead. This field will be removed in a future version.
+    Product name (e.g., "chatbot"). Despite the field name, this is a NAME, not an ID.
+    """
 
     # Tracing and context fields
     trace_id: Annotated[str, PropertyInfo(alias="traceId")]

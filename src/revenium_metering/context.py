@@ -26,8 +26,12 @@ class ReveniumContext:
     """Attribution context for Revenium metering."""
 
     agent: Optional[str] = None
-    organization_id: Optional[str] = None
-    product: Optional[str] = None
+    # Deprecated fields - kept for backward compatibility (must come before new fields for positional args)
+    organization_id: Optional[str] = None  # DEPRECATED: Use organization_name
+    product: Optional[str] = None  # DEPRECATED: Use product_name
+    # New fields
+    organization_name: Optional[str] = None
+    product_name: Optional[str] = None
     subscriber_credential: Optional[str] = None
     workflow_id: Optional[str] = None
     trace_id: Optional[str] = None
@@ -37,10 +41,43 @@ class ReveniumContext:
     def merge(self, **kwargs: Any) -> ReveniumContext:
         """Create a new context with overrides (None values don't override)."""
         extra_dict: Dict[str, Any] = kwargs.get("extra", {})
+
+        # Support both new and deprecated field names
+        # Check if new field names are explicitly provided (not just present as None)
+        has_org_name = "organization_name" in kwargs and kwargs["organization_name"] is not None
+        has_org_id = "organization_id" in kwargs and kwargs["organization_id"] is not None
+        has_prod_name = "product_name" in kwargs and kwargs["product_name"] is not None
+        has_product = "product" in kwargs and kwargs["product"] is not None
+
+        # Determine final values with proper precedence and type coercion
+        org_name: Optional[str]
+        prod_name: Optional[str]
+
+        if has_org_name:
+            org_name = str(kwargs["organization_name"])
+        elif has_org_id:
+            org_name = str(kwargs["organization_id"])
+        else:
+            # Use existing value, preferring new field over deprecated
+            existing_val = self.organization_name or self.organization_id
+            org_name = str(existing_val) if existing_val is not None else None
+
+        if has_prod_name:
+            prod_name = str(kwargs["product_name"])
+        elif has_product:
+            prod_name = str(kwargs["product"])
+        else:
+            # Use existing value, preferring new field over deprecated
+            existing_val = self.product_name or self.product
+            prod_name = str(existing_val) if existing_val is not None else None
+
+        # Sync deprecated fields with new fields for backward compatibility
         return ReveniumContext(
             agent=_merge_field(kwargs, "agent", self.agent),
-            organization_id=_merge_field(kwargs, "organization_id", self.organization_id),
-            product=_merge_field(kwargs, "product", self.product),
+            organization_id=org_name,  # Sync deprecated field with new field
+            product=prod_name,  # Sync deprecated field with new field
+            organization_name=org_name,
+            product_name=prod_name,
             subscriber_credential=_merge_field(kwargs, "subscriber_credential", self.subscriber_credential),
             workflow_id=_merge_field(kwargs, "workflow_id", self.workflow_id),
             trace_id=_merge_field(kwargs, "trace_id", self.trace_id),
@@ -53,10 +90,15 @@ class ReveniumContext:
         result: Dict[str, Any] = {}
         if self.agent:
             result["agent"] = self.agent
-        if self.organization_id:
-            result["organizationId"] = self.organization_id
-        if self.product:
-            result["product"] = self.product
+        # Use new field names, fallback to deprecated fields
+        if self.organization_name:
+            result["organizationName"] = self.organization_name
+        elif self.organization_id:
+            result["organizationName"] = self.organization_id
+        if self.product_name:
+            result["productName"] = self.product_name
+        elif self.product:
+            result["productName"] = self.product
         if self.subscriber_credential:
             result["subscriberCredential"] = self.subscriber_credential
         if self.workflow_id:
@@ -87,8 +129,12 @@ def _get_context_stack() -> List[ReveniumContext]:
 
 def set_context(
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
     organization_id: Optional[str] = None,
     product: Optional[str] = None,
+    # New parameters
+    organization_name: Optional[str] = None,
+    product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
@@ -101,14 +147,21 @@ def set_context(
     Example:
         revenium.set_context(
             agent="my-agent",
-            organization_id="acme-org",
-            product="gold-tier"
+            organization_name="AcmeCorp",
+            product_name="customer-chatbot"
         )
     """
+    # Use new fields, fallback to deprecated fields
+    final_org_name = organization_name if organization_name is not None else organization_id
+    final_prod_name = product_name if product_name is not None else product
+
+    # Sync deprecated fields with new fields for backward compatibility
     new_base = ReveniumContext(
         agent=agent,
-        organization_id=organization_id,
-        product=product,
+        organization_id=final_org_name,  # Sync deprecated field with new field
+        product=final_prod_name,  # Sync deprecated field with new field
+        organization_name=final_org_name,
+        product_name=final_prod_name,
         subscriber_credential=subscriber_credential,
         workflow_id=workflow_id,
         trace_id=trace_id,
@@ -138,8 +191,12 @@ def clear_context() -> None:
 @contextmanager
 def context(
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
     organization_id: Optional[str] = None,
     product: Optional[str] = None,
+    # New parameters
+    organization_name: Optional[str] = None,
+    product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
@@ -158,6 +215,8 @@ def context(
     current = current_stack[-1] if current_stack else ReveniumContext()
     new_context = current.merge(
         agent=agent,
+        organization_name=organization_name,
+        product_name=product_name,
         organization_id=organization_id,
         product=product,
         subscriber_credential=subscriber_credential,

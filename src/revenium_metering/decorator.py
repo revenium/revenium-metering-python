@@ -76,13 +76,18 @@ def _build_event_payload(
     if usage_metadata:
         event_payload["usageMetadata"] = usage_metadata
 
-    # Add context fields (agent, product, organizationId, etc.)
+    # Add context fields (agent, product, organizationName, etc.)
     if context.agent:
         event_payload["agent"] = context.agent
-    if context.organization_id:
-        event_payload["organizationId"] = context.organization_id
-    if context.product:
-        event_payload["product"] = context.product
+    # Use new field names, fallback to deprecated fields for backward compatibility
+    if context.organization_name:
+        event_payload["organizationName"] = context.organization_name
+    elif context.organization_id:
+        event_payload["organizationName"] = context.organization_id
+    if context.product_name:
+        event_payload["productName"] = context.product_name
+    elif context.product:
+        event_payload["productName"] = context.product
     if context.subscriber_credential:
         event_payload["subscriberCredential"] = context.subscriber_credential
     if context.workflow_id:
@@ -178,8 +183,12 @@ def report_tool_call(
     error_message: Optional[str] = None,
     usage_metadata: Optional[Dict[str, Any]] = None,
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
     organization_id: Optional[str] = None,
     product: Optional[str] = None,
+    # New parameters
+    organization_name: Optional[str] = None,
+    product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
@@ -195,13 +204,17 @@ def report_tool_call(
             duration_ms=1234,
             success=True,
             usage_metadata={"pages": 5, "data_mb": 2.3},
-            agent="my-agent"
+            agent="my-agent",
+            organization_name="AcmeCorp",
+            product_name="chatbot"
         )
     """
     ctx = get_context().merge(
         agent=agent,
         organization_id=organization_id,
         product=product,
+        organization_name=organization_name,
+        product_name=product_name,
         subscriber_credential=subscriber_credential,
         workflow_id=workflow_id,
         trace_id=trace_id,
@@ -247,8 +260,12 @@ def meter(
     operation: Optional[str] = None,
     output_fields: Optional[List[str]] = None,
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
     organization_id: Optional[str] = None,
     product: Optional[str] = None,
+    # New parameters
+    organization_name: Optional[str] = None,
+    product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
@@ -279,6 +296,8 @@ def meter(
                 agent=agent,
                 organization_id=organization_id,
                 product=product,
+                organization_name=organization_name,
+                product_name=product_name,
                 subscriber_credential=subscriber_credential,
                 workflow_id=workflow_id,
                 trace_id=trace_id,
@@ -319,6 +338,8 @@ def meter(
                 agent=agent,
                 organization_id=organization_id,
                 product=product,
+                organization_name=organization_name,
+                product_name=product_name,
                 subscriber_credential=subscriber_credential,
                 workflow_id=workflow_id,
                 trace_id=trace_id,

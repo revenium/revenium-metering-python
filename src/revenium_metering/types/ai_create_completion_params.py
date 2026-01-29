@@ -103,12 +103,24 @@ class AICreateCompletionParams(TypedDict, total=False):
     ]
     """The type of operation performed"""
 
+    organization_name: Annotated[str, PropertyInfo(alias="organizationName")]
+    """
+    Organization or company name for multi-tenant applications.
+
+    Used for lookup and auto-creation of organizations in Revenium. This field
+    contains a NAME (e.g., "AcmeCorp", "Engineering-Dept"), not an ID. If several
+    subscribers have the same organizationName, Revenium's reporting will show usage
+    for the entire organization broken down by subscriber.
+    """
+
     organization_id: Annotated[str, PropertyInfo(alias="organizationId")]
     """
-    Populate the ID of the subscriber’s organization from your system to allow
-    Revenium to track usage & costs by company. i.e. AcmeCorp. If several
-    subscriberIds have the same organizationId, Revenium’s reporting will show usage
-    for the entire organization broken down by subscriberId.
+    DEPRECATED: Use organization_name instead. This field will be removed in a future version.
+
+    Organization name from your system (e.g., "AcmeCorp"). Despite the field name,
+    this contains a NAME, not an ID. Used for lookup and auto-creation of organizations
+    in Revenium. If several subscriberIds have the same organization name, Revenium's
+    reporting will show usage for the entire organization broken down by subscriberId.
     """
 
     output_token_cost: Annotated[float, PropertyInfo(alias="outputTokenCost")]
@@ -119,10 +131,21 @@ class AICreateCompletionParams(TypedDict, total=False):
     may not be available on all Revenium plans.
     """
 
+    product_name: Annotated[str, PropertyInfo(alias="productName")]
+    """
+    Product or feature name that is using AI services.
+
+    Used for lookup and auto-creation of products in Revenium. This field contains
+    a NAME (e.g., "chatbot", "email-assistant", "code-analyzer"), not an ID.
+    """
+
     product_id: Annotated[str, PropertyInfo(alias="productId")]
     """
-    Identifier of the product from your own system that you wish to use to correlate
-    usage between Revenium & your application.
+    DEPRECATED: Use product_name instead. This field will be removed in a future version.
+
+    Product name from your system (e.g., "chatbot", "email-assistant"). Despite the
+    field name, this contains a NAME, not an ID. Used for lookup and auto-creation of
+    products in Revenium.
     """
 
     reasoning_token_count: Annotated[int, PropertyInfo(alias="reasoningTokenCount")]

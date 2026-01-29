@@ -1,5 +1,26 @@
 # Changelog
 
+## 6.8.1 (2026-01-29)
+
+Full Changelog: [v6.8.0...v6.8.1](https://github.com/revenium/revenium-metering-python/compare/v6.8.0...v6.8.1)
+
+### Features
+
+* **api:** Rename organizationId/productId to organizationName/productName
+  - Added new fields `organization_name` and `product_name` to clarify these are customer-provided names for lookup/auto-creation, not internal Revenium entity IDs
+  - Deprecated `organization_id` and `product` fields (will be removed in future version)
+  - Updated `ReveniumContext` to support both old and new field names with automatic syncing
+  - Updated all AI metering type definitions (`AICreateCompletionParams`, `AICreateAudioParams`, `AICreateImageParams`, `AICreateVideoParams`)
+  - Maintained full backward compatibility - both old and new field names work seamlessly
+  - Backend accepts both field names via `@JsonAlias` annotations
+
+### Bug Fixes
+
+* **context:** Fix field syncing logic in `set_context()` and `merge()` methods
+  - Ensure deprecated fields are always synced with new fields to prevent data loss
+  - Fix redundant fallback logic that could cause incorrect field values
+  - Maintain consistency between new and deprecated fields across all code paths
+
 ## 6.8.0 (2026-01-16)
 
 Full Changelog: [v6.7.0...v6.8.0](https://github.com/revenium/revenium-metering-python/compare/v6.7.0...v6.8.0)
