@@ -79,9 +79,14 @@ def _build_event_payload(
     # Add context fields (agent, product, organizationId, etc.)
     if context.agent:
         event_payload["agent"] = context.agent
-    if context.organization_id:
+    # Use new field names, fallback to deprecated fields for backward compatibility
+    if context.organization_name:
+        event_payload["organizationId"] = context.organization_name
+    elif context.organization_id:
         event_payload["organizationId"] = context.organization_id
-    if context.product:
+    if context.product_name:
+        event_payload["product"] = context.product_name
+    elif context.product:
         event_payload["product"] = context.product
     if context.subscriber_credential:
         event_payload["subscriberCredential"] = context.subscriber_credential

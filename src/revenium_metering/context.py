@@ -42,13 +42,30 @@ class ReveniumContext:
         extra_dict: Dict[str, Any] = kwargs.get("extra", {})
 
         # Support both new and deprecated field names
-        org_name = _merge_field(kwargs, "organization_name", self.organization_name)
-        if org_name is None:
-            org_name = _merge_field(kwargs, "organization_id", self.organization_id)
+        # Check if new field names are explicitly provided (not just present as None)
+        has_org_name = "organization_name" in kwargs and kwargs["organization_name"] is not None
+        has_org_id = "organization_id" in kwargs and kwargs["organization_id"] is not None
+        has_prod_name = "product_name" in kwargs and kwargs["product_name"] is not None
+        has_product = "product" in kwargs and kwargs["product"] is not None
 
-        prod_name = _merge_field(kwargs, "product_name", self.product_name)
-        if prod_name is None:
-            prod_name = _merge_field(kwargs, "product", self.product)
+        # Determine final values with proper precedence
+        if has_org_name:
+            org_name = kwargs["organization_name"]
+        elif has_org_id:
+            org_name = kwargs["organization_id"]
+        else:
+            org_name = self.organization_name or self.organization_id
+
+        if has_prod_name:
+            prod_name = kwargs["product_name"]
+        elif has_product:
+            prod_name = kwargs["product"]
+        else:
+            prod_name = self.product_name or self.product
+
+        # Sync deprecated fields with new fields for backward compatibility
+        org_id = org_name
+        product_val = prod_name
 
         return ReveniumContext(
             agent=_merge_field(kwargs, "agent", self.agent),
@@ -58,8 +75,8 @@ class ReveniumContext:
             workflow_id=_merge_field(kwargs, "workflow_id", self.workflow_id),
             trace_id=_merge_field(kwargs, "trace_id", self.trace_id),
             transaction_id=_merge_field(kwargs, "transaction_id", self.transaction_id),
-            organization_id=_merge_field(kwargs, "organization_id", self.organization_id),
-            product=_merge_field(kwargs, "product", self.product),
+            organization_id=org_id,
+            product=product_val,
             extra={**self.extra, **extra_dict},
         )
 
@@ -107,15 +124,16 @@ def _get_context_stack() -> List[ReveniumContext]:
 
 def set_context(
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
+    organization_id: Optional[str] = None,
+    product: Optional[str] = None,
+    # New parameters
     organization_name: Optional[str] = None,
     product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
     transaction_id: Optional[str] = None,
-    # Deprecated parameters - kept for backward compatibility
-    organization_id: Optional[str] = None,
-    product: Optional[str] = None,
     **extra: Any,
 ) -> None:
     """
@@ -132,6 +150,10 @@ def set_context(
     final_org_name = organization_name if organization_name is not None else organization_id
     final_prod_name = product_name if product_name is not None else product
 
+    # Sync deprecated fields with new fields for backward compatibility
+    final_org_id = final_org_name if final_org_name is not None else organization_id
+    final_product = final_prod_name if final_prod_name is not None else product
+
     new_base = ReveniumContext(
         agent=agent,
         organization_name=final_org_name,
@@ -140,8 +162,8 @@ def set_context(
         workflow_id=workflow_id,
         trace_id=trace_id,
         transaction_id=transaction_id,
-        organization_id=organization_id,
-        product=product,
+        organization_id=final_org_id,
+        product=final_product,
         extra=extra,
     )
     # Replace the base context, keeping any scoped contexts on top
@@ -167,15 +189,16 @@ def clear_context() -> None:
 @contextmanager
 def context(
     agent: Optional[str] = None,
+    # Deprecated parameters - kept for backward compatibility
+    organization_id: Optional[str] = None,
+    product: Optional[str] = None,
+    # New parameters
     organization_name: Optional[str] = None,
     product_name: Optional[str] = None,
     subscriber_credential: Optional[str] = None,
     workflow_id: Optional[str] = None,
     trace_id: Optional[str] = None,
     transaction_id: Optional[str] = None,
-    # Deprecated parameters - kept for backward compatibility
-    organization_id: Optional[str] = None,
-    product: Optional[str] = None,
     **extra: Any,
 ) -> Generator[ReveniumContext, None, None]:
     """
