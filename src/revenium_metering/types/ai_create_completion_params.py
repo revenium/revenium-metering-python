@@ -117,10 +117,10 @@ class AICreateCompletionParams(TypedDict, total=False):
     """
     DEPRECATED: Use organization_name instead. This field will be removed in a future version.
 
-    Populate the ID of the subscriber’s organization from your system to allow
-    Revenium to track usage & costs by company. i.e. AcmeCorp. If several
-    subscriberIds have the same organizationId, Revenium’s reporting will show usage
-    for the entire organization broken down by subscriberId.
+    Organization name from your system (e.g., "AcmeCorp"). Despite the field name,
+    this contains a NAME, not an ID. Used for lookup and auto-creation of organizations
+    in Revenium. If several subscriberIds have the same organization name, Revenium's
+    reporting will show usage for the entire organization broken down by subscriberId.
     """
 
     output_token_cost: Annotated[float, PropertyInfo(alias="outputTokenCost")]
@@ -143,8 +143,9 @@ class AICreateCompletionParams(TypedDict, total=False):
     """
     DEPRECATED: Use product_name instead. This field will be removed in a future version.
 
-    Identifier of the product from your own system that you wish to use to correlate
-    usage between Revenium & your application.
+    Product name from your system (e.g., "chatbot", "email-assistant"). Despite the
+    field name, this contains a NAME, not an ID. Used for lookup and auto-creation of
+    products in Revenium.
     """
 
     reasoning_token_count: Annotated[int, PropertyInfo(alias="reasoningTokenCount")]

@@ -99,7 +99,7 @@ class AICreateVideoParams(TypedDict, total=False):
     organization_id: Annotated[str, PropertyInfo(alias="organizationId")]
     """
     DEPRECATED: Use organization_name instead. This field will be removed in a future version.
-    ID of the subscriber's organization
+    Organization name (e.g., "AcmeCorp"). Despite the field name, this is a NAME, not an ID.
     """
 
     product_name: Annotated[str, PropertyInfo(alias="productName")]
@@ -112,7 +112,7 @@ class AICreateVideoParams(TypedDict, total=False):
     product_id: Annotated[str, PropertyInfo(alias="productId")]
     """
     DEPRECATED: Use product_name instead. This field will be removed in a future version.
-    Identifier of the product
+    Product name (e.g., "chatbot"). Despite the field name, this is a NAME, not an ID.
     """
 
     # Tracing and context fields

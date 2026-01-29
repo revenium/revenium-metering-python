@@ -50,6 +50,11 @@ class ReveniumContext:
         has_product = "product" in kwargs and kwargs["product"] is not None
 
         # Determine final values with proper precedence and type coercion
+        org_name: Optional[str]
+        org_id: Optional[str]
+        prod_name: Optional[str]
+        product_val: Optional[str]
+
         if has_org_name:
             org_name = str(kwargs["organization_name"])
             org_id = None  # Clear deprecated field when new field is provided
