@@ -26,15 +26,16 @@ class ReveniumContext:
     """Attribution context for Revenium metering."""
 
     agent: Optional[str] = None
+    # Deprecated fields - kept for backward compatibility (must come before new fields for positional args)
+    organization_id: Optional[str] = None  # DEPRECATED: Use organization_name
+    product: Optional[str] = None  # DEPRECATED: Use product_name
+    # New fields
     organization_name: Optional[str] = None
     product_name: Optional[str] = None
     subscriber_credential: Optional[str] = None
     workflow_id: Optional[str] = None
     trace_id: Optional[str] = None
     transaction_id: Optional[str] = None
-    # Deprecated fields - kept for backward compatibility
-    organization_id: Optional[str] = None  # DEPRECATED: Use organization_name
-    product: Optional[str] = None  # DEPRECATED: Use product_name
     extra: Dict[str, Any] = field(default_factory=lambda: {})
 
     def merge(self, **kwargs: Any) -> ReveniumContext:
@@ -48,37 +49,41 @@ class ReveniumContext:
         has_prod_name = "product_name" in kwargs and kwargs["product_name"] is not None
         has_product = "product" in kwargs and kwargs["product"] is not None
 
-        # Determine final values with proper precedence
+        # Determine final values with proper precedence and type coercion
         if has_org_name:
-            org_name = kwargs["organization_name"]
-            org_id = org_name  # Sync deprecated field
+            org_name = str(kwargs["organization_name"])
+            org_id = None  # Clear deprecated field when new field is provided
         elif has_org_id:
-            org_name = kwargs["organization_id"]
-            org_id = org_name  # Sync deprecated field
+            org_name = str(kwargs["organization_id"])
+            org_id = None  # Clear deprecated field (value is in org_name)
         else:
-            org_name = self.organization_name or self.organization_id
-            org_id = org_name  # Sync deprecated field
+            # Use existing value, preferring new field over deprecated
+            existing_val = self.organization_name or self.organization_id
+            org_name = str(existing_val) if existing_val is not None else None
+            org_id = None
 
         if has_prod_name:
-            prod_name = kwargs["product_name"]
-            product_val = prod_name  # Sync deprecated field
+            prod_name = str(kwargs["product_name"])
+            product_val = None  # Clear deprecated field when new field is provided
         elif has_product:
-            prod_name = kwargs["product"]
-            product_val = prod_name  # Sync deprecated field
+            prod_name = str(kwargs["product"])
+            product_val = None  # Clear deprecated field (value is in prod_name)
         else:
-            prod_name = self.product_name or self.product
-            product_val = prod_name  # Sync deprecated field
+            # Use existing value, preferring new field over deprecated
+            existing_val = self.product_name or self.product
+            prod_name = str(existing_val) if existing_val is not None else None
+            product_val = None
 
         return ReveniumContext(
             agent=_merge_field(kwargs, "agent", self.agent),
+            organization_id=org_id,
+            product=product_val,
             organization_name=org_name,
             product_name=prod_name,
             subscriber_credential=_merge_field(kwargs, "subscriber_credential", self.subscriber_credential),
             workflow_id=_merge_field(kwargs, "workflow_id", self.workflow_id),
             trace_id=_merge_field(kwargs, "trace_id", self.trace_id),
             transaction_id=_merge_field(kwargs, "transaction_id", self.transaction_id),
-            organization_id=org_id,
-            product=product_val,
             extra={**self.extra, **extra_dict},
         )
 
@@ -152,20 +157,20 @@ def set_context(
     final_org_name = organization_name if organization_name is not None else organization_id
     final_prod_name = product_name if product_name is not None else product
 
-    # Sync deprecated fields with new fields for backward compatibility
-    final_org_id = final_org_name
-    final_product = final_prod_name
+    # Clear deprecated fields when new fields are provided to prevent inconsistency
+    final_org_id = None if organization_name is not None else organization_id
+    final_product = None if product_name is not None else product
 
     new_base = ReveniumContext(
         agent=agent,
+        organization_id=final_org_id,
+        product=final_product,
         organization_name=final_org_name,
         product_name=final_prod_name,
         subscriber_credential=subscriber_credential,
         workflow_id=workflow_id,
         trace_id=trace_id,
         transaction_id=transaction_id,
-        organization_id=final_org_id,
-        product=final_product,
         extra=extra,
     )
     # Replace the base context, keeping any scoped contexts on top
