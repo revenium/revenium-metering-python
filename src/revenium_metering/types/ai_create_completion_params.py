@@ -103,8 +103,20 @@ class AICreateCompletionParams(TypedDict, total=False):
     ]
     """The type of operation performed"""
 
+    organization_name: Annotated[str, PropertyInfo(alias="organizationName")]
+    """
+    Organization or company name for multi-tenant applications.
+
+    Used for lookup and auto-creation of organizations in Revenium. This field
+    contains a NAME (e.g., "AcmeCorp", "Engineering-Dept"), not an ID. If several
+    subscribers have the same organizationName, Revenium's reporting will show usage
+    for the entire organization broken down by subscriber.
+    """
+
     organization_id: Annotated[str, PropertyInfo(alias="organizationId")]
     """
+    DEPRECATED: Use organization_name instead. This field will be removed in a future version.
+
     Populate the ID of the subscriber’s organization from your system to allow
     Revenium to track usage & costs by company. i.e. AcmeCorp. If several
     subscriberIds have the same organizationId, Revenium’s reporting will show usage
@@ -119,8 +131,18 @@ class AICreateCompletionParams(TypedDict, total=False):
     may not be available on all Revenium plans.
     """
 
+    product_name: Annotated[str, PropertyInfo(alias="productName")]
+    """
+    Product or feature name that is using AI services.
+
+    Used for lookup and auto-creation of products in Revenium. This field contains
+    a NAME (e.g., "chatbot", "email-assistant", "code-analyzer"), not an ID.
+    """
+
     product_id: Annotated[str, PropertyInfo(alias="productId")]
     """
+    DEPRECATED: Use product_name instead. This field will be removed in a future version.
+
     Identifier of the product from your own system that you wish to use to correlate
     usage between Revenium & your application.
     """
