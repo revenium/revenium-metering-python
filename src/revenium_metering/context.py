@@ -51,21 +51,23 @@ class ReveniumContext:
         # Determine final values with proper precedence
         if has_org_name:
             org_name = kwargs["organization_name"]
+            org_id = org_name  # Sync deprecated field
         elif has_org_id:
             org_name = kwargs["organization_id"]
+            org_id = org_name  # Sync deprecated field
         else:
             org_name = self.organization_name or self.organization_id
+            org_id = org_name  # Sync deprecated field
 
         if has_prod_name:
             prod_name = kwargs["product_name"]
+            product_val = prod_name  # Sync deprecated field
         elif has_product:
             prod_name = kwargs["product"]
+            product_val = prod_name  # Sync deprecated field
         else:
             prod_name = self.product_name or self.product
-
-        # Sync deprecated fields with new fields for backward compatibility
-        org_id = org_name
-        product_val = prod_name
+            product_val = prod_name  # Sync deprecated field
 
         return ReveniumContext(
             agent=_merge_field(kwargs, "agent", self.agent),
@@ -151,8 +153,8 @@ def set_context(
     final_prod_name = product_name if product_name is not None else product
 
     # Sync deprecated fields with new fields for backward compatibility
-    final_org_id = final_org_name if final_org_name is not None else organization_id
-    final_product = final_prod_name if final_prod_name is not None else product
+    final_org_id = final_org_name
+    final_product = final_prod_name
 
     new_base = ReveniumContext(
         agent=agent,
