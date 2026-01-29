@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+import httpx
 from typing_extensions import Literal
 
-import httpx
-
-from ..types import ai_create_audio_params, ai_create_completion_params, ai_create_image_params, ai_create_video_params
+from ..types import (
+    ai_create_audio_params,
+    ai_create_completion_params,
+    ai_create_image_params,
+    ai_create_video_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
