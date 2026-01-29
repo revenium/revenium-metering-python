@@ -6,10 +6,10 @@ import httpx
 from typing_extensions import Literal
 
 from ..types import (
-    ai_create_audio_params,
-    ai_create_completion_params,
     ai_create_image_params,
+    ai_create_audio_params,
     ai_create_video_params,
+    ai_create_completion_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform

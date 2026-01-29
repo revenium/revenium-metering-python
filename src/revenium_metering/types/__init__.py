@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from .ai_create_audio_params import AICreateAudioParams as AICreateAudioParams
-from .ai_create_completion_params import AICreateCompletionParams as AICreateCompletionParams
+from .event_create_params import EventCreateParams as EventCreateParams
 from .ai_create_image_params import AICreateImageParams as AICreateImageParams
+from .ai_create_audio_params import AICreateAudioParams as AICreateAudioParams
 from .ai_create_video_params import AICreateVideoParams as AICreateVideoParams
 from .api_meter_request_params import APIMeterRequestParams as APIMeterRequestParams
 from .api_meter_response_params import APIMeterResponseParams as APIMeterResponseParams
-from .event_create_params import EventCreateParams as EventCreateParams
 from .metering_response_resource import MeteringResponseResource as MeteringResponseResource
+from .ai_create_completion_params import AICreateCompletionParams as AICreateCompletionParams
