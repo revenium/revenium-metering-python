@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 import asyncio
-from unittest.mock import patch, MagicMock, AsyncMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
 import pytest
 
 import revenium_metering
-from revenium_metering import meter_tool, report_tool_call, configure, set_context, clear_context, get_context
-
+from revenium_metering import configure, meter_tool, set_context, clear_context, report_tool_call
 
 # ---------------------------------------------------------------------------
 # Fixtures
