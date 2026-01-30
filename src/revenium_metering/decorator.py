@@ -20,7 +20,7 @@ import httpx
 from .context import ReveniumContext, get_context
 from ._utils._logs import logger
 
-__all__ = ["meter", "report_tool_call", "configure"]
+__all__ = ["meter_tool", "report_tool_call", "configure"]
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -255,7 +255,7 @@ def _extract_output_fields(result: Any, output_fields: Optional[List[str]]) -> O
         return None
 
 
-def meter(
+def meter_tool(
     tool_id: str,
     operation: Optional[str] = None,
     output_fields: Optional[List[str]] = None,
@@ -276,15 +276,15 @@ def meter(
     Captures timing, success/failure, and reports to Revenium metering.
 
     Example:
-        @revenium.meter("firecrawl")
+        @revenium.meter_tool("firecrawl")
         def scrape(url):
             return firecrawl.scrape(url)
 
-        @revenium.meter("fal_flux", operation="generate_image", agent="image-bot")
+        @revenium.meter_tool("fal_flux", operation="generate_image", agent="image-bot")
         async def generate_image(prompt):
             return await fal.run("fal-ai/flux", {"prompt": prompt})
 
-        @revenium.meter("runway", output_fields=["duration_seconds", "resolution"])
+        @revenium.meter_tool("runway", output_fields=["duration_seconds", "resolution"])
         def generate_video(prompt):
             return runway.generate(prompt)
     """

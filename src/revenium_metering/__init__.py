@@ -22,7 +22,7 @@ from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 
 # Tool Registry: Decorator and Context
-from .decorator import meter, configure, report_tool_call
+from .decorator import meter_tool, configure, report_tool_call
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
@@ -83,7 +83,7 @@ __all__ = [
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
     # Tool Registry
-    "meter",
+    "meter_tool",
     "report_tool_call",
     "configure",
     "set_context",
