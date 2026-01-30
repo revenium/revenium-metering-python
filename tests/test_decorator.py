@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from typing import Any, Dict
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
@@ -17,7 +18,7 @@ from revenium_metering import configure, meter_tool, set_context, clear_context,
 
 
 @pytest.fixture(autouse=True)
-def _clean_state() -> None:
+def _clean_state() -> None:  # pyright: ignore[reportUnusedFunction]
     """Reset global state between tests."""
     clear_context()
     configure(metering_url="http://localhost:8082", api_key="test-key")
@@ -114,7 +115,7 @@ class TestMeterToolSync:
             mock_send.return_value = None
 
             @meter_tool("extractor", output_fields=["pages", "size_mb"])
-            def fetch() -> dict:
+            def fetch() -> Dict[str, Any]:
                 return {"pages": 5, "size_mb": 2.3, "secret": "hidden"}
 
             fetch()
