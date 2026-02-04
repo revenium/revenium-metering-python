@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.8.2 (2026-02-03)
+
+Full Changelog: [v6.8.1...v6.8.2](https://github.com/revenium/revenium-metering-python/compare/v6.8.1...v6.8.2)
+
+### Bug Fixes
+
+* **decorator:** Rename `@revenium.meter()` to `@revenium.meter_tool()` to avoid naming conflict
+  - Fixed naming collision where decorator method name conflicted with the `meter` module
+  - Renamed decorator from `@revenium.meter()` to `@revenium.meter_tool()` for clarity
+  - Updated all tests and documentation to use new decorator name
+  - Maintains backward compatibility - old decorator name still works but is deprecated
+
 ## 6.8.1 (2026-01-29)
 
 Full Changelog: [v6.8.0...v6.8.1](https://github.com/revenium/revenium-metering-python/compare/v6.8.0...v6.8.1)

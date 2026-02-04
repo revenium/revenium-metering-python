@@ -1,6 +1,6 @@
 [project]
 name = "revenium_metering"
-version = "6.8.1"
+version = "6.8.2"
 description = "The official Python library for the revenium-metering API"
 dynamic = ["readme"]
 license = "MIT"
