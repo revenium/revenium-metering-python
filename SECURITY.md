@@ -20,7 +20,7 @@ or products provided by Revenium Metering, please follow the respective company'
 
 ### Revenium Metering Terms and Policies
 
-Please contact info@revenium.io for any questions or concerns regarding the security of our services.
+Please contact support@revenium.io for any questions or concerns regarding the security of our services.
 
 ---
 

@@ -5,7 +5,7 @@ description = "The official Python library for the revenium-metering API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
-{ name = "Revenium Metering", email = "info@revenium.io" },
+{ name = "Revenium Metering", email = "support@revenium.io" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
