@@ -106,6 +106,7 @@ class AIResource(SyncAPIResource):
         input_messages: str | NotGiven = NOT_GIVEN,
         output_response: str | NotGiven = NOT_GIVEN,
         prompts_truncated: bool | NotGiven = NOT_GIVEN,
+        has_vision_content: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,6 +293,7 @@ class AIResource(SyncAPIResource):
                     "input_messages": input_messages,
                     "output_response": output_response,
                     "prompts_truncated": prompts_truncated,
+                    "has_vision_content": has_vision_content,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
@@ -574,6 +576,7 @@ class AIResource(SyncAPIResource):
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         credential_alias: str | NotGiven = NOT_GIVEN,
+        aspect_ratio: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -663,6 +666,8 @@ class AIResource(SyncAPIResource):
 
           credential_alias: Human-readable name for the API key being used
 
+          aspect_ratio: Aspect ratio of the generated video (e.g., '16:9', '9:16', '1:1')
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -714,6 +719,7 @@ class AIResource(SyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "credential_alias": credential_alias,
+                    "aspect_ratio": aspect_ratio,
                 },
                 ai_create_video_params.AICreateVideoParams,
             ),
@@ -766,6 +772,7 @@ class AIResource(SyncAPIResource):
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         credential_alias: str | NotGiven = NOT_GIVEN,
+        aspect_ratio: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -853,6 +860,8 @@ class AIResource(SyncAPIResource):
 
           credential_alias: Human-readable name for the API key being used
 
+          aspect_ratio: Aspect ratio of the generated image (e.g., '1:1', '16:9', '9:16')
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -903,6 +912,7 @@ class AIResource(SyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "credential_alias": credential_alias,
+                    "aspect_ratio": aspect_ratio,
                 },
                 ai_create_image_params.AICreateImageParams,
             ),
@@ -991,6 +1001,7 @@ class AsyncAIResource(AsyncAPIResource):
         input_messages: str | NotGiven = NOT_GIVEN,
         output_response: str | NotGiven = NOT_GIVEN,
         prompts_truncated: bool | NotGiven = NOT_GIVEN,
+        has_vision_content: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1177,6 +1188,7 @@ class AsyncAIResource(AsyncAPIResource):
                     "input_messages": input_messages,
                     "output_response": output_response,
                     "prompts_truncated": prompts_truncated,
+                    "has_vision_content": has_vision_content,
                 },
                 ai_create_completion_params.AICreateCompletionParams,
             ),
@@ -1459,6 +1471,7 @@ class AsyncAIResource(AsyncAPIResource):
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         credential_alias: str | NotGiven = NOT_GIVEN,
+        aspect_ratio: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1548,6 +1561,8 @@ class AsyncAIResource(AsyncAPIResource):
 
           credential_alias: Human-readable name for the API key being used
 
+          aspect_ratio: Aspect ratio of the generated video (e.g., '16:9', '9:16', '1:1')
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1599,6 +1614,7 @@ class AsyncAIResource(AsyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "credential_alias": credential_alias,
+                    "aspect_ratio": aspect_ratio,
                 },
                 ai_create_video_params.AICreateVideoParams,
             ),
@@ -1651,6 +1667,7 @@ class AsyncAIResource(AsyncAPIResource):
         middleware_source: str | NotGiven = NOT_GIVEN,
         model_source: str | NotGiven = NOT_GIVEN,
         credential_alias: str | NotGiven = NOT_GIVEN,
+        aspect_ratio: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1738,6 +1755,8 @@ class AsyncAIResource(AsyncAPIResource):
 
           credential_alias: Human-readable name for the API key being used
 
+          aspect_ratio: Aspect ratio of the generated image (e.g., '1:1', '16:9', '9:16')
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1788,6 +1807,7 @@ class AsyncAIResource(AsyncAPIResource):
                     "middleware_source": middleware_source,
                     "model_source": model_source,
                     "credential_alias": credential_alias,
+                    "aspect_ratio": aspect_ratio,
                 },
                 ai_create_image_params.AICreateImageParams,
             ),

@@ -232,6 +232,9 @@ class AICreateCompletionParams(TypedDict, total=False):
     prompts_truncated: Annotated[bool, PropertyInfo(alias="promptsTruncated")]
     """Indicates if any prompt or response field was truncated due to length limits"""
 
+    has_vision_content: Annotated[bool, PropertyInfo(alias="hasVisionContent")]
+    """Indicates if the request contained vision/image content (e.g., Gemini Vision)"""
+
 
 class SubscriberCredential(TypedDict, total=False):
     name: str

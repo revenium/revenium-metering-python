@@ -155,6 +155,9 @@ class AICreateVideoParams(TypedDict, total=False):
     credential_alias: Annotated[str, PropertyInfo(alias="credentialAlias")]
     """Human-readable name for the API key being used"""
 
+    aspect_ratio: Annotated[str, PropertyInfo(alias="aspectRatio")]
+    """Aspect ratio of the generated video (e.g., '16:9', '9:16', '1:1')"""
+
 
 class SubscriberCredential(TypedDict, total=False):
     name: str
