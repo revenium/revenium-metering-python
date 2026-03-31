@@ -24,6 +24,8 @@ __all__ = ["AIResource", "AsyncAIResource"]
 
 
 class AIResource(SyncAPIResource):
+    """AI Metering Operations"""
+
     @cached_property
     def with_raw_response(self) -> AIResourceWithRawResponse:
         """
@@ -246,6 +248,8 @@ class AIResource(SyncAPIResource):
 
 
 class AsyncAIResource(AsyncAPIResource):
+    """AI Metering Operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAIResourceWithRawResponse:
         """

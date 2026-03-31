@@ -105,18 +105,21 @@ class ReveniumMetering(SyncAPIClient):
 
     @cached_property
     def events(self) -> EventsResource:
+        """Event Metering Operations"""
         from .resources.events import EventsResource
 
         return EventsResource(self)
 
     @cached_property
     def apis(self) -> APIsResource:
+        """API Metering Operations"""
         from .resources.apis import APIsResource
 
         return APIsResource(self)
 
     @cached_property
     def ai(self) -> AIResource:
+        """AI Metering Operations"""
         from .resources.ai import AIResource
 
         return AIResource(self)
@@ -291,18 +294,21 @@ class AsyncReveniumMetering(AsyncAPIClient):
 
     @cached_property
     def events(self) -> AsyncEventsResource:
+        """Event Metering Operations"""
         from .resources.events import AsyncEventsResource
 
         return AsyncEventsResource(self)
 
     @cached_property
     def apis(self) -> AsyncAPIsResource:
+        """API Metering Operations"""
         from .resources.apis import AsyncAPIsResource
 
         return AsyncAPIsResource(self)
 
     @cached_property
     def ai(self) -> AsyncAIResource:
+        """AI Metering Operations"""
         from .resources.ai import AsyncAIResource
 
         return AsyncAIResource(self)
@@ -428,18 +434,21 @@ class ReveniumMeteringWithRawResponse:
 
     @cached_property
     def events(self) -> events.EventsResourceWithRawResponse:
+        """Event Metering Operations"""
         from .resources.events import EventsResourceWithRawResponse
 
         return EventsResourceWithRawResponse(self._client.events)
 
     @cached_property
     def apis(self) -> apis.APIsResourceWithRawResponse:
+        """API Metering Operations"""
         from .resources.apis import APIsResourceWithRawResponse
 
         return APIsResourceWithRawResponse(self._client.apis)
 
     @cached_property
     def ai(self) -> ai.AIResourceWithRawResponse:
+        """AI Metering Operations"""
         from .resources.ai import AIResourceWithRawResponse
 
         return AIResourceWithRawResponse(self._client.ai)
@@ -453,18 +462,21 @@ class AsyncReveniumMeteringWithRawResponse:
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        """Event Metering Operations"""
         from .resources.events import AsyncEventsResourceWithRawResponse
 
         return AsyncEventsResourceWithRawResponse(self._client.events)
 
     @cached_property
     def apis(self) -> apis.AsyncAPIsResourceWithRawResponse:
+        """API Metering Operations"""
         from .resources.apis import AsyncAPIsResourceWithRawResponse
 
         return AsyncAPIsResourceWithRawResponse(self._client.apis)
 
     @cached_property
     def ai(self) -> ai.AsyncAIResourceWithRawResponse:
+        """AI Metering Operations"""
         from .resources.ai import AsyncAIResourceWithRawResponse
 
         return AsyncAIResourceWithRawResponse(self._client.ai)
@@ -478,18 +490,21 @@ class ReveniumMeteringWithStreamedResponse:
 
     @cached_property
     def events(self) -> events.EventsResourceWithStreamingResponse:
+        """Event Metering Operations"""
         from .resources.events import EventsResourceWithStreamingResponse
 
         return EventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
     def apis(self) -> apis.APIsResourceWithStreamingResponse:
+        """API Metering Operations"""
         from .resources.apis import APIsResourceWithStreamingResponse
 
         return APIsResourceWithStreamingResponse(self._client.apis)
 
     @cached_property
     def ai(self) -> ai.AIResourceWithStreamingResponse:
+        """AI Metering Operations"""
         from .resources.ai import AIResourceWithStreamingResponse
 
         return AIResourceWithStreamingResponse(self._client.ai)
@@ -503,18 +518,21 @@ class AsyncReveniumMeteringWithStreamedResponse:
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        """Event Metering Operations"""
         from .resources.events import AsyncEventsResourceWithStreamingResponse
 
         return AsyncEventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
     def apis(self) -> apis.AsyncAPIsResourceWithStreamingResponse:
+        """API Metering Operations"""
         from .resources.apis import AsyncAPIsResourceWithStreamingResponse
 
         return AsyncAPIsResourceWithStreamingResponse(self._client.apis)
 
     @cached_property
     def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
+        """AI Metering Operations"""
         from .resources.ai import AsyncAIResourceWithStreamingResponse
 
         return AsyncAIResourceWithStreamingResponse(self._client.ai)
